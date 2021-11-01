@@ -1,9 +1,10 @@
 import React from 'react';
+import VisitorPage from './pages/VisitorPage/VisitorPage';
 
 const App = () => {
   return (
     <div>
-      <h1>Hello World</h1>
+      <VisitorPage />
     </div>
   );
 };
