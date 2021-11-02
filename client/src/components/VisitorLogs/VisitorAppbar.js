@@ -5,7 +5,7 @@ import intellilogs from '../../assets/visitorlogsv1.svg';
 const VisitorAppbar = () => {
   return (
     <>
-      <AppBar position="static" height="86px" elevation={0} color="primary">
+      <AppBar height="86px" elevation={0} color="primary">
         <Toolbar>
           <img src={intellilogs} alt="intelli-logs-logo" width="150px" />
         </Toolbar>
