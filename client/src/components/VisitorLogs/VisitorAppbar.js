@@ -1,17 +1,13 @@
 import React from 'react';
 import { AppBar, Toolbar } from '@mui/material';
-import intelilogs from '../../assets/intellilogs v2-01.png';
+import intellilogs from '../../assets/visitorlogsv1.svg';
 
 const VisitorAppbar = () => {
   return (
     <>
-      <AppBar position="static" height="86px" color="primary">
+      <AppBar position="static" height="86px" elevation={0} color="primary">
         <Toolbar>
-          <img
-            src={intelilogs}
-            alt="intelli-logs-logo"
-            style={{ width: '227px' }}
-          />
+          <img src={intellilogs} alt="intelli-logs-logo" width="150px" />
         </Toolbar>
       </AppBar>
     </>
