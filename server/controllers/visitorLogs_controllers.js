@@ -3,7 +3,6 @@ import visitorLogsModel from '../models/visitorLogs_model.js';
 //business logic for routes
 
 export const getVisitorLogs = async (req, res) => {
-  //res.send('This works!!');
   try {
     const visitsLogs = await visitorLogsModel.find();
 
