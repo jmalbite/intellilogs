@@ -17,18 +17,21 @@ const VisitorPage = () => {
     <div>
       <VisitorAppBar />
       <Container className={classes.container} maxWidth="lg">
-        <Grid container alignItems="center" justifyContent="space-between">
-          <Grid item>
+        <Grid container alignItems="center" justifyContent="space-evenly">
+          <Grid item md={5}>
             <TextField
               id="searchLog"
               label="Search log"
               variant="outlined"
-              size="small"
+              size="medium"
+              fullWidth
             />
           </Grid>
 
-          <Grid>
-            <Button variant="contained">Add</Button>
+          <Grid item xs={2} md={2}>
+            <Button variant="contained" size="medium" fullWidth>
+              New Log
+            </Button>
           </Grid>
         </Grid>
       </Container>
