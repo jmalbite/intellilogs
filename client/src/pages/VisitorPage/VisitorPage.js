@@ -3,6 +3,7 @@ import { Grid, TextField, Container, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import VisitorAppBar from '../../components/VisitorLogs/VisitorAppbar';
+import VisitorData from '../../components/VisitorLogs/VisitorData';
 
 const useStyles = makeStyles({
   container: {
@@ -34,6 +35,8 @@ const VisitorPage = () => {
             </Button>
           </Grid>
         </Grid>
+
+        <VisitorData />
       </Container>
     </div>
   );
