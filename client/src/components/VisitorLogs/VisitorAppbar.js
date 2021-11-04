@@ -1,15 +1,33 @@
 import React from 'react';
-import { AppBar, Toolbar } from '@mui/material';
+import { AppBar, Toolbar, useScrollTrigger, Slide } from '@mui/material';
+
 import intellilogs from '../../assets/visitorlogsv1.svg';
+
+//this function is for hiding the appbar
+function HideOnScroll(props) {
+  const { children, window } = props;
+
+  const trigger = useScrollTrigger({
+    target: window ? null : undefined,
+  });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
 
 const VisitorAppbar = () => {
   return (
     <>
-      <AppBar height="86px" elevation={0} color="primary">
-        <Toolbar>
-          <img src={intellilogs} alt="intelli-logs-logo" width="150px" />
-        </Toolbar>
-      </AppBar>
+      <HideOnScroll>
+        <AppBar height="86px" elevation={0} color="primary">
+          <Toolbar>
+            <img src={intellilogs} alt="intelli-logs-logo" width="150px" />
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
     </>
   );
 };
