@@ -7,13 +7,14 @@ const theme = createTheme({
     },
 
     secondary: {
-      main: '#4D9FD6',
+      main: '#52A240',
     },
   },
 
   typography: {
     fontFamily: 'Quicksand',
   },
+  ...createTheme,
 });
 
 export default theme;

@@ -6,8 +6,8 @@ import VisitorAppBar from '../../components/VisitorLogs/VisitorAppbar';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
 
 const useStyles = makeStyles({
-  container: {
-    marginTop: '80px',
+  toolbar: {
+    marginTop: '90px',
   },
 });
 
@@ -17,7 +17,7 @@ const VisitorPage = () => {
   return (
     <div>
       <VisitorAppBar />
-      <Container className={classes.container} maxWidth="lg">
+      <Container className={classes.toolbar} maxWidth="xl">
         <Grid container alignItems="center" justifyContent="space-evenly">
           <Grid item md={5}>
             <TextField
@@ -35,7 +35,6 @@ const VisitorPage = () => {
             </Button>
           </Grid>
         </Grid>
-
         <VisitorData />
       </Container>
     </div>

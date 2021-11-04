@@ -16,6 +16,10 @@ import theme from '../../theme/Theme';
 
 const SampleVisitors = [];
 const useStyles = makeStyles({
+  tableContainer: {
+    marginTop: '20px',
+  },
+
   table: {
     minWidth: 650,
   },
@@ -40,7 +44,7 @@ for (let i = 0; i < 14; i++) {
 const VisitorData = () => {
   const classes = useStyles();
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className={classes.tableContainer}>
       <Table className={classes.table}>
         <TableHead className={classes.tablehead}>
           <TableRow>
