@@ -1,5 +1,5 @@
 import React from 'react';
-import VisitorPage from './pages/VisitorPage/VisitorPage';
+//import VisitorPage from './pages/VisitorPage/VisitorPage';
 import AddNewLog from './components/VisitorLogs/AddNewLog';
 
 import Theme from './theme/Theme';
