@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import SignaturePad from './SignaturePad.js';
 import {
   Paper,
   TextField,
@@ -125,6 +125,10 @@ const AddNewLog = () => {
                   fullWidth
                   required
                 />
+              </Grid>
+
+              <Grid item xs sm>
+                <SignaturePad />
               </Grid>
 
               <Grid item xs sm>
