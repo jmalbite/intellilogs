@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ReactSketchCanvas } from 'react-sketch-canvas';
+import SignatureCanvas from 'react-signature-canvas';
 
 import {
   Button,
@@ -23,18 +23,11 @@ const SignaturePad = () => {
   };
 
   const clearPad = () => {
-    sigCanvas.current.clearCanvas();
+    sigCanvas.current.clear();
   };
 
   const save = () => {
-    sigCanvas.current
-      .exportImage('png')
-      .then((data) => {
-        setImageURL(data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL('image/png'));
     padClose();
   };
 
@@ -49,11 +42,7 @@ const SignaturePad = () => {
         <DialogTitle>Please sign</DialogTitle>
         <DialogContent dividers={true}>
           <div className={'signatureArea'}>
-            <ReactSketchCanvas
-              ref={sigCanvas}
-              strokeWidth={2}
-              strokeColor="red"
-            />
+            <SignatureCanvas ref={sigCanvas} />
           </div>
         </DialogContent>
         <DialogActions>
