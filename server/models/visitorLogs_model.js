@@ -7,6 +7,7 @@ const visitorLogSchema = mongoose.Schema({
   area_visited: String,
   visitor_signature: String,
   purpose: String,
+  signature: String,
   time_visited: {
     type: Date,
     default: new Date(),

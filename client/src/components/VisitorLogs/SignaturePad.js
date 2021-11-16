@@ -24,6 +24,7 @@ const SignaturePad = () => {
 
   const clearPad = () => {
     sigCanvas.current.clear();
+    setImageURL('');
   };
 
   const save = () => {

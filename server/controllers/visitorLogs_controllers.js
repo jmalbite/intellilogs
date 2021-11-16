@@ -15,10 +15,10 @@ export const getVisitorLogs = async (req, res) => {
 export const createVisitorLogs = async (req, res) => {
   const post = req.body;
 
-  const newLog = new visitorLogsModel(post);
+  const visitorLogs = new visitorLogsModel(post);
 
   try {
-    await newLog.save();
+    await visitorLogs.save();
 
     res.status(201).json(newLog);
   } catch (error) {

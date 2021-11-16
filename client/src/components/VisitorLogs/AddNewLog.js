@@ -12,12 +12,36 @@ import {
   MenuItem,
 } from '@mui/material';
 
-const company = ['INTELLICARE', 'AVEGA', 'AVENTUS', 'OTHERS'];
+const companies = ['INTELLICARE', 'AVEGA', 'AVENTUS', 'OTHERS'];
 const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
 
+//Add new log component
 const AddNewLog = () => {
+  const [postVisitorlog, setPostVisitorlog] = useState({
+    id_number: '',
+    name: '',
+    company: '',
+    area_visited: '',
+    purpose: '',
+    signature: '',
+    time_visited: new Date(),
+  });
   const [companySelected, setCompanySelected] = useState('');
-  const [areaToVisit, setAreaToVisit] = useState('');
+
+  const handleChangeCompany = (e) => {
+    //setCompanySelected(e.target.value);
+    setPostVisitorlog({ ...postVisitorlog, company: e.target.value });
+    setCompanySelected(e.target.value);
+  };
+
+  const handleArea = (e) => {
+    setPostVisitorlog({ ...postVisitorlog, area_visited: e.target.value });
+  };
+
+  const save = (e) => {
+    e.preventDefault();
+    console.log(postVisitorlog);
+  };
 
   return (
     <Grid
@@ -44,6 +68,12 @@ const AddNewLog = () => {
                   variant="outlined"
                   type="text"
                   fullWidth
+                  onChange={(e) =>
+                    setPostVisitorlog({
+                      ...postVisitorlog,
+                      id_number: e.target.value,
+                    })
+                  }
                 />
               </Grid>
 
@@ -56,6 +86,12 @@ const AddNewLog = () => {
                   label="Name"
                   fullWidth
                   required
+                  onChange={(e) =>
+                    setPostVisitorlog({
+                      ...postVisitorlog,
+                      name: e.target.value,
+                    })
+                  }
                 />
               </Grid>
 
@@ -67,20 +103,20 @@ const AddNewLog = () => {
                     labelId="company"
                     id="com"
                     value={companySelected}
-                    onChange={(event) => setCompanySelected(event.target.value)}
                     label="Company"
                     required
+                    onChange={handleChangeCompany}
                   >
-                    {company.map((com) => (
-                      <MenuItem key={com} value={com}>
-                        {com}
+                    {companies.map((company) => (
+                      <MenuItem key={company} value={company}>
+                        {company}
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
               </Grid>
 
-              {/* OTHERS IF COMPANY IS SELECTE AS 'OTHERS' */}
+              {/* OTHERS IF COMPANY IS SELECTED AS 'OTHERS' */}
               {companySelected === 'OTHERS' ? (
                 <Grid item xs sm>
                   <TextField
@@ -90,6 +126,12 @@ const AddNewLog = () => {
                     fullWidth
                     required
                     label="Please input company"
+                    onChange={(e) =>
+                      setPostVisitorlog({
+                        ...postVisitorlog,
+                        company: e.target.value,
+                      })
+                    }
                   />
                 </Grid>
               ) : null}
@@ -101,8 +143,8 @@ const AddNewLog = () => {
                   <Select
                     labelId="area"
                     id="area-to-visit"
-                    value={areaToVisit}
-                    onChange={(event) => setAreaToVisit(event.target.value)}
+                    value={postVisitorlog.area_visited}
+                    onChange={handleArea}
                     required
                     label="Area"
                   >
@@ -124,6 +166,12 @@ const AddNewLog = () => {
                   label="Purpose"
                   fullWidth
                   required
+                  onChange={(e) =>
+                    setPostVisitorlog({
+                      ...postVisitorlog,
+                      purpose: e.target.value,
+                    })
+                  }
                 />
               </Grid>
 
@@ -132,7 +180,12 @@ const AddNewLog = () => {
               </Grid>
 
               <Grid item xs sm>
-                <Button fullWidth variant="contained" color="secondary">
+                <Button
+                  onClick={save}
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                >
                   Save Log
                 </Button>
               </Grid>
