@@ -1,4 +1,4 @@
-const visitors = (visitor = [], action) => {
+export const visitors = (visitor = [], action) => {
   switch (action.type) {
     case 'FETCH_ALL_VISITOR_LOG':
       return visitor;
@@ -9,4 +9,11 @@ const visitors = (visitor = [], action) => {
   }
 };
 
-export default visitors;
+export const user_signature = (signature = '', action) => {
+  switch (action.type) {
+    case 'USER_SIGNED':
+      return (signature = action.payload);
+    default:
+      return signature;
+  }
+};

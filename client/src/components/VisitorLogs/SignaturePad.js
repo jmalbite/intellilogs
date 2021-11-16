@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
+import { useDispatch } from 'react-redux';
 
 import {
   Button,
@@ -8,11 +9,13 @@ import {
   DialogActions,
   DialogTitle,
 } from '@mui/material';
+import { user_signature } from '../../actions/visitor_action';
 
 const SignaturePad = () => {
   const [pad, setPad] = useState(false);
   const [imageURL, setImageURL] = useState('');
   const sigCanvas = useRef({});
+  const dispatch = useDispatch();
 
   const padOpen = () => {
     setPad(true);
@@ -28,11 +31,15 @@ const SignaturePad = () => {
   };
 
   const save = () => {
-    setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL('image/png'));
-    padClose();
+    if (!sigCanvas.current.isEmpty()) {
+      setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL('image/png'));
+      padClose();
+    } else console.log('please sign first');
   };
 
-  console.log(imageURL);
+  useEffect(() => {
+    if (imageURL) dispatch(user_signature(imageURL));
+  }, [dispatch, imageURL]);
 
   return (
     <>

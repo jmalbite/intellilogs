@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SignaturePad from './SignaturePad.js';
+import { useSelector } from 'react-redux';
+
 import {
   Paper,
   TextField,
@@ -26,7 +28,13 @@ const AddNewLog = () => {
     signature: '',
     time_visited: new Date(),
   });
+  const userSign = useSelector((state) => state.user_signature);
+
   const [companySelected, setCompanySelected] = useState('');
+
+  useEffect(() => {
+    return setPostVisitorlog({ ...postVisitorlog, signature: userSign });
+  }, [userSign]);
 
   const handleChangeCompany = (e) => {
     //setCompanySelected(e.target.value);
@@ -40,6 +48,7 @@ const AddNewLog = () => {
 
   const save = (e) => {
     e.preventDefault();
+
     console.log(postVisitorlog);
   };
 
@@ -173,6 +182,10 @@ const AddNewLog = () => {
                     })
                   }
                 />
+              </Grid>
+
+              <Grid item xs sm={12}>
+                <img src={userSign} alt="sign" />
               </Grid>
 
               <Grid item xs sm>
