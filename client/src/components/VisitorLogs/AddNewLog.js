@@ -34,6 +34,7 @@ const AddNewLog = () => {
 
   useEffect(() => {
     return setPostVisitorlog({ ...postVisitorlog, signature: userSign });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSign]);
 
   const handleChangeCompany = (e) => {
@@ -182,10 +183,6 @@ const AddNewLog = () => {
                     })
                   }
                 />
-              </Grid>
-
-              <Grid item xs sm={12}>
-                <img src={userSign} alt="sign" />
               </Grid>
 
               <Grid item xs sm>
