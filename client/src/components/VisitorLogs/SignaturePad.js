@@ -17,13 +17,8 @@ const SignaturePad = () => {
   const sigCanvas = useRef({});
   const dispatch = useDispatch();
 
-  const padOpen = () => {
-    setPad(true);
-  };
-
-  const padClose = () => {
-    setPad(false);
-  };
+  const padOpen = () => setPad(true);
+  const padClose = () => setPad(false);
 
   const clearPad = () => {
     sigCanvas.current.clear();

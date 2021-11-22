@@ -11,7 +11,7 @@ const App = () => {
     <ThemeProvider theme={Theme}>
       <div>
         <VisitorPage>
-          <AddNewLog />{' '}
+          <AddNewLog />
         </VisitorPage>
       </div>
     </ThemeProvider>

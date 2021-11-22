@@ -49,169 +49,159 @@ const AddNewLog = () => {
 
   const save = (e) => {
     e.preventDefault();
-
-    console.log(postVisitorlog);
   };
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      style={{ height: '100vh' }}
-    >
-      <Grid item xs={10} sm={6} md={4} lg={3}>
-        <form>
-          <Paper style={{ padding: 20 }} variant="elevation" elevation={3}>
-            <Grid container direction="column" spacing={1}>
-              <Grid item xs sm alignSelf="center">
-                <Typography variant="h5" color="textPrimary">
-                  ADD LOG
-                </Typography>
-              </Grid>
-
-              {/* ID NUMBER */}
-              <Grid item xs sm>
-                <TextField
-                  label="ID number"
-                  className="id-number"
-                  variant="outlined"
-                  type="text"
-                  fullWidth
-                  onChange={(e) =>
-                    setPostVisitorlog({
-                      ...postVisitorlog,
-                      id_number: e.target.value,
-                    })
-                  }
-                />
-              </Grid>
-
-              {/* NAME */}
-              <Grid item xs sm>
-                <TextField
-                  className="name"
-                  variant="outlined"
-                  type="text"
-                  label="Name"
-                  fullWidth
-                  required
-                  onChange={(e) =>
-                    setPostVisitorlog({
-                      ...postVisitorlog,
-                      name: e.target.value,
-                    })
-                  }
-                />
-              </Grid>
-
-              {/* COMPANY */}
-              <Grid item xs sm>
-                <FormControl fullWidth>
-                  <InputLabel id="company">Company</InputLabel>
-                  <Select
-                    labelId="company"
-                    id="com"
-                    value={companySelected}
-                    label="Company"
-                    required
-                    onChange={handleChangeCompany}
-                  >
-                    {companies.map((company) => (
-                      <MenuItem key={company} value={company}>
-                        {company}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-
-              {/* OTHERS IF COMPANY IS SELECTED AS 'OTHERS' */}
-              {companySelected === 'OTHERS' ? (
-                <Grid item xs sm>
-                  <TextField
-                    className="name"
-                    variant="outlined"
-                    type="text"
-                    fullWidth
-                    required
-                    label="Please input company"
-                    onChange={(e) =>
-                      setPostVisitorlog({
-                        ...postVisitorlog,
-                        company: e.target.value,
-                      })
-                    }
-                  />
-                </Grid>
-              ) : null}
-
-              {/* AREA TO VISIT */}
-              <Grid item xs sm>
-                <FormControl fullWidth>
-                  <InputLabel id="area-to-visit">Area</InputLabel>
-                  <Select
-                    labelId="area"
-                    id="area-to-visit"
-                    value={postVisitorlog.area_visited}
-                    onChange={handleArea}
-                    required
-                    label="Area"
-                  >
-                    {areas.map((area) => (
-                      <MenuItem key={area} value={area}>
-                        {area}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-
-              {/* PURPOSE */}
-              <Grid item xs sm>
-                <TextField
-                  className="name"
-                  variant="outlined"
-                  type="text"
-                  label="Purpose"
-                  fullWidth
-                  required
-                  onChange={(e) =>
-                    setPostVisitorlog({
-                      ...postVisitorlog,
-                      purpose: e.target.value,
-                    })
-                  }
-                />
-              </Grid>
-
-              <Grid item xs sm>
-                <SignaturePad />
-              </Grid>
-
-              <Grid item xs sm>
-                <Button
-                  onClick={save}
-                  fullWidth
-                  variant="contained"
-                  color="secondary"
-                >
-                  Save Log
-                </Button>
-              </Grid>
-
-              <Grid item xs sm>
-                <Button fullWidth variant="contained" color="primary">
-                  Clear
-                </Button>
-              </Grid>
+    <Grid item xs>
+      <form>
+        <Paper style={{ padding: 20 }} variant="elevation" elevation={3}>
+          <Grid container direction="column" spacing={1}>
+            <Grid item xs sm alignSelf="center">
+              <Typography variant="h5" color="textPrimary">
+                ADD LOG
+              </Typography>
             </Grid>
-            {/* end of inside grid paper  */}
-          </Paper>
-          {/* end of paper component */}
-        </form>
+
+            {/* ID NUMBER */}
+            <Grid item xs sm>
+              <TextField
+                label="ID number"
+                className="id-number"
+                variant="outlined"
+                type="text"
+                fullWidth
+                onChange={(e) =>
+                  setPostVisitorlog({
+                    ...postVisitorlog,
+                    id_number: e.target.value,
+                  })
+                }
+              />
+            </Grid>
+
+            {/* NAME */}
+            <Grid item xs sm>
+              <TextField
+                className="name"
+                variant="outlined"
+                type="text"
+                label="Name"
+                fullWidth
+                required
+                onChange={(e) =>
+                  setPostVisitorlog({
+                    ...postVisitorlog,
+                    name: e.target.value,
+                  })
+                }
+              />
+            </Grid>
+
+            {/* COMPANY */}
+            <Grid item xs sm>
+              <FormControl fullWidth>
+                <InputLabel id="company">Company</InputLabel>
+                <Select
+                  labelId="company"
+                  id="com"
+                  value={companySelected}
+                  label="Company"
+                  onChange={handleChangeCompany}
+                >
+                  {companies.map((company) => (
+                    <MenuItem key={company} value={company}>
+                      {company}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            {/* OTHERS IF COMPANY IS SELECTED AS 'OTHERS' */}
+            {companySelected === 'OTHERS' ? (
+              <Grid item xs sm>
+                <TextField
+                  className="name"
+                  variant="outlined"
+                  type="text"
+                  fullWidth
+                  required
+                  label="Please input company"
+                  onChange={(e) =>
+                    setPostVisitorlog({
+                      ...postVisitorlog,
+                      company: e.target.value,
+                    })
+                  }
+                />
+              </Grid>
+            ) : null}
+
+            {/* AREA TO VISIT */}
+            <Grid item xs sm>
+              <FormControl fullWidth>
+                <InputLabel id="area-to-visit">Area</InputLabel>
+                <Select
+                  labelId="area"
+                  id="area-to-visit"
+                  value={postVisitorlog.area_visited}
+                  onChange={handleArea}
+                  required
+                  label="Area"
+                >
+                  {areas.map((area) => (
+                    <MenuItem key={area} value={area}>
+                      {area}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            {/* PURPOSE */}
+            <Grid item xs sm>
+              <TextField
+                className="name"
+                variant="outlined"
+                type="text"
+                label="Purpose"
+                fullWidth
+                required
+                onChange={(e) =>
+                  setPostVisitorlog({
+                    ...postVisitorlog,
+                    purpose: e.target.value,
+                  })
+                }
+              />
+            </Grid>
+
+            <Grid item xs sm>
+              <SignaturePad />
+            </Grid>
+
+            <Grid item xs sm>
+              <Button
+                onClick={save}
+                fullWidth
+                variant="contained"
+                color="secondary"
+              >
+                Save Log
+              </Button>
+            </Grid>
+
+            <Grid item xs sm>
+              <Button fullWidth variant="contained" color="primary">
+                Clear
+              </Button>
+            </Grid>
+          </Grid>
+          {/* end of inside grid paper  */}
+        </Paper>
         {/* end of paper component */}
-      </Grid>
+      </form>
+      {/* end of paper component */}
     </Grid>
   );
 };

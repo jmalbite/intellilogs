@@ -6,15 +6,11 @@ import {
   Button,
   Dialog,
   DialogContent,
-  DialogActions,
-  DialogTitle,
-  Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import VisitorAppBar from '../../components/VisitorLogs/VisitorAppbar';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
-import AddNewLog from '../../components/VisitorLogs/AddNewLog';
 
 const useStyles = makeStyles({
   toolbar: {
@@ -26,7 +22,10 @@ const VisitorPage = ({ children }) => {
   const classes = useStyles();
   const [form, setForm] = useState(false);
 
-  const openForm = () => setForm(true);
+  const openForm = () => {
+    setForm(true);
+    console.log(form);
+  };
   const closeForm = () => setForm(false);
 
   return (
@@ -46,19 +45,18 @@ const VisitorPage = ({ children }) => {
 
           <Grid item xs={2} md={2}>
             <Button
-              onClik={openForm}
+              onClick={openForm}
               variant="contained"
               size="medium"
               fullWidth
             >
               New Log
             </Button>
-            <Dialog open={form} onClose={closeForm}>
-              <DialogTitle> New Log </DialogTitle>
+            <Dialog fullWidth open={form} onClose={closeForm}>
               <DialogContent>{children}</DialogContent>
-              <DialogActions>
+              {/* <DialogActions>
                 <Button onClick={closeForm}>Close</Button>
-              </DialogActions>
+              </DialogActions> */}
             </Dialog>
           </Grid>
         </Grid>
