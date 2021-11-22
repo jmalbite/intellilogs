@@ -29,11 +29,12 @@ const AddNewLog = () => {
     time_visited: new Date(),
   });
   const userSign = useSelector((state) => state.user_signature);
-
   const [companySelected, setCompanySelected] = useState('');
 
   useEffect(() => {
+    console.log('rendered');
     return setPostVisitorlog({ ...postVisitorlog, signature: userSign });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSign]);
 
   const handleChangeCompany = (e) => {
@@ -48,7 +49,6 @@ const AddNewLog = () => {
 
   const save = (e) => {
     e.preventDefault();
-
     console.log(postVisitorlog);
   };
 
