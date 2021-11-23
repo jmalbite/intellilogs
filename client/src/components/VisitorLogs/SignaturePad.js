@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
 import { useDispatch } from 'react-redux';
 
@@ -32,7 +32,7 @@ const SignaturePad = () => {
     } else console.log('please sign first');
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (imageURL) dispatch(user_signature(imageURL));
   }, [dispatch, imageURL]);
 

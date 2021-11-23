@@ -31,6 +31,10 @@ const AddNewLog = () => {
   const userSign = useSelector((state) => state.user_signature);
 
   const [companySelected, setCompanySelected] = useState('');
+  const [errorName, setErrorName] = useState(false);
+  const [errorCompany, setErrorCompnay] = useState(false);
+  const [errorPurpose, setErrorPurpose] = useState(false);
+  const [errorArea, setErrorArea] = useState(false);
 
   useEffect(() => {
     return setPostVisitorlog({ ...postVisitorlog, signature: userSign });
@@ -49,6 +53,9 @@ const AddNewLog = () => {
 
   const save = (e) => {
     e.preventDefault();
+    //form validations
+    //check empty
+    if (postVisitorlog.name.trim() === '') setErrorName(true);
   };
 
   return (
@@ -69,6 +76,7 @@ const AddNewLog = () => {
                 className="id-number"
                 variant="outlined"
                 type="text"
+                error={errorName}
                 fullWidth
                 onChange={(e) =>
                   setPostVisitorlog({
