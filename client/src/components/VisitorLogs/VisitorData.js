@@ -1,18 +1,17 @@
 import React from 'react';
 import faker from 'faker';
+import moment from 'moment';
 
 import {
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Paper,
-  Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import theme from '../../theme/Theme';
+import VisitorTableHead from './VisitorTableHead';
 
 const SampleVisitors = [];
 const useStyles = makeStyles({
@@ -23,11 +22,6 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
-
-  tablehead: {
-    backgroundColor: theme.palette.secondary.main,
-    fontWeight: 'bold',
-  },
 });
 
 for (let i = 0; i < 14; i++) {
@@ -37,6 +31,7 @@ for (let i = 0; i < 14; i++) {
     Company: faker.company.companySuffix(),
     Area_to_visit: faker.address.country(),
     Purpose: faker.lorem.word(),
+    Date: moment(faker.date.recent()).format('lll'),
     Signature: faker.image.abstract(),
   };
 }
@@ -46,20 +41,8 @@ const VisitorData = () => {
   return (
     <TableContainer component={Paper} className={classes.tableContainer}>
       <Table className={classes.table}>
-        <TableHead className={classes.tablehead}>
-          <TableRow>
-            <TableCell>
-              <Typography variant="subtitle2" fontWeight="700" color="white">
-                ID number
-              </Typography>
-            </TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Company</TableCell>
-            <TableCell>Area to visit</TableCell>
-            <TableCell>Purpose</TableCell>
-            <TableCell>Signature</TableCell>
-          </TableRow>
-        </TableHead>
+        {/* Table Head */}
+        <VisitorTableHead />
 
         <TableBody>
           {SampleVisitors.map((row) => (
@@ -69,6 +52,7 @@ const VisitorData = () => {
               <TableCell>{row.Company}</TableCell>
               <TableCell>{row.Area_to_visit}</TableCell>
               <TableCell>{row.Purpose}</TableCell>
+              <TableCell>{row.Date}</TableCell>
               <TableCell>
                 <div className="img">
                   <img

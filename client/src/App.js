@@ -1,6 +1,7 @@
 import React from 'react';
 import VisitorPage from './pages/VisitorPage/VisitorPage';
 import AddNewLog from './components/VisitorLogs/AddNewLog';
+import VisitorAppbar from './components/layout/VisitorAppbar';
 
 import Theme from './theme/Theme';
 import './App.css';
@@ -10,6 +11,7 @@ const App = () => {
   return (
     <ThemeProvider theme={Theme}>
       <div>
+        <VisitorAppbar />
         <VisitorPage>
           <AddNewLog />
         </VisitorPage>
