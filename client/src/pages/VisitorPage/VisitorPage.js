@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Grid,
   TextField,
@@ -9,6 +10,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
+import { clear_signature } from '../../actions/visitor_action';
 
 const useStyles = makeStyles({
   toolbar: {
@@ -18,10 +20,14 @@ const useStyles = makeStyles({
 
 const VisitorPage = ({ children }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [form, setForm] = useState(false);
 
   const openForm = () => setForm(true);
-  const closeForm = () => setForm(false);
+  const closeForm = () => {
+    setForm(false);
+    dispatch(clear_signature());
+  };
 
   return (
     <div>

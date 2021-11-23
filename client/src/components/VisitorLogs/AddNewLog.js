@@ -31,13 +31,14 @@ const AddNewLog = () => {
   const userSign = useSelector((state) => state.user_signature);
   const [companySelected, setCompanySelected] = useState('');
   const [errorName, setErrorName] = useState(false);
-  const [errorCompany, setErrorCompnay] = useState(false);
+  const [errorCompany, setErrorCompany] = useState(false);
   const [errorPurpose, setErrorPurpose] = useState(false);
   const [errorArea, setErrorArea] = useState(false);
+  const [errorSign, setErrorSign] = useState(false);
 
   useEffect(() => {
     console.log('rendered');
-    return setPostVisitorlog({ ...postVisitorlog, signature: userSign });
+    setPostVisitorlog({ ...postVisitorlog, signature: userSign });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSign]);
 
@@ -53,13 +54,18 @@ const AddNewLog = () => {
 
   const save = (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    console.log(postVisitorlog);
-=======
+    setErrorName(false);
+    setErrorCompany(false);
+    setErrorArea(false);
+    setErrorPurpose(false);
+    setErrorSign(false);
     //form validations
     //check empty
     if (postVisitorlog.name.trim() === '') setErrorName(true);
->>>>>>> 1db17c1133c61dc5819cab764d75cafa1faa12ac
+    if (postVisitorlog.company.trim() === '') setErrorCompany(true);
+    if (postVisitorlog.area_visited.trim() === '') setErrorArea(true);
+    if (postVisitorlog.purpose.trim() === '') setErrorPurpose(true);
+    if (postVisitorlog.signature.trim() === '') setErrorSign(true);
   };
 
   return (
@@ -80,7 +86,6 @@ const AddNewLog = () => {
                 className="id-number"
                 variant="outlined"
                 type="text"
-                error={errorName}
                 fullWidth
                 onChange={(e) =>
                   setPostVisitorlog({
@@ -98,6 +103,7 @@ const AddNewLog = () => {
                 variant="outlined"
                 type="text"
                 label="Name"
+                error={errorName}
                 fullWidth
                 required
                 onChange={(e) =>
@@ -112,8 +118,11 @@ const AddNewLog = () => {
             {/* COMPANY */}
             <Grid item xs sm>
               <FormControl fullWidth>
-                <InputLabel id="company">Company</InputLabel>
+                <InputLabel error={errorCompany} id="company">
+                  Company
+                </InputLabel>
                 <Select
+                  error={errorCompany}
                   labelId="company"
                   id="com"
                   value={companySelected}
@@ -138,6 +147,7 @@ const AddNewLog = () => {
                   type="text"
                   fullWidth
                   required
+                  error={errorCompany}
                   label="Please input company"
                   onChange={(e) =>
                     setPostVisitorlog({
@@ -152,8 +162,11 @@ const AddNewLog = () => {
             {/* AREA TO VISIT */}
             <Grid item xs sm>
               <FormControl fullWidth>
-                <InputLabel id="area-to-visit">Area</InputLabel>
+                <InputLabel error={errorArea} id="area-to-visit">
+                  Area
+                </InputLabel>
                 <Select
+                  error={errorArea}
                   labelId="area"
                   id="area-to-visit"
                   value={postVisitorlog.area_visited}
@@ -179,6 +192,7 @@ const AddNewLog = () => {
                 label="Purpose"
                 fullWidth
                 required
+                error={errorPurpose}
                 onChange={(e) =>
                   setPostVisitorlog({
                     ...postVisitorlog,
@@ -189,7 +203,7 @@ const AddNewLog = () => {
             </Grid>
 
             <Grid item xs sm>
-              <SignaturePad />
+              <SignaturePad signer={errorSign} />
             </Grid>
 
             <Grid item xs sm>

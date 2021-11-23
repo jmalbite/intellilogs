@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
 import { useDispatch } from 'react-redux';
 
@@ -8,39 +8,57 @@ import {
   DialogContent,
   DialogActions,
   DialogTitle,
+  Grid,
+  Typography,
 } from '@mui/material';
-import { user_signature } from '../../actions/visitor_action';
+import { user_signature, clear_signature } from '../../actions/visitor_action';
 
-const SignaturePad = () => {
+const SignaturePad = ({ signer }) => {
   const [pad, setPad] = useState(false);
   const [imageURL, setImageURL] = useState('');
   const sigCanvas = useRef({});
+  //const userSign = useSelector((state) => state.user_signature);
   const dispatch = useDispatch();
 
   const padOpen = () => setPad(true);
-  const padClose = () => setPad(false);
+  const padClose = () => {
+    setPad(false);
+    dispatch(clear_signature());
+  };
 
   const clearPad = () => {
     sigCanvas.current.clear();
+    dispatch(clear_signature());
     setImageURL('');
   };
 
   const save = () => {
     if (!sigCanvas.current.isEmpty()) {
       setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL('image/png'));
-      padClose();
+      setPad(false);
     } else console.log('please sign first');
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (imageURL) dispatch(user_signature(imageURL));
   }, [dispatch, imageURL]);
 
   return (
     <>
-      <Button variant="outlined" onClick={padOpen}>
-        Sign Here
-      </Button>
+      <Grid container alignItems="center">
+        <Grid item>
+          <Button variant="outlined" onClick={padOpen}>
+            Sign Here
+          </Button>
+        </Grid>
+        <Grid item paddingLeft="15px">
+          {signer === true ? (
+            <Typography color="red" variant="body1">
+              *signature is required
+            </Typography>
+          ) : null}
+        </Grid>
+      </Grid>
       <Dialog open={pad} onClose={padClose}>
         <DialogTitle>Please sign</DialogTitle>
         <DialogContent dividers={true}>
