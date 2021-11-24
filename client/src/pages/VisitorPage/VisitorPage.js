@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
   TextField,
@@ -21,12 +21,13 @@ const useStyles = makeStyles({
 const VisitorPage = ({ children }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const isSign = useSelector((state) => state.user_signature);
   const [form, setForm] = useState(false);
 
   const openForm = () => setForm(true);
   const closeForm = () => {
     setForm(false);
-    dispatch(clear_signature());
+    if (isSign) dispatch(clear_signature());
   };
 
   return (

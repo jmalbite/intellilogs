@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   Button,
@@ -13,11 +13,11 @@ import {
 } from '@mui/material';
 import { user_signature, clear_signature } from '../../actions/visitor_action';
 
-const SignaturePad = ({ signer }) => {
+const SignaturePad = () => {
   const [pad, setPad] = useState(false);
   const [imageURL, setImageURL] = useState('');
   const sigCanvas = useRef({});
-  //const userSign = useSelector((state) => state.user_signature);
+  const isSign = useSelector((state) => state.user_signature);
   const dispatch = useDispatch();
 
   const padOpen = () => setPad(true);
@@ -52,7 +52,7 @@ const SignaturePad = ({ signer }) => {
           </Button>
         </Grid>
         <Grid item paddingLeft="15px">
-          {signer === true ? (
+          {isSign === '' ? (
             <Typography color="red" variant="body1">
               *signature is required
             </Typography>

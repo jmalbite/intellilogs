@@ -3,7 +3,6 @@ import SignaturePad from './SignaturePad.js';
 import { useSelector } from 'react-redux';
 
 import {
-  Paper,
   TextField,
   Grid,
   Button,
@@ -34,18 +33,32 @@ const AddNewLog = () => {
   const [errorCompany, setErrorCompany] = useState(false);
   const [errorPurpose, setErrorPurpose] = useState(false);
   const [errorArea, setErrorArea] = useState(false);
-  const [errorSign, setErrorSign] = useState(false);
+  const [isSign, setIsSigned] = useState(false);
 
   useEffect(() => {
     console.log('rendered');
     setPostVisitorlog({ ...postVisitorlog, signature: userSign });
+    if (userSign === '') setIsSigned(true);
+    else setIsSigned(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSign]);
 
+  const handleChangeName = (e) => {
+    if (e.target.value === '') postVisitorlog({ ...postVisitorlog, name: '' });
+    else {
+      postVisitorlog({ ...postVisitorlog, name: e.target.value });
+      setErrorName(false);
+    }
+  };
+
   const handleChangeCompany = (e) => {
-    //setCompanySelected(e.target.value);
-    setPostVisitorlog({ ...postVisitorlog, company: e.target.value });
-    setCompanySelected(e.target.value);
+    if (e.target.value !== 'OTHERS') {
+      setPostVisitorlog({ ...postVisitorlog, company: e.target.value });
+      setCompanySelected(e.target.value);
+    } else {
+      setPostVisitorlog({ ...postVisitorlog, company: '' });
+      setCompanySelected(e.target.value);
+    }
   };
 
   const handleArea = (e) => {
@@ -58,20 +71,34 @@ const AddNewLog = () => {
     setErrorCompany(false);
     setErrorArea(false);
     setErrorPurpose(false);
-    setErrorSign(false);
+
     //form validations
     //check empty
+
+    console.log('name:', errorName);
+    console.log('company:', errorCompany);
+    console.log('purpose:', errorPurpose);
+    console.log('area:', errorArea);
+    console.log('sign:', isSign);
     if (postVisitorlog.name.trim() === '') setErrorName(true);
     if (postVisitorlog.company.trim() === '') setErrorCompany(true);
     if (postVisitorlog.area_visited.trim() === '') setErrorArea(true);
     if (postVisitorlog.purpose.trim() === '') setErrorPurpose(true);
-    if (postVisitorlog.signature.trim() === '') setErrorSign(true);
+
+    console.log('name:', errorName);
+    console.log('company:', errorCompany);
+    console.log('purpose:', errorPurpose);
+    console.log('area:', errorArea);
+
+    if (!errorName && !errorCompany && !errorPurpose && !errorArea && !isSign)
+      console.log('data saved');
+    else console.log('some fields are empty');
   };
 
   return (
     <Grid item xs>
       <form>
-        <Paper style={{ padding: 20 }} variant="elevation" elevation={3}>
+        <div>
           <Grid container direction="column" spacing={1}>
             <Grid item xs sm alignSelf="center">
               <Typography variant="h5" color="textPrimary">
@@ -87,12 +114,7 @@ const AddNewLog = () => {
                 variant="outlined"
                 type="text"
                 fullWidth
-                onChange={(e) =>
-                  setPostVisitorlog({
-                    ...postVisitorlog,
-                    id_number: e.target.value,
-                  })
-                }
+                onChange={handleChangeName}
               />
             </Grid>
 
@@ -203,7 +225,7 @@ const AddNewLog = () => {
             </Grid>
 
             <Grid item xs sm>
-              <SignaturePad signer={errorSign} />
+              <SignaturePad />
             </Grid>
 
             <Grid item xs sm>
@@ -224,7 +246,7 @@ const AddNewLog = () => {
             </Grid>
           </Grid>
           {/* end of inside grid paper  */}
-        </Paper>
+        </div>
         {/* end of paper component */}
       </form>
       {/* end of paper component */}
