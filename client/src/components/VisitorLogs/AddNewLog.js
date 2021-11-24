@@ -36,20 +36,12 @@ const AddNewLog = () => {
   const [isSign, setIsSigned] = useState(false);
 
   useEffect(() => {
-    console.log('rendered');
+    console.log('rendered1');
     setPostVisitorlog({ ...postVisitorlog, signature: userSign });
     if (userSign === '') setIsSigned(true);
     else setIsSigned(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSign]);
-
-  const handleChangeName = (e) => {
-    if (e.target.value === '') postVisitorlog({ ...postVisitorlog, name: '' });
-    else {
-      postVisitorlog({ ...postVisitorlog, name: e.target.value });
-      setErrorName(false);
-    }
-  };
 
   const handleChangeCompany = (e) => {
     if (e.target.value !== 'OTHERS') {
@@ -65,6 +57,18 @@ const AddNewLog = () => {
     setPostVisitorlog({ ...postVisitorlog, area_visited: e.target.value });
   };
 
+  const checkEmpty = () => {
+    console.log('name:', errorName);
+    console.log('company:', errorCompany);
+    console.log('purpose:', errorPurpose);
+    console.log('area:', errorArea);
+    console.log('sign:', isSign);
+    console.log('name', postVisitorlog.name);
+    if (!errorName && !errorCompany && !errorPurpose && !errorArea && !isSign)
+      return false;
+    else return true;
+  };
+
   const save = (e) => {
     e.preventDefault();
     setErrorName(false);
@@ -74,30 +78,25 @@ const AddNewLog = () => {
 
     //form validations
     //check empty
+    if (postVisitorlog.name === '') setErrorName(true);
+    if (postVisitorlog.company === '') setErrorCompany(true);
+    if (postVisitorlog.area_visited === '') setErrorArea(true);
+    if (postVisitorlog.purpose === '') setErrorPurpose(true);
 
-    console.log('name:', errorName);
-    console.log('company:', errorCompany);
-    console.log('purpose:', errorPurpose);
-    console.log('area:', errorArea);
-    console.log('sign:', isSign);
-    if (postVisitorlog.name.trim() === '') setErrorName(true);
-    if (postVisitorlog.company.trim() === '') setErrorCompany(true);
-    if (postVisitorlog.area_visited.trim() === '') setErrorArea(true);
-    if (postVisitorlog.purpose.trim() === '') setErrorPurpose(true);
+    console.log(checkEmpty());
+    if (checkEmpty() === true) {
+      console.log('some fields are empty');
+    } else console.log('data saved');
 
-    console.log('name:', errorName);
-    console.log('company:', errorCompany);
-    console.log('purpose:', errorPurpose);
-    console.log('area:', errorArea);
-
-    if (!errorName && !errorCompany && !errorPurpose && !errorArea && !isSign)
-      console.log('data saved');
-    else console.log('some fields are empty');
+    // console.log('name:', errorName);
+    // console.log('company:', errorCompany);
+    // console.log('purpose:', errorPurpose);
+    // console.log('area:', errorArea);
   };
 
   return (
     <Grid item xs>
-      <form>
+      <form onSubmit={save}>
         <div>
           <Grid container direction="column" spacing={1}>
             <Grid item xs sm alignSelf="center">
@@ -114,7 +113,7 @@ const AddNewLog = () => {
                 variant="outlined"
                 type="text"
                 fullWidth
-                onChange={handleChangeName}
+                onChange={(e) => ({ ...postVisitorlog, name: e.target.value })}
               />
             </Grid>
 
@@ -150,6 +149,7 @@ const AddNewLog = () => {
                   value={companySelected}
                   label="Company"
                   onChange={handleChangeCompany}
+                  required
                 >
                   {companies.map((company) => (
                     <MenuItem key={company} value={company}>
@@ -164,11 +164,11 @@ const AddNewLog = () => {
             {companySelected === 'OTHERS' ? (
               <Grid item xs sm>
                 <TextField
+                  required
                   className="name"
                   variant="outlined"
                   type="text"
                   fullWidth
-                  required
                   error={errorCompany}
                   label="Please input company"
                   onChange={(e) =>
@@ -188,12 +188,12 @@ const AddNewLog = () => {
                   Area
                 </InputLabel>
                 <Select
+                  required
                   error={errorArea}
                   labelId="area"
                   id="area-to-visit"
                   value={postVisitorlog.area_visited}
                   onChange={handleArea}
-                  required
                   label="Area"
                 >
                   {areas.map((area) => (
@@ -208,12 +208,12 @@ const AddNewLog = () => {
             {/* PURPOSE */}
             <Grid item xs sm>
               <TextField
+                required
                 className="name"
                 variant="outlined"
                 type="text"
                 label="Purpose"
                 fullWidth
-                required
                 error={errorPurpose}
                 onChange={(e) =>
                   setPostVisitorlog({
@@ -230,10 +230,10 @@ const AddNewLog = () => {
 
             <Grid item xs sm>
               <Button
-                onClick={save}
                 fullWidth
                 variant="contained"
                 color="secondary"
+                type="submit"
               >
                 Save Log
               </Button>
