@@ -92,11 +92,12 @@ const AddNewLog = () => {
     // console.log('company:', errorCompany);
     // console.log('purpose:', errorPurpose);
     // console.log('area:', errorArea);
+    console.log(postVisitorlog);
   };
 
   return (
     <Grid item xs>
-      <form onSubmit={save}>
+      <form onSubmit={save} noValidate>
         <div>
           <Grid container direction="column" spacing={1}>
             <Grid item xs sm alignSelf="center">
