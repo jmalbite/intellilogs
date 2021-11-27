@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SignaturePad from './SignaturePad.js';
 import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 
 import {
   TextField,
