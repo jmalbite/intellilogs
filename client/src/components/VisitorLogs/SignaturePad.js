@@ -59,11 +59,16 @@ const SignaturePad = () => {
           ) : null}
         </Grid>
       </Grid>
+
+      {/* Signature Pad  */}
       <Dialog open={pad} onClose={padClose}>
         <DialogTitle>Please sign</DialogTitle>
         <DialogContent dividers={true}>
           <div className={'signatureArea'}>
-            <SignatureCanvas ref={sigCanvas} />
+            <SignatureCanvas
+              canvasProps={{ width: 500, height: 300 }}
+              ref={sigCanvas}
+            />
           </div>
         </DialogContent>
         <DialogActions>
