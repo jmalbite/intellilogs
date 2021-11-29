@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import SignaturePad from './SignaturePad.js';
 import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import {
   TextField,
@@ -16,10 +19,24 @@ import {
 const companies = ['INTELLICARE', 'AVEGA', 'AVENTUS', 'OTHERS'];
 const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
 
+const schema = yup.object().shape({
+  id_number: yup.string(),
+  visitorname: yup.string().required(),
+  company: yup.string().required(),
+  area_to_visit: yup.string().required(),
+  purpose: yup.string().required(),
+});
+
 //Add new log component
 const AddNewLog = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
   const [postVisitorlog, setPostVisitorlog] = useState({
-    id_number: '',
+    id: '',
     name: '',
     company: '',
     area_visited: '',
@@ -35,14 +52,37 @@ const AddNewLog = () => {
   const [errorArea, setErrorArea] = useState(false);
   const [isSign, setIsSigned] = useState(false);
 
+  //inserting visitor signature in postVisitorLog state
   useEffect(() => {
-    console.log('rendered1');
     setPostVisitorlog({ ...postVisitorlog, signature: userSign });
+
+    //checking if signature pad was filled checking in redux reducer
     if (userSign === '') setIsSigned(true);
     else setIsSigned(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSign]);
 
+  //this useUffect checking the empty fields
+  useEffect(() => {
+    if (errors.visitorname) setErrorName(true);
+    else setErrorName(false);
+
+    if (errors.company) setErrorCompany(true);
+    else setErrorCompany(false);
+
+    if (errors.area_to_visit) setErrorArea(true);
+    else setErrorArea(false);
+
+    if (errors.purpose) setErrorPurpose(true);
+    else setErrorPurpose(false);
+  }, [
+    errors.visitorname,
+    errors.company,
+    errors.area_to_visit,
+    errors.purpose,
+  ]);
+
+  //checking the company select component
   const handleChangeCompany = (e) => {
     if (e.target.value !== 'OTHERS') {
       setPostVisitorlog({ ...postVisitorlog, company: e.target.value });
@@ -53,51 +93,20 @@ const AddNewLog = () => {
     }
   };
 
+  //handle are component
   const handleArea = (e) => {
     setPostVisitorlog({ ...postVisitorlog, area_visited: e.target.value });
   };
 
-  const checkEmpty = () => {
-    console.log('name:', errorName);
-    console.log('company:', errorCompany);
-    console.log('purpose:', errorPurpose);
-    console.log('area:', errorArea);
-    console.log('sign:', isSign);
-    console.log('name', postVisitorlog.name);
-    if (!errorName && !errorCompany && !errorPurpose && !errorArea && !isSign)
-      return false;
-    else return true;
-  };
-
-  const save = (e) => {
-    e.preventDefault();
-    setErrorName(false);
-    setErrorCompany(false);
-    setErrorArea(false);
-    setErrorPurpose(false);
-
-    //form validations
-    //check empty
-    if (postVisitorlog.name === '') setErrorName(true);
-    if (postVisitorlog.company === '') setErrorCompany(true);
-    if (postVisitorlog.area_visited === '') setErrorArea(true);
-    if (postVisitorlog.purpose === '') setErrorPurpose(true);
-
-    console.log(checkEmpty());
-    if (checkEmpty() === true) {
-      console.log('some fields are empty');
-    } else console.log('data saved');
-
-    // console.log('name:', errorName);
-    // console.log('company:', errorCompany);
-    // console.log('purpose:', errorPurpose);
-    // console.log('area:', errorArea);
-    console.log(postVisitorlog);
+  const save = () => {
+    if (!isSign) {
+      console.log('postlog:', postVisitorlog);
+    } else console.log('signature not yet filled');
   };
 
   return (
     <Grid item xs>
-      <form onSubmit={save} noValidate>
+      <form noValidate onSubmit={handleSubmit(save)}>
         <div>
           <Grid container direction="column" spacing={1}>
             <Grid item xs sm alignSelf="center">
@@ -109,30 +118,32 @@ const AddNewLog = () => {
             {/* ID NUMBER */}
             <Grid item xs sm>
               <TextField
-                label="ID number"
-                className="id-number"
+                {...register('id_number')}
+                autoComplete="off"
                 variant="outlined"
                 type="text"
+                label="ID number"
                 fullWidth
-                onChange={(e) => ({ ...postVisitorlog, name: e.target.value })}
+                onChange={(e) =>
+                  setPostVisitorlog({
+                    ...postVisitorlog,
+                    id: e.target.value,
+                  })
+                }
               />
             </Grid>
-
             {/* NAME */}
             <Grid item xs sm>
               <TextField
-                className="name"
+                {...register('visitorname')}
+                autoComplete="off"
                 variant="outlined"
                 type="text"
                 label="Name"
                 error={errorName}
                 fullWidth
-                required
                 onChange={(e) =>
-                  setPostVisitorlog({
-                    ...postVisitorlog,
-                    name: e.target.value,
-                  })
+                  setPostVisitorlog({ ...postVisitorlog, name: e.target.value })
                 }
               />
             </Grid>
@@ -144,6 +155,7 @@ const AddNewLog = () => {
                   Company
                 </InputLabel>
                 <Select
+                  {...register('company')}
                   error={errorCompany}
                   labelId="company"
                   id="com"
@@ -165,12 +177,13 @@ const AddNewLog = () => {
             {companySelected === 'OTHERS' ? (
               <Grid item xs sm>
                 <TextField
+                  {...register}
+                  error={errorCompany}
                   required
-                  className="name"
+                  name="company"
                   variant="outlined"
                   type="text"
                   fullWidth
-                  error={errorCompany}
                   label="Please input company"
                   onChange={(e) =>
                     setPostVisitorlog({
@@ -189,6 +202,7 @@ const AddNewLog = () => {
                   Area
                 </InputLabel>
                 <Select
+                  {...register('area_to_visit')}
                   required
                   error={errorArea}
                   labelId="area"
@@ -209,8 +223,9 @@ const AddNewLog = () => {
             {/* PURPOSE */}
             <Grid item xs sm>
               <TextField
+                {...register('purpose')}
+                autoComplete="off"
                 required
-                className="name"
                 variant="outlined"
                 type="text"
                 label="Purpose"
