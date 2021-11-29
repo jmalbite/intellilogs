@@ -139,7 +139,7 @@ const AddNewLog = () => {
 
             {/* COMPANY */}
             <Grid item xs sm>
-              <FormControl fullWidth>
+              <FormControl required fullWidth>
                 <InputLabel error={errorCompany} id="company">
                   Company
                 </InputLabel>
