@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const visitorLogSchema = mongoose.Schema({
-  id_number: String,
+  employee_code: String,
   name: String,
   company: String,
   area_visited: String,

@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-import postRoutes from './routes/visitorLogs_routes.js';
+import visitorLogsRoutes from './routes/visitorLogs_routes.js';
 
 const app = express();
 
@@ -11,7 +11,7 @@ app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
-app.use('/posts', postRoutes);
+app.use('/visitorslogs', visitorLogsRoutes);
 
 const CONNECTION_URL =
   'mongodb+srv://itdcebu:rDCyTqqNeThwbWiX@cluster0.klibr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';

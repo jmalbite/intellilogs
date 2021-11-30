@@ -20,7 +20,7 @@ export const createVisitorLogs = async (req, res) => {
   try {
     await visitorLogs.save();
 
-    res.status(201).json(newLog);
+    res.status(201).json(visitorLogs);
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
