@@ -39,6 +39,8 @@ const AddNewLog = () => {
 
   const userSign = useSelector((state) => state.user_signature);
   const dispatch = useDispatch();
+  const [tempCompany, setTempCompany] = useState('');
+
   const [companySelected, setCompanySelected] = useState('');
   const [errorName, setErrorName] = useState(false);
   const [errorCompany, setErrorCompany] = useState(false);
@@ -75,15 +77,14 @@ const AddNewLog = () => {
   // ]);
 
   // //checking the company select component
-  // const handleChangeCompany = (e) => {
-  //   if (e.target.value !== 'OTHERS') {
-  //     setPostVisitorlog({ ...postVisitorlog, company: e.target.value });
-  //     setCompanySelected(e.target.value);
-  //   } else {
-  //     setPostVisitorlog({ ...postVisitorlog, company: '' });
-  //     setCompanySelected(e.target.value);
-  //   }
-  // };
+  const handleChangeCompany = (e) => {
+    if (e.target.value === 'OTHERS') {
+      setTempCompany(e.target.value);
+      setCompanySelected('');
+    } else {
+      setCompanySelected(e.target.value);
+    }
+  };
 
   // const handleClear = () => {
   //   setPostVisitorlog({
@@ -169,9 +170,10 @@ const AddNewLog = () => {
               <FormControl required error={!!errors.company} fullWidth>
                 <InputLabel id="company-select">Company</InputLabel>
                 <Select
-                  value={companySelected}
+                  value={tempCompany}
                   labelId="company"
                   label="Company"
+                  onChange={handleChangeCompany}
                 >
                   {companies.map((company) => (
                     <MenuItem key={company} value={company}>
@@ -183,7 +185,7 @@ const AddNewLog = () => {
             </Grid>
 
             {/* OTHERS IF COMPANY IS SELECTED AS 'OTHERS' */}
-            {companySelected === 'OTHERS' ? (
+            {tempCompany === 'OTHERS' ? (
               <Grid item xs sm>
                 <TextField
                   required
@@ -192,6 +194,7 @@ const AddNewLog = () => {
                   label="company"
                   error={!!errors.company}
                   fullWidth
+                  onChange={(e) => setCompanySelected(e.target.value)}
                 />
               </Grid>
             ) : null}
