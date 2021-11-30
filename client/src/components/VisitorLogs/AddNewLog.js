@@ -23,9 +23,8 @@ const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
 const schema = yup.object().shape({
   employee_code: yup.string(),
   visitorname: yup.string().required(),
-  company: yup.string().required(),
-  area_visited: yup.string().required(),
-  purpose: yup.string().required(),
+  // area_visited: yup.string().required(),
+  // purpose: yup.string().required(),
 });
 
 //Add new log component
@@ -78,26 +77,20 @@ const AddNewLog = () => {
 
   // //checking the company select component
   const handleChangeCompany = (e) => {
-    if (e.target.value === 'OTHERS') {
-      setTempCompany(e.target.value);
-      setCompanySelected('');
-    } else {
+    if (e.target.value !== 'OTHERS') {
       setCompanySelected(e.target.value);
+      setTempCompany(e.target.value);
+    } else {
+      setTempCompany(e.target.value);
     }
   };
 
-  // const handleClear = () => {
-  //   setPostVisitorlog({
-  //     employee_code: '',
-  //     name: '',
-  //     company: '',
-  //     purpose: '',
-  //     area_visited: '',
-  //     signature: '',
-  //   });
-  //   dispatch(clear_signature());
-  //   console.log('clear', postVisitorlog);
-  // };
+  const handleClear = () => {
+    setCompanySelected('');
+    setTempCompany('');
+    reset();
+    dispatch(clear_signature());
+  };
 
   // const handleChangeOthers = (e) => {
   //   setPostVisitorlog({ ...postVisitorlog, company: e.target.value });
@@ -108,13 +101,15 @@ const AddNewLog = () => {
   //   setPostVisitorlog({ ...postVisitorlog, area_visited: e.target.value });
   // };
 
-  const save = async (data) => {
+  const save = (data) => {
     let newData = data;
     const signature = userSign;
-    if (!isSign) {
-      newData = { ...newData, signature };
-      dispatch(storeNewLog(newData));
-    } else console.log('signature not yet filled');
+    const company = companySelected;
+    //if (!isSign) {
+    newData = { ...newData, signature, company };
+    console.log(newData);
+    //dispatch(storeNewLog(newData));
+    //} else console.log('signature not yet filled');
   };
 
   return (
@@ -167,7 +162,7 @@ const AddNewLog = () => {
 
             {/* COMPANY */}
             <Grid item xs sm>
-              <FormControl required error={!!errors.company} fullWidth>
+              <FormControl required fullWidth>
                 <InputLabel id="company-select">Company</InputLabel>
                 <Select
                   value={tempCompany}
@@ -192,7 +187,7 @@ const AddNewLog = () => {
                   variant="outlined"
                   type="text"
                   label="company"
-                  error={!!errors.company}
+                  //error={!!errors.company}
                   fullWidth
                   onChange={(e) => setCompanySelected(e.target.value)}
                 />
@@ -254,7 +249,7 @@ const AddNewLog = () => {
 
             <Grid item xs sm>
               <Button
-                onClick={() => reset()}
+                onClick={handleClear}
                 fullWidth
                 variant="contained"
                 color="primary"
