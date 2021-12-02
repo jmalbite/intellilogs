@@ -40,6 +40,7 @@ const AddNewLog = () => {
   const dispatch = useDispatch();
 
   const [companySelected, setCompanySelected] = useState('');
+  const [areaVisited, setAreaVisited] = useState('');
   const [errorName, setErrorName] = useState(false);
   const [errorCompany, setErrorCompany] = useState(false);
   const [errorPurpose, setErrorPurpose] = useState(false);
@@ -179,23 +180,29 @@ const AddNewLog = () => {
 
                 {/* AREA TO VISIT */}
                 <Grid item xs sm>
-                  <FormControl fullWidth required error={!!errors.area_visited}>
-                    <InputLabel id="company-select">Area</InputLabel>
-                    <Controller
-                      name="area_visited"
-                      control={control}
-                      defaultValue=""
-                      render={(field) => (
-                        <Select label="Area">
+                  <Controller
+                    name="area_visited"
+                    control={control}
+                    defaultValue=""
+                    render={(field) => (
+                      <FormControl
+                        fullWidth
+                        required
+                        error={!!errors.area_visited}
+                      >
+                        <InputLabel id="area-to-visit">Area</InputLabel>
+                        <Select {...field} defaultValue="" label="Area">
                           {areas.map((area) => (
                             <MenuItem key={area} value={area}>
                               {area}
                             </MenuItem>
                           ))}
                         </Select>
-                      )}
-                    />
-                  </FormControl>
+                      </FormControl>
+                    )}
+                  />
+
+                  {console.log(errors.area_visited)}
                 </Grid>
 
                 {/* PURPOSE */}
