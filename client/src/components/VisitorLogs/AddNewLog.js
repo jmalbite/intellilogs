@@ -38,7 +38,6 @@ const AddNewLog = () => {
 
   const userSign = useSelector((state) => state.user_signature);
   const dispatch = useDispatch();
-  const [tempCompany, setTempCompany] = useState('');
 
   const [companySelected, setCompanySelected] = useState('');
   const [errorName, setErrorName] = useState(false);
@@ -77,17 +76,11 @@ const AddNewLog = () => {
 
   // //checking the company select component
   const handleChangeCompany = (e) => {
-    if (e.target.value !== 'OTHERS') {
-      setCompanySelected(e.target.value);
-      setTempCompany(e.target.value);
-    } else {
-      setTempCompany(e.target.value);
-    }
+    setCompanySelected(e.target.value);
   };
 
   const handleClear = () => {
     setCompanySelected('');
-    setTempCompany('');
     reset();
     dispatch(clear_signature());
   };
@@ -114,155 +107,75 @@ const AddNewLog = () => {
 
   return (
     <Grid item xs>
-      <form autoComplete="off" noValidate onSubmit={handleSubmit(save)}>
-        <div>
-          <Grid container direction="column" spacing={1}>
-            <Grid item xs sm alignSelf="center">
-              <Typography variant="h5" color="textPrimary">
-                ADD LOG
-              </Typography>
-            </Grid>
+      <Grid container direction="column" spacing={1}>
+        <Grid item xs sm alignSelf="center">
+          <Typography variant="h5" color="textPrimary">
+            ADD Log
+          </Typography>
+        </Grid>
 
-            {/* ID NUMBER */}
-            <Grid item xs sm>
-              <Controller
-                name="employee_code"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    variant="outlined"
-                    type="text"
-                    label="ID number"
-                    fullWidth
+        {/* USER MUST SELECT COMPANY FIRST */}
+        <Grid item xs sm>
+          <FormControl required fullWidth>
+            <InputLabel id="company-select">Company</InputLabel>
+            <Select
+              value={companySelected}
+              labelId="company"
+              label="Company"
+              onChange={handleChangeCompany}
+            >
+              {companies.map((company) => (
+                <MenuItem key={company} value={company}>
+                  {company}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs sm>
+          {companySelected !== 'OTHERS' ? (
+            <form autoComplete="off">
+              <Grid container direction="column" spacing={1}>
+                <Grid item xs sm>
+                  <Controller
+                    name="employee_code"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        variant="outlined"
+                        type="text"
+                        label="ID number"
+                        error={!!errors.employee_code}
+                        fullWidth
+                      />
+                    )}
                   />
-                )}
-              />
-            </Grid>
-            {/* NAME */}
-            <Grid item xs sm>
-              <Controller
-                name="visitorname"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    required
-                    variant="outlined"
-                    type="text"
-                    label="Name"
-                    error={!!errors.visitorname}
-                    fullWidth
+                </Grid>
+                <Grid item xs sm>
+                  <Controller
+                    name="visitorname"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        required
+                        variant="outlined"
+                        type="text"
+                        label="Name"
+                        error={!!errors.visitorname}
+                        fullWidth
+                      />
+                    )}
                   />
-                )}
-              />
-            </Grid>
-
-            {/* COMPANY */}
-            <Grid item xs sm>
-              <FormControl required fullWidth>
-                <InputLabel id="company-select">Company</InputLabel>
-                <Select
-                  value={tempCompany}
-                  labelId="company"
-                  label="Company"
-                  onChange={handleChangeCompany}
-                >
-                  {companies.map((company) => (
-                    <MenuItem key={company} value={company}>
-                      {company}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-
-            {/* OTHERS IF COMPANY IS SELECTED AS 'OTHERS' */}
-            {tempCompany === 'OTHERS' ? (
-              <Grid item xs sm>
-                <TextField
-                  required
-                  variant="outlined"
-                  type="text"
-                  label="company"
-                  //error={!!errors.company}
-                  fullWidth
-                  onChange={(e) => setCompanySelected(e.target.value)}
-                />
+                </Grid>
               </Grid>
-            ) : null}
-
-            {/* AREA TO VISIT */}
-            {/* <Grid item xs sm>
-              <FormControl required error={errorArea} fullWidth>
-                <InputLabel id="area-to-visit">Area</InputLabel>
-                <Select
-                  {...register('area_visited')}
-                  labelId="area"
-                  value={postVisitorlog.area_visited}
-                  onChange={handleArea}
-                  label="Area"
-                >
-                  {areas.map((area) => (
-                    <MenuItem key={area} value={area}>
-                      {area}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid> */}
-
-            {/* PURPOSE */}
-            {/* <Grid item xs sm>
-              <TextField
-                {...register('purpose')}
-                required
-                variant="outlined"
-                label="Purpose"
-                fullWidth
-                error={errorPurpose}
-                onChange={(e) =>
-                  setPostVisitorlog({
-                    ...postVisitorlog,
-                    purpose: e.target.value,
-                  })
-                }
-              />
-            </Grid> */}
-
-            <Grid item xs sm>
-              <SignaturePad />
-            </Grid>
-
-            <Grid item xs sm>
-              <Button
-                fullWidth
-                variant="contained"
-                color="secondary"
-                type="submit"
-              >
-                Save Log
-              </Button>
-            </Grid>
-
-            <Grid item xs sm>
-              <Button
-                onClick={handleClear}
-                fullWidth
-                variant="contained"
-                color="primary"
-              >
-                Clear
-              </Button>
-            </Grid>
-          </Grid>
-          {/* end of inside grid paper  */}
-        </div>
-        {/* end of paper component */}
-      </form>
-      {/* end of paper component */}
+            </form>
+          ) : null}
+        </Grid>
+      </Grid>
     </Grid>
   );
 };
