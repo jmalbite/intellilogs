@@ -23,8 +23,8 @@ const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
 const schema = yup.object().shape({
   employee_code: yup.string(),
   visitorname: yup.string().required(),
-  // area_visited: yup.string().required(),
-  // purpose: yup.string().required(),
+  area_visited: yup.string().required(),
+  purpose: yup.string().required(),
 });
 
 //Add new log component
@@ -134,8 +134,9 @@ const AddNewLog = () => {
         </Grid>
         <Grid item xs sm>
           {companySelected !== 'OTHERS' ? (
-            <form autoComplete="off">
+            <form autoComplete="off" noValidate onSubmit={handleSubmit(save)}>
               <Grid container direction="column" spacing={1}>
+                {/* ID NUMBER */}
                 <Grid item xs sm>
                   <Controller
                     name="employee_code"
@@ -153,6 +154,8 @@ const AddNewLog = () => {
                     )}
                   />
                 </Grid>
+
+                {/* VISITOR NAME */}
                 <Grid item xs sm>
                   <Controller
                     name="visitorname"
@@ -170,6 +173,71 @@ const AddNewLog = () => {
                       />
                     )}
                   />
+                </Grid>
+
+                {/* AREA TO VISIT */}
+                <Grid item xs sm>
+                  <FormControl fullWidth required error={!!errors.area_visited}>
+                    <InputLabel id="company-select">Area</InputLabel>
+                    <Controller
+                      name="area_visited"
+                      control={control}
+                      defaultValue=""
+                      render={(field) => (
+                        <Select label="Area">
+                          {areas.map((area) => (
+                            <MenuItem key={area} value={area}>
+                              {area}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      )}
+                    />
+                  </FormControl>
+                </Grid>
+
+                {/* PURPOSE */}
+                <Grid item xs sm>
+                  <Controller
+                    name="purpose"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        variant="outlined"
+                        required
+                        type="text"
+                        label="Purpose"
+                        error={!!errors.purpose}
+                        fullWidth
+                      />
+                    )}
+                  />
+                </Grid>
+
+                {/* BUTTONS */}
+
+                <Grid item xs sm>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    type="submit"
+                  >
+                    Save Log
+                  </Button>
+                </Grid>
+
+                <Grid item xs sm>
+                  <Button
+                    onClick={handleClear}
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                  >
+                    Clear
+                  </Button>
                 </Grid>
               </Grid>
             </form>
