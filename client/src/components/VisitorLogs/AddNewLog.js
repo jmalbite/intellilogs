@@ -75,9 +75,6 @@ const AddNewLog = () => {
   // ]);
 
   // //checking the company select component
-  const handleChangeCompany = (e) => {
-    setCompanySelected(e.target.value);
-  };
 
   const handleClear = () => {
     setCompanySelected('');
@@ -116,13 +113,13 @@ const AddNewLog = () => {
 
         {/* USER MUST SELECT COMPANY FIRST */}
         <Grid item xs sm>
-          <FormControl required fullWidth>
+          <FormControl fullWidth>
             <InputLabel id="company-select">Company</InputLabel>
             <Select
               value={companySelected}
               labelId="company"
               label="Company"
-              onChange={handleChangeCompany}
+              onChange={(e) => setCompanySelected(e.target.value)}
             >
               {companies.map((company) => (
                 <MenuItem key={company} value={company}>
