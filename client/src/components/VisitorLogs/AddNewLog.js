@@ -91,6 +91,11 @@ const AddNewLog = () => {
   //   setPostVisitorlog({ ...postVisitorlog, area_visited: e.target.value });
   // };
 
+  const handleCompany = (e) => {
+    setCompanySelected(e.target.value);
+    console.log(companySelected);
+  };
+
   const save = (data) => {
     let newData = data;
     const signature = userSign;
@@ -119,7 +124,7 @@ const AddNewLog = () => {
               value={companySelected}
               labelId="company"
               label="Company"
-              onChange={(e) => setCompanySelected(e.target.value)}
+              onChange={handleCompany}
             >
               {companies.map((company) => (
                 <MenuItem key={company} value={company}>
