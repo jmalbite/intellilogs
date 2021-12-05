@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
-import { clear_signature } from '../../actions/visitor_action';
+import { clear_signature, getVisitorlogs } from '../../actions/visitor_action';
 
 const useStyles = makeStyles({
   toolbar: {
@@ -28,6 +28,7 @@ const VisitorPage = ({ children }) => {
   const closeForm = () => {
     setForm(false);
     if (isSign) dispatch(clear_signature());
+    dispatch(getVisitorlogs());
   };
 
   return (

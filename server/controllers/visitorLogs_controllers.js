@@ -4,9 +4,9 @@ import visitorLogsModel from '../models/visitorLogs_model.js';
 
 export const getVisitorLogs = async (req, res) => {
   try {
-    const visitsLogs = await visitorLogsModel.find();
+    const visitorLogs = await visitorLogsModel.find();
 
-    res.status(200).json(visitsLogs);
+    res.status(200).json(visitorLogs);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

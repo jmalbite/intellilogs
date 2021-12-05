@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 
-import { visitors, user_signature } from './visitors.js';
+import { visitorsLogsData, user_signature } from './visitors.js';
 
-export default combineReducers({ visitors, user_signature });
+export default combineReducers({ visitorsLogsData, user_signature });

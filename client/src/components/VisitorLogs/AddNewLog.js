@@ -21,7 +21,7 @@ import {
   FormLabel,
 } from '@mui/material';
 
-const companies = ['INTELLICARE', 'AVEGA', 'AVENTUS'];
+const companies = ['INTELLICARE', 'AVEGA'];
 const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
 
 const schema = yup.object().shape({
@@ -45,71 +45,43 @@ const AddNewLog = () => {
   const dispatch = useDispatch();
 
   const [companySelected, setCompanySelected] = useState('');
-  const [areaVisited, setAreaVisited] = useState('');
-  const [errorName, setErrorName] = useState(false);
-  const [errorCompany, setErrorCompany] = useState(false);
-  const [errorPurpose, setErrorPurpose] = useState(false);
-  const [errorArea, setErrorArea] = useState(false);
+  const [isShow, setIShow] = useState(false);
   const [isSign, setIsSigned] = useState(false);
 
   //inserting visitor signature in postVisitorLog state
   useEffect(() => {
-    //checking if signature pad was filled checking in redux reducer
+    //checking if signature pad was filled - checking in redux reducer
     if (userSign === '') setIsSigned(true);
     else setIsSigned(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSign]);
 
-  //this useUffect checking the empty fields
-  // useEffect(() => {
-  //   if (errors.visitorname) setErrorName(true);
-  //   else setErrorName(false);
-
-  //   if (errors.company) setErrorCompany(true);
-  //   else setErrorCompany(false);
-
-  //   if (errors.area_to_visit) setErrorArea(true);
-  //   else setErrorArea(false);
-
-  //   if (errors.purpose) setErrorPurpose(true);
-  //   else setErrorPurpose(false);
-  // }, [
-  //   errors.visitorname,
-  //   errors.company,
-  //   errors.area_to_visit,
-  //   errors.purpose,
-  // ]);
-
-  // //checking the company select component
+  useEffect(() => {
+    if (!!companySelected) setIShow(true);
+    else setIShow(false);
+  }, [companySelected]);
 
   const handleClear = () => {
-    setCompanySelected('');
-    reset();
+    reset({
+      company: '',
+      area_visited: '',
+      visitorname: '',
+      employee_code: '',
+      purpose: '',
+    });
     dispatch(clear_signature());
   };
 
-  // const handleChangeOthers = (e) => {
-  //   setPostVisitorlog({ ...postVisitorlog, company: e.target.value });
-  // };
-
-  // //handle are component
-  // const handleArea = (e) => {
-  //   setPostVisitorlog({ ...postVisitorlog, area_visited: e.target.value });
-  // };
-
-  // const handleCompany = (e) => {
-  //   setCompanySelected(e.target.value);
-  //   console.log(companySelected);
-  // };
-
   const save = (data) => {
-    let newData = data;
+    let visitorsData = data;
     const signature = userSign;
-    //if (!isSign) {
-    newData = { ...newData, signature };
-    console.log(newData);
-    //dispatch(storeNewLog(newData));
-    //} else console.log('signature not yet filled');
+    const time_visited = new Date();
+    if (!isSign) {
+      visitorsData = { ...visitorsData, signature, time_visited };
+      console.log(visitorsData);
+      dispatch(storeNewLog(visitorsData));
+      handleClear();
+    } else console.log('signature not yet filled');
   };
 
   return (
@@ -122,28 +94,34 @@ const AddNewLog = () => {
         </Grid>
 
         {/* USER MUST SELECT COMPANY FIRST */}
-        <Grid item xs sm>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">SELECT COMPANY</FormLabel>
-            <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
-              <FormControlLabel
-                value="INTELLICARE/AVEGA"
-                control={<Radio />}
-                onChange={(e) => setCompanySelected(e.target.value)}
-                label="INTELLICARE/AVEGA"
-              />
-              <FormControlLabel
-                value="OTHERS"
-                onChange={(e) => setCompanySelected(e.target.value)}
-                control={<Radio />}
-                label="OTHERS"
-              />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
+        {!isShow ? (
+          <Grid item xs sm alignSelf="center">
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Select Company</FormLabel>
+              <RadioGroup
+                row
+                aria-label="gender"
+                name="row-radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="INTELLICARE/AVEGA"
+                  control={<Radio />}
+                  onChange={(e) => setCompanySelected(e.target.value)}
+                  label="Intellicare/Avega"
+                />
+                <FormControlLabel
+                  value="OTHERS"
+                  onChange={(e) => setCompanySelected(e.target.value)}
+                  control={<Radio />}
+                  label="Others"
+                />
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+        ) : null}
 
         <Grid item xs sm>
-          {companySelected !== 'OTHERS' ? (
+          {companySelected === 'INTELLICARE/AVEGA' ? (
             <form autoComplete="off" noValidate onSubmit={handleSubmit(save)}>
               <Grid container direction="column" spacing={1}>
                 {/* COMPANY */}
@@ -286,7 +264,7 @@ const AddNewLog = () => {
                 </Grid>
               </Grid>
             </form>
-          ) : (
+          ) : companySelected === 'OTHERS' ? (
             <form noValidate autoComplete="off" onSubmit={handleSubmit(save)}>
               <Grid container direction="column" spacing={1}>
                 <Grid item xs sm>
@@ -306,6 +284,75 @@ const AddNewLog = () => {
                       />
                     )}
                   />
+                </Grid>
+
+                <Grid item xs sm>
+                  <Controller
+                    name="visitorname"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        required
+                        variant="outlined"
+                        type="text"
+                        label="Name"
+                        error={!!errors.visitorname}
+                        fullWidth
+                      />
+                    )}
+                  />
+                </Grid>
+
+                {/* AREA TO VISIT */}
+                <Grid item xs sm>
+                  <FormControl fullWidth required error={!!errors.area_visited}>
+                    <InputLabel id="selected-input">Area</InputLabel>
+                    <Controller
+                      control={control}
+                      defaultValue=""
+                      name="area_visited"
+                      render={({ field: { onChange, value } }) => (
+                        <Select
+                          onChange={onChange}
+                          value={value}
+                          id="select-area"
+                          label="Area"
+                        >
+                          {areas.map((area) => (
+                            <MenuItem key={area} value={area}>
+                              {area}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      )}
+                    />
+                  </FormControl>
+                </Grid>
+
+                {/* PURPOSE */}
+                <Grid item xs sm>
+                  <Controller
+                    name="purpose"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        variant="outlined"
+                        required
+                        type="text"
+                        label="Purpose"
+                        error={!!errors.purpose}
+                        fullWidth
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs sm>
+                  <SignaturePad />
                 </Grid>
 
                 <Grid item xs sm>
@@ -331,7 +378,7 @@ const AddNewLog = () => {
                 </Grid>
               </Grid>
             </form>
-          )}
+          ) : companySelected === '' ? null : null}
         </Grid>
       </Grid>
     </Grid>

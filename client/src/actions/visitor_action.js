@@ -28,3 +28,14 @@ export const storeNewLog = (newLog) => async (dispatch) => {
     console.log(error);
   }
 };
+
+//getting visitor logs from database
+export const getVisitorlogs = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchVisitorLogs();
+    console.log(data);
+    dispatch({ type: 'FETCH_ALL_VISITOR_LOG', payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
