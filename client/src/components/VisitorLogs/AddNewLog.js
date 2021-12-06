@@ -25,6 +25,7 @@ const schema = yup.object().shape({
   company: yup.string().required(),
   area_to_visit: yup.string().required(),
   purpose: yup.string().required(),
+  otherCompany: yup.string().required(),
 });
 
 //Add new log component
@@ -51,6 +52,7 @@ const AddNewLog = () => {
   const [errorPurpose, setErrorPurpose] = useState(false);
   const [errorArea, setErrorArea] = useState(false);
   const [isSign, setIsSigned] = useState(false);
+  const [otherCom, setOtherCom] = useState(false);
 
   //inserting visitor signature in postVisitorLog state
   useEffect(() => {
@@ -70,6 +72,9 @@ const AddNewLog = () => {
     if (errors.company) setErrorCompany(true);
     else setErrorCompany(false);
 
+    if (errors.otherCompany) setOtherCom(true);
+    else setOtherCom(false);
+
     if (errors.area_to_visit) setErrorArea(true);
     else setErrorArea(false);
 
@@ -80,6 +85,7 @@ const AddNewLog = () => {
     errors.company,
     errors.area_to_visit,
     errors.purpose,
+    errors.otherCompany,
   ]);
 
   //checking the company select component
@@ -93,7 +99,7 @@ const AddNewLog = () => {
     }
   };
 
-  //handle are component
+  //handle area component
   const handleArea = (e) => {
     setPostVisitorlog({ ...postVisitorlog, area_visited: e.target.value });
   };
@@ -132,6 +138,7 @@ const AddNewLog = () => {
                 }
               />
             </Grid>
+
             {/* NAME */}
             <Grid item xs sm>
               <TextField
@@ -150,13 +157,10 @@ const AddNewLog = () => {
 
             {/* COMPANY */}
             <Grid item xs sm>
-              <FormControl required fullWidth>
-                <InputLabel error={errorCompany} id="company">
-                  Company
-                </InputLabel>
+              <FormControl required fullWidth error={errorCompany}>
+                <InputLabel id="company">Company</InputLabel>
                 <Select
                   {...register('company')}
-                  error={errorCompany}
                   labelId="company"
                   id="com"
                   value={companySelected}
@@ -177,8 +181,8 @@ const AddNewLog = () => {
             {companySelected === 'OTHERS' ? (
               <Grid item xs sm>
                 <TextField
-                  {...register}
-                  error={errorCompany}
+                  {...register('company')}
+                  error={otherCom}
                   required
                   name="company"
                   variant="outlined"
@@ -197,14 +201,11 @@ const AddNewLog = () => {
 
             {/* AREA TO VISIT */}
             <Grid item xs sm>
-              <FormControl fullWidth>
-                <InputLabel error={errorArea} id="area-to-visit">
-                  Area
-                </InputLabel>
+              <FormControl fullWidth required error={errorArea}>
+                <InputLabel id="area-to-visit">Area</InputLabel>
                 <Select
                   {...register('area_to_visit')}
                   required
-                  error={errorArea}
                   labelId="area"
                   id="area-to-visit"
                   value={postVisitorlog.area_visited}

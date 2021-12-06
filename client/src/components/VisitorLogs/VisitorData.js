@@ -1,6 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import moment from 'moment';
+import VisitorTableHead from './VisitorTableHead';
 
 import {
   Table,
@@ -11,9 +12,20 @@ import {
   Paper,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import VisitorTableHead from './VisitorTableHead';
+import { styled } from '@mui/material/styles';
 
 const SampleVisitors = [];
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
 const useStyles = makeStyles({
   tableContainer: {
     marginTop: '20px',
@@ -46,7 +58,7 @@ const VisitorData = () => {
 
         <TableBody>
           {SampleVisitors.map((row) => (
-            <TableRow key={row.Id_number}>
+            <StyledTableRow key={row.Id_number}>
               <TableCell>{row.Id_number}</TableCell>
               <TableCell>{row.Name}</TableCell>
               <TableCell>{row.Company}</TableCell>
@@ -62,7 +74,7 @@ const VisitorData = () => {
                   />
                 </div>
               </TableCell>
-            </TableRow>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>
