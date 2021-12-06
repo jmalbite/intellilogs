@@ -13,9 +13,9 @@ export const getVisitorLogs = async (req, res) => {
 };
 
 export const createVisitorLogs = async (req, res) => {
-  const post = req.body;
+  const visitorData = req.body;
 
-  const visitorLogs = new visitorLogsModel(post);
+  const visitorLogs = new visitorLogsModel(visitorData);
 
   try {
     await visitorLogs.save();

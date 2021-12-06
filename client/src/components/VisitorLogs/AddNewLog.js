@@ -97,25 +97,29 @@ const AddNewLog = () => {
         {!isShow ? (
           <Grid item xs sm alignSelf="center">
             <FormControl component="fieldset">
-              <FormLabel component="legend">Select Company</FormLabel>
-              <RadioGroup
-                row
-                aria-label="gender"
-                name="row-radio-buttons-group"
-              >
-                <FormControlLabel
-                  value="INTELLICARE/AVEGA"
-                  control={<Radio />}
-                  onChange={(e) => setCompanySelected(e.target.value)}
-                  label="Intellicare/Avega"
-                />
-                <FormControlLabel
-                  value="OTHERS"
-                  onChange={(e) => setCompanySelected(e.target.value)}
-                  control={<Radio />}
-                  label="Others"
-                />
-              </RadioGroup>
+              <FormLabel component="legend">
+                Are you a Intellicare/Avega employee?
+              </FormLabel>
+              <Grid container justifyContent="center">
+                <RadioGroup row name="row-radio-buttons-group">
+                  <Grid item xs sm>
+                    <FormControlLabel
+                      value="INTELLICARE/AVEGA"
+                      control={<Radio />}
+                      onChange={(e) => setCompanySelected(e.target.value)}
+                      label="YES"
+                    />
+                  </Grid>
+                  <Grid item xs sm>
+                    <FormControlLabel
+                      value="OTHERS"
+                      onChange={(e) => setCompanySelected(e.target.value)}
+                      control={<Radio />}
+                      label="NO"
+                    />
+                  </Grid>
+                </RadioGroup>
+              </Grid>
             </FormControl>
           </Grid>
         ) : null}
