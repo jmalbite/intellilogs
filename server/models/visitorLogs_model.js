@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const visitorLogSchema = mongoose.Schema({
-  id_number: String,
-  name: String,
+  employee_code: String,
+  visitorname: String,
   company: String,
   area_visited: String,
   visitor_signature: String,
@@ -10,7 +10,7 @@ const visitorLogSchema = mongoose.Schema({
   signature: String,
   time_visited: {
     type: Date,
-    default: new Date(),
+    default: '',
   },
 });
 

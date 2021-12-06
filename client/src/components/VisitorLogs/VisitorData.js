@@ -1,6 +1,8 @@
-import React from 'react';
-import faker from 'faker';
+import React, { useEffect } from 'react';
 import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
+import { getVisitorlogs } from '../../actions/visitor_action';
+import { styled } from '@mui/material/styles';
 import VisitorTableHead from './VisitorTableHead';
 
 import {
@@ -12,9 +14,6 @@ import {
   Paper,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { styled } from '@mui/material/styles';
-
-const SampleVisitors = [];
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
@@ -36,20 +35,15 @@ const useStyles = makeStyles({
   },
 });
 
-for (let i = 0; i < 14; i++) {
-  SampleVisitors[i] = {
-    Id_number: faker.datatype.number(),
-    Name: faker.name.findName().toUpperCase(),
-    Company: faker.company.companySuffix(),
-    Area_to_visit: faker.address.country(),
-    Purpose: faker.lorem.word(),
-    Date: moment(faker.date.recent()).format('lll'),
-    Signature: faker.image.abstract(),
-  };
-}
-
 const VisitorData = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const visitors = useSelector((state) => state.visitorsLogsData);
+
+  useEffect(() => {
+    dispatch(getVisitorlogs());
+  }, [dispatch]);
+
   return (
     <TableContainer component={Paper} className={classes.tableContainer}>
       <Table className={classes.table}>
@@ -57,24 +51,26 @@ const VisitorData = () => {
         <VisitorTableHead />
 
         <TableBody>
-          {SampleVisitors.map((row) => (
-            <StyledTableRow key={row.Id_number}>
-              <TableCell>{row.Id_number}</TableCell>
-              <TableCell>{row.Name}</TableCell>
-              <TableCell>{row.Company}</TableCell>
-              <TableCell>{row.Area_to_visit}</TableCell>
-              <TableCell>{row.Purpose}</TableCell>
-              <TableCell>{row.Date}</TableCell>
+          {visitors.map((row) => (
+            <TableRow key={row._id}>
+              <TableCell>
+                {row.employee_code ? row.employee_code : 'N/A'}
+              </TableCell>
+              <TableCell>{row.visitorname}</TableCell>
+              <TableCell>{row.company}</TableCell>
+              <TableCell>{row.area_visited}</TableCell>
+              <TableCell>{row.purpose}</TableCell>
+              <TableCell>{moment(row.time_visited).format('lll')}</TableCell>
               <TableCell>
                 <div className="img">
                   <img
-                    src={row.Signature}
+                    src={row.signature}
                     style={{ width: '60px', height: '40px' }}
                     alt="signature"
                   />
                 </div>
               </TableCell>
-            </StyledTableRow>
+            </TableRow>
           ))}
         </TableBody>
       </Table>

@@ -1,9 +1,7 @@
-export const visitors = (visitor = [], action) => {
+export const visitorsLogsData = (visitor = [], action) => {
   switch (action.type) {
     case 'FETCH_ALL_VISITOR_LOG':
-      return visitor;
-    case 'ADD_VISITOR_LOG':
-      return visitor;
+      return action.payload;
     default:
       return visitor;
   }
