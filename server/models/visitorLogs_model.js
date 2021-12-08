@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 const visitorLogSchema = mongoose.Schema({
   employee_code: String,
-  visitorname: String,
+  firstname: String,
+  lastname: String,
   company: String,
   area_visited: String,
   visitor_signature: String,

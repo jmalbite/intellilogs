@@ -10,6 +10,13 @@ export const user_signature = (signature) => {
   };
 };
 
+//clear isErrorSaving state
+export const clearErrorState = () => {
+  return {
+    type: 'CLEAR_ERROR',
+  };
+};
+
 //clearing signature
 export const clear_signature = () => {
   return {
@@ -27,6 +34,7 @@ export const storeNewLog = (newLog) => async (dispatch) => {
   } catch (error) {
     //console log error
     console.log(error);
+    dispatch({ type: 'ERROR_SAVING' });
   }
 };
 
