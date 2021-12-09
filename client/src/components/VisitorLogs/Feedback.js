@@ -16,6 +16,7 @@ const Feedback = ({ status }) => {
     setOpen(false);
   };
 
+  //checking the status during POSTING data to database and returning to null value of 'status' state.
   useEffect(() => {
     if (status === true) {
       setOpen(true);
