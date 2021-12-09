@@ -77,12 +77,12 @@ const AddNewLog = () => {
     let visitorsData = data;
     const signature = userSign;
     const time_visited = new Date();
-    if (!isSign) {
-      visitorsData = { ...visitorsData, signature, time_visited };
-      console.log(visitorsData);
-      dispatch(storeNewLog(visitorsData));
-      handleClear();
-    } else console.log('signature not yet filled');
+    // if (!isSign) {
+    visitorsData = { ...visitorsData, signature, time_visited };
+    console.log(visitorsData);
+    //dispatch(storeNewLog(visitorsData));
+    handleClear();
+    //} else console.log('signature not yet filled');
   };
 
   return (
@@ -98,23 +98,28 @@ const AddNewLog = () => {
         {!isShow ? (
           <Grid item xs sm alignSelf="center">
             <FormControl component="fieldset">
-              <FormLabel component="legend">Select Company</FormLabel>
+              <FormLabel component="legend">
+                Are you a Intellicare/Avega Employee?
+              </FormLabel>
               <RadioGroup
                 row
                 aria-label="gender"
                 name="row-radio-buttons-group"
               >
+                <Grid container direction="flex">
+                  {' '}
+                </Grid>
                 <FormControlLabel
                   value="INTELLICARE/AVEGA"
                   control={<Radio />}
                   onChange={(e) => setCompanySelected(e.target.value)}
-                  label="Intellicare/Avega"
+                  label="YES"
                 />
                 <FormControlLabel
                   value="OTHERS"
                   onChange={(e) => setCompanySelected(e.target.value)}
                   control={<Radio />}
-                  label="Others"
+                  label="NO"
                 />
               </RadioGroup>
             </FormControl>
