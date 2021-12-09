@@ -2,25 +2,19 @@
 import React, { useState, useEffect } from 'react';
 import InternalForm from './InternalForm.js';
 import OutsiderForm from './OutsiderForm.js';
-import {
-  Grid,
-  Typography,
-  FormControl,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormLabel,
-} from '@mui/material';
+import Question from './Question.js';
+import { useSelector } from 'react-redux';
+import { Grid, Typography } from '@mui/material';
 
 //Add new log component
 const AddNewLog = () => {
+  const internalOrOutsider = useSelector((state) => state.internalOrOutsider);
   const [isShow, setIShow] = useState(false);
-  const [question, setQuestion] = useState('');
 
   useEffect(() => {
-    if (!!question) setIShow(true);
+    if (!!internalOrOutsider) setIShow(true);
     else setIShow(false);
-  }, [question]);
+  }, [internalOrOutsider]);
 
   return (
     <Grid item xs>
@@ -32,42 +26,14 @@ const AddNewLog = () => {
         </Grid>
 
         {/* USER MUST SELECT COMPANY FIRST */}
-        {!isShow ? (
-          <Grid item xs sm alignSelf="center">
-            <FormControl component="fieldset">
-              <FormLabel component="legend">
-                Are you a Intellicare/Avega employee?
-              </FormLabel>
-              <Grid container justifyContent="center">
-                <RadioGroup row name="row-radio-buttons-group">
-                  <Grid item xs sm>
-                    <FormControlLabel
-                      value="YES"
-                      control={<Radio />}
-                      onChange={(e) => setQuestion(e.target.value)}
-                      label="YES"
-                    />
-                  </Grid>
-                  <Grid item xs sm>
-                    <FormControlLabel
-                      value="NO"
-                      onChange={(e) => setQuestion(e.target.value)}
-                      control={<Radio />}
-                      label="NO"
-                    />
-                  </Grid>
-                </RadioGroup>
-              </Grid>
-            </FormControl>
-          </Grid>
-        ) : null}
+        {!isShow ? <Question /> : null}
 
         <Grid item xs sm>
-          {question === 'YES' ? (
+          {internalOrOutsider === 'YES' ? (
             <InternalForm />
-          ) : question === 'NO' ? (
+          ) : internalOrOutsider === 'NO' ? (
             <OutsiderForm />
-          ) : question === '' ? null : null}
+          ) : internalOrOutsider === '' ? null : null}
         </Grid>
       </Grid>
     </Grid>
