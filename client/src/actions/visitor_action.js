@@ -2,6 +2,14 @@ import * as api from '../api';
 
 //Action Creators
 
+//storing visitorStatus
+export const InternalOrOutsider = (answer) => {
+  return {
+    type: 'INTERNAL_OR_OUTSIDER',
+    payload: answer,
+  };
+};
+
 //storing signature in redux
 export const user_signature = (signature) => {
   return {
