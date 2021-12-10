@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SignaturePad from './SignaturePad.js';
 import Feedback from './Feedback.js';
+import ProgressButton from './ProgressButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,6 +15,7 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  Box,
 } from '@mui/material';
 
 const companies = ['INTELLICARE', 'AVEGA'];
@@ -40,6 +42,7 @@ const InternalForm = () => {
   const errorInSaving = useSelector((state) => state.isErrorSaving);
   const dispatch = useDispatch();
   const [isSign, setIsSigned] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     //checking if signature pad was filled - checking in redux reducer
@@ -50,8 +53,9 @@ const InternalForm = () => {
 
   useEffect(() => {
     if (errorInSaving === false) {
+      setIsLoading(false);
       handleClear();
-    }
+    } else setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorInSaving]);
 
@@ -68,6 +72,7 @@ const InternalForm = () => {
   }
 
   const save = (data) => {
+    setIsLoading(true);
     let visitorData = data;
 
     if (!isSign) {
@@ -225,14 +230,18 @@ const InternalForm = () => {
           {/* BUTTONS */}
 
           <Grid item xs sm>
-            <Button
-              fullWidth
-              variant="contained"
-              color="secondary"
-              type="submit"
-            >
-              Save Log
-            </Button>
+            <Box sx={{ m: 1, position: 'relative' }}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="secondary"
+                type="submit"
+                disabled={isLoading}
+              >
+                Save Log
+              </Button>
+              {isLoading && <ProgressButton />}
+            </Box>
           </Grid>
 
           <Grid item xs sm>

@@ -10,7 +10,11 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
-import { clear_signature, getVisitorlogs } from '../../actions/visitor_action';
+import {
+  clear_signature,
+  getVisitorlogs,
+  clearInOrOutState,
+} from '../../actions/visitor_action';
 
 const useStyles = makeStyles({
   toolbar: {
@@ -22,6 +26,7 @@ const VisitorPage = ({ children }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const isSign = useSelector((state) => state.user_signature);
+  const isVisitorChoose = useSelector((state) => state.internalOrOutsider);
   const [form, setForm] = useState(false);
 
   const openForm = () => setForm(true);
@@ -29,6 +34,7 @@ const VisitorPage = ({ children }) => {
     setForm(false);
 
     if (isSign) dispatch(clear_signature());
+    if (isVisitorChoose) dispatch(clearInOrOutState());
 
     dispatch(getVisitorlogs());
   };

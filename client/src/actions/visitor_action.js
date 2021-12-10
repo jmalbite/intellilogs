@@ -10,6 +10,12 @@ export const InternalOrOutsider = (answer) => {
   };
 };
 
+export const clearInOrOutState = () => {
+  return {
+    type: 'CLEAR_VISITOR_STATUS',
+  };
+};
+
 //storing signature in redux
 export const user_signature = (signature) => {
   return {

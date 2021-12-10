@@ -14,43 +14,7 @@ const AddNewLog = () => {
   useEffect(() => {
     if (!!internalOrOutsider) setIShow(true);
     else setIShow(false);
-<<<<<<< HEAD
-  }, [companySelected]);
-
-  // // useEffect(() => {
-  // //   if (errorInSaving === false) {
-  // //     handleClear();
-  // //   }
-  // // }, [errorInSaving]);
-
-  const handleClear = () => {
-    reset({
-      company: '',
-      area_visited: '',
-      firstname: '',
-      lastname: '',
-      employee_code: '',
-      purpose: '',
-    });
-    dispatch(clear_signature());
-  };
-
-  const save = (data) => {
-    let visitorsData = data;
-    const signature = userSign;
-    const time_visited = new Date();
-
-    //checking Signature
-    if (!isSign) {
-      visitorsData = { ...visitorsData, signature, time_visited };
-      console.log(visitorsData);
-      //dispatch(storeNewLog(visitorsData));
-      //
-    } else console.log('signature not yet filled');
-  };
-=======
   }, [internalOrOutsider]);
->>>>>>> c78f98e696213af6539afb44e27a5e8478b3771c
 
   return (
     <Grid item xs>
