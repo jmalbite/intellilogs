@@ -54,12 +54,14 @@ const VisitorData = () => {
           {visitors.map((row) => (
             <TableRow key={row._id}>
               <TableCell>
-                {row.employee_code ? row.employee_code : 'N/A'}
+                {row.employee_code ? row.employee_code.toUpperCase() : 'N/A'}
               </TableCell>
-              <TableCell>{row.visitorname}</TableCell>
-              <TableCell>{row.company}</TableCell>
+              <TableCell>
+                {row.firstname.toUpperCase()} {row.lastname.toUpperCase()}
+              </TableCell>
+              <TableCell>{row.company.toUpperCase()}</TableCell>
               <TableCell>{row.area_visited}</TableCell>
-              <TableCell>{row.purpose}</TableCell>
+              <TableCell>{row.purpose.toUpperCase()}</TableCell>
               <TableCell>{moment(row.time_visited).format('lll')}</TableCell>
               <TableCell>
                 <div className="img">

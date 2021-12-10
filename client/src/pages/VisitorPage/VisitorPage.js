@@ -27,7 +27,9 @@ const VisitorPage = ({ children }) => {
   const openForm = () => setForm(true);
   const closeForm = () => {
     setForm(false);
+
     if (isSign) dispatch(clear_signature());
+
     dispatch(getVisitorlogs());
   };
 

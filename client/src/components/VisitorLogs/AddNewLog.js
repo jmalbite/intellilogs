@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import SignaturePad from './SignaturePad.js';
+import Feedback from './Feedback.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,10 +29,10 @@ const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
 const schema = yup.object().shape({
   employee_code: yup.string(),
   company: yup.string().required(),
-  visitorname: yup.string().required(),
+  firstname: yup.string().required(),
+  lastname: yup.string().required(),
   area_visited: yup.string().required(),
   purpose: yup.string().required(),
-  otherCompany: yup.string().required(),
 });
 
 //Add new log component
@@ -43,6 +45,7 @@ const AddNewLog = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const userSign = useSelector((state) => state.user_signature);
+  const errorInSaving = useSelector((state) => state.isErrorSaving);
   const dispatch = useDispatch();
 
   const [companySelected, setCompanySelected] = useState('');
@@ -62,11 +65,18 @@ const AddNewLog = () => {
     else setIShow(false);
   }, [companySelected]);
 
+  // // useEffect(() => {
+  // //   if (errorInSaving === false) {
+  // //     handleClear();
+  // //   }
+  // // }, [errorInSaving]);
+
   const handleClear = () => {
     reset({
       company: '',
       area_visited: '',
-      visitorname: '',
+      firstname: '',
+      lastname: '',
       employee_code: '',
       purpose: '',
     });
@@ -77,12 +87,14 @@ const AddNewLog = () => {
     let visitorsData = data;
     const signature = userSign;
     const time_visited = new Date();
-    // if (!isSign) {
-    visitorsData = { ...visitorsData, signature, time_visited };
-    console.log(visitorsData);
-    //dispatch(storeNewLog(visitorsData));
-    handleClear();
-    //} else console.log('signature not yet filled');
+
+    //checking Signature
+    if (!isSign) {
+      visitorsData = { ...visitorsData, signature, time_visited };
+      console.log(visitorsData);
+      //dispatch(storeNewLog(visitorsData));
+      //
+    } else console.log('signature not yet filled');
   };
 
   return (
@@ -99,29 +111,28 @@ const AddNewLog = () => {
           <Grid item xs sm alignSelf="center">
             <FormControl component="fieldset">
               <FormLabel component="legend">
-                Are you a Intellicare/Avega Employee?
+                Are you a Intellicare/Avega employee?
               </FormLabel>
-              <RadioGroup
-                row
-                aria-label="gender"
-                name="row-radio-buttons-group"
-              >
-                <Grid container direction="flex">
-                  {' '}
-                </Grid>
-                <FormControlLabel
-                  value="INTELLICARE/AVEGA"
-                  control={<Radio />}
-                  onChange={(e) => setCompanySelected(e.target.value)}
-                  label="YES"
-                />
-                <FormControlLabel
-                  value="OTHERS"
-                  onChange={(e) => setCompanySelected(e.target.value)}
-                  control={<Radio />}
-                  label="NO"
-                />
-              </RadioGroup>
+              <Grid container justifyContent="center">
+                <RadioGroup row name="row-radio-buttons-group">
+                  <Grid item xs sm>
+                    <FormControlLabel
+                      value="INTELLICARE/AVEGA"
+                      control={<Radio />}
+                      onChange={(e) => setCompanySelected(e.target.value)}
+                      label="YES"
+                    />
+                  </Grid>
+                  <Grid item xs sm>
+                    <FormControlLabel
+                      value="OTHERS"
+                      onChange={(e) => setCompanySelected(e.target.value)}
+                      control={<Radio />}
+                      label="NO"
+                    />
+                  </Grid>
+                </RadioGroup>
+              </Grid>
             </FormControl>
           </Grid>
         ) : null}
@@ -130,6 +141,25 @@ const AddNewLog = () => {
           {companySelected === 'INTELLICARE/AVEGA' ? (
             <form autoComplete="off" noValidate onSubmit={handleSubmit(save)}>
               <Grid container direction="column" spacing={1}>
+                {/* ID NUMBER */}
+                <Grid item xs sm>
+                  <Controller
+                    name="employee_code"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        variant="outlined"
+                        type="text"
+                        label="ID number"
+                        error={!!errors.employee_code}
+                        fullWidth
+                      />
+                    )}
+                  />
+                </Grid>
+
                 {/* COMPANY */}
                 <Grid item xs sm>
                   <FormControl fullWidth required error={!!errors.company}>
@@ -156,39 +186,42 @@ const AddNewLog = () => {
                   </FormControl>
                 </Grid>
 
-                {/* ID NUMBER */}
+                {/* VISITOR NAME FIRSTNAME */}
                 <Grid item xs sm>
                   <Controller
-                    name="employee_code"
+                    name="firstname"
                     control={control}
                     defaultValue=""
-                    render={({ field }) => (
+                    render={({ field: { onChange, value } }) => (
                       <TextField
-                        {...field}
+                        onChange={onChange}
+                        value={value}
+                        required
                         variant="outlined"
                         type="text"
-                        label="ID number"
-                        error={!!errors.employee_code}
+                        label="Firstname"
+                        error={!!errors.firstname}
                         fullWidth
                       />
                     )}
                   />
                 </Grid>
 
-                {/* VISITOR NAME */}
+                {/* VISITOR NAME LASTNAME */}
                 <Grid item xs sm>
                   <Controller
-                    name="visitorname"
+                    name="lastname"
                     control={control}
                     defaultValue=""
-                    render={({ field }) => (
+                    render={({ field: { onChange, value } }) => (
                       <TextField
-                        {...field}
+                        onChange={onChange}
+                        value={value}
                         required
                         variant="outlined"
                         type="text"
-                        label="Name"
-                        error={!!errors.visitorname}
+                        label="Lastname"
+                        error={!!errors.lastname}
                         fullWidth
                       />
                     )}
@@ -268,6 +301,10 @@ const AddNewLog = () => {
                     Clear
                   </Button>
                 </Grid>
+
+                <Grid item xs sm>
+                  <Feedback status={errorInSaving} />
+                </Grid>
               </Grid>
             </form>
           ) : companySelected === 'OTHERS' ? (
@@ -292,19 +329,42 @@ const AddNewLog = () => {
                   />
                 </Grid>
 
+                {/* VISITOR NAME FIRSTNAME */}
                 <Grid item xs sm>
                   <Controller
-                    name="visitorname"
+                    name="firstname"
                     control={control}
                     defaultValue=""
-                    render={({ field }) => (
+                    render={({ field: { onChange, value } }) => (
                       <TextField
-                        {...field}
+                        onChange={onChange}
+                        value={value}
                         required
                         variant="outlined"
                         type="text"
-                        label="Name"
-                        error={!!errors.visitorname}
+                        label="Firstname"
+                        error={!!errors.firstname}
+                        fullWidth
+                      />
+                    )}
+                  />
+                </Grid>
+
+                {/* VISITOR NAME LASTNAME */}
+                <Grid item xs sm>
+                  <Controller
+                    name="lastname"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value } }) => (
+                      <TextField
+                        onChange={onChange}
+                        value={value}
+                        required
+                        variant="outlined"
+                        type="text"
+                        label="Lastname"
+                        error={!!errors.lastname}
                         fullWidth
                       />
                     )}
@@ -381,6 +441,10 @@ const AddNewLog = () => {
                   >
                     Clear
                   </Button>
+                </Grid>
+
+                <Grid item xs sm>
+                  <Feedback status={errorInSaving} />
                 </Grid>
               </Grid>
             </form>

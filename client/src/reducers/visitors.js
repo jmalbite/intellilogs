@@ -17,3 +17,16 @@ export const user_signature = (signature = '', action) => {
       return signature;
   }
 };
+
+export const isErrorSaving = (error = null, action) => {
+  switch (action.type) {
+    case 'ERROR_SAVING':
+      return (error = true);
+    case 'ADD_NEW_LOG':
+      return (error = false);
+    case 'CLEAR_ERROR':
+      return (error = null);
+    default:
+      return error;
+  }
+};
