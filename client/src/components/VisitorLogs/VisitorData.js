@@ -52,7 +52,7 @@ const VisitorData = () => {
 
         <TableBody>
           {visitors.map((row) => (
-            <TableRow key={row._id}>
+            <StyledTableRow key={row._id}>
               <TableCell>
                 {row.employee_code ? row.employee_code.toUpperCase() : 'N/A'}
               </TableCell>
@@ -72,7 +72,7 @@ const VisitorData = () => {
                   />
                 </div>
               </TableCell>
-            </TableRow>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>

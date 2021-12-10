@@ -15,7 +15,6 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Box,
 } from '@mui/material';
 
 const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
@@ -72,9 +71,9 @@ const OutsiderForm = () => {
 
   const save = (data) => {
     let visitorData = data;
-    setIsLoading(true);
 
     if (!isSign) {
+      setIsLoading(true);
       visitorData = {
         ...visitorData,
         signature: userSign,
@@ -201,18 +200,16 @@ const OutsiderForm = () => {
           </Grid>
 
           <Grid item xs sm>
-            <Box sx={{ m: 1, position: 'relative' }}>
-              <Button
-                fullWidth
-                variant="contained"
-                color="secondary"
-                type="submit"
-                disabled={isLoading}
-              >
-                Save Log
-              </Button>
-              {isLoading && <ProgressButton />}
-            </Box>
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              type="submit"
+              disabled={isLoading}
+            >
+              Save Log
+            </Button>
+            {isLoading && <ProgressButton loading={isLoading} />}
           </Grid>
 
           <Grid item xs sm>

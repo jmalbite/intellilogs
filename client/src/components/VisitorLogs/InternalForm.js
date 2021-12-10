@@ -15,7 +15,6 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Box,
 } from '@mui/material';
 
 const companies = ['INTELLICARE', 'AVEGA'];
@@ -72,10 +71,10 @@ const InternalForm = () => {
   }
 
   const save = (data) => {
-    setIsLoading(true);
     let visitorData = data;
 
     if (!isSign) {
+      setIsLoading(true);
       visitorData = {
         ...visitorData,
         signature: userSign,
@@ -230,18 +229,16 @@ const InternalForm = () => {
           {/* BUTTONS */}
 
           <Grid item xs sm>
-            <Box sx={{ m: 1, position: 'relative' }}>
-              <Button
-                fullWidth
-                variant="contained"
-                color="secondary"
-                type="submit"
-                disabled={isLoading}
-              >
-                Save Log
-              </Button>
-              {isLoading && <ProgressButton />}
-            </Box>
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              type="submit"
+              disabled={isLoading}
+            >
+              Save Log
+            </Button>
+            {isLoading && <ProgressButton loading={isLoading} />}
           </Grid>
 
           <Grid item xs sm>
