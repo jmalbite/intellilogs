@@ -26,7 +26,7 @@ const AddNewLog = () => {
         </Grid>
 
         {/* USER MUST SELECT COMPANY FIRST */}
-        {!isShow ? <Question /> : null}
+        {!isShow && <Question />}
 
         <Grid item xs sm>
           {internalOrOutsider === 'YES' ? (

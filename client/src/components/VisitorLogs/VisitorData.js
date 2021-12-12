@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import moment from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
-import { getVisitorlogs } from '../../actions/visitor_action';
 import { styled } from '@mui/material/styles';
 import VisitorTableHead from './VisitorTableHead';
 
@@ -12,6 +10,8 @@ import {
   TableContainer,
   TableRow,
   Paper,
+  Typography,
+  Grid,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
@@ -35,14 +35,8 @@ const useStyles = makeStyles({
   },
 });
 
-const VisitorData = () => {
+const VisitorData = ({ visitors }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const visitors = useSelector((state) => state.visitorsLogsData);
-
-  useEffect(() => {
-    dispatch(getVisitorlogs());
-  }, [dispatch]);
 
   return (
     <TableContainer component={Paper} className={classes.tableContainer}>
@@ -53,9 +47,7 @@ const VisitorData = () => {
         <TableBody>
           {visitors.map((row) => (
             <StyledTableRow key={row._id}>
-              <TableCell>
-                {row.employee_code ? row.employee_code.toUpperCase() : 'N/A'}
-              </TableCell>
+              <TableCell>{row.employee_code}</TableCell>
               <TableCell>
                 {row.firstname.toUpperCase()} {row.lastname.toUpperCase()}
               </TableCell>
@@ -64,18 +56,21 @@ const VisitorData = () => {
               <TableCell>{row.purpose.toUpperCase()}</TableCell>
               <TableCell>{moment(row.time_visited).format('lll')}</TableCell>
               <TableCell>
-                <div className="img">
-                  <img
-                    src={row.signature}
-                    style={{ width: '60px', height: '40px' }}
-                    alt="signature"
-                  />
-                </div>
+                <img
+                  src={row.signature}
+                  style={{ width: '40px', height: '20px' }}
+                  alt="signature"
+                />
               </TableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
+      <Grid container justifyContent="center">
+        {!visitors.length && (
+          <Typography variant="h6">No data found!</Typography>
+        )}
+      </Grid>
     </TableContainer>
   );
 };

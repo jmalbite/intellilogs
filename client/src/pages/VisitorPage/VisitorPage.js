@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
@@ -27,7 +27,31 @@ const VisitorPage = ({ children }) => {
   const dispatch = useDispatch();
   const isSign = useSelector((state) => state.user_signature);
   const isVisitorChoose = useSelector((state) => state.internalOrOutsider);
+  const originalRows = useSelector((state) => state.visitorsLogsData);
+  const [rows, setRows] = useState(originalRows);
   const [form, setForm] = useState(false);
+
+  const requestSearch = (searchValue) => {
+    const filterRows = originalRows.filter((row) => {
+      let fullName = row.firstname + ' ' + row.lastname;
+      return (
+        fullName.toLocaleLowerCase().includes(searchValue.toLowerCase()) ||
+        row.company.toLowerCase().includes(searchValue.toLowerCase()) ||
+        row.area_visited.toLowerCase().includes(searchValue.toLowerCase()) ||
+        row.employee_code.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    });
+
+    setRows(filterRows);
+  };
+
+  useEffect(() => {
+    setRows(originalRows);
+  }, [setRows, originalRows]);
+
+  useEffect(() => {
+    dispatch(getVisitorlogs());
+  }, [dispatch]);
 
   const openForm = () => setForm(true);
   const closeForm = () => {
@@ -40,15 +64,19 @@ const VisitorPage = ({ children }) => {
   };
 
   return (
-    <div>
+    <>
       <Container className={classes.toolbar} maxWidth="xl">
         <Grid container alignItems="center" justifyContent="space-evenly">
           <Grid item md={5}>
             <TextField
+              autoComplete="off"
+              type="search"
               id="searchLog"
-              label="Search log"
+              label="Search"
               variant="outlined"
+              placeholder="Search ID, Name, Company, Area"
               size="medium"
+              onChange={(e) => requestSearch(e.target.value)}
               fullWidth
             />
           </Grid>
@@ -67,9 +95,10 @@ const VisitorPage = ({ children }) => {
             </Dialog>
           </Grid>
         </Grid>
-        <VisitorData />
+
+        <VisitorData visitors={rows} />
       </Container>
-    </div>
+    </>
   );
 };
 

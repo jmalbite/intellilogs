@@ -8,6 +8,7 @@ import {
   RadioGroup,
   FormControlLabel,
   FormLabel,
+  Typography,
 } from '@mui/material';
 
 const Question = () => {
@@ -31,7 +32,9 @@ const Question = () => {
       <Grid item xs sm alignSelf="center">
         <FormControl component="fieldset">
           <FormLabel component="legend">
-            Are you a Intellicare/Avega employee?
+            <Typography variant="h6" fontWeight="bold">
+              Are you an Intellicare/Avega employee?
+            </Typography>
           </FormLabel>
           <Grid container justifyContent="center">
             <RadioGroup row name="row-radio-buttons-group">

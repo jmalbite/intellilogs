@@ -78,6 +78,7 @@ const OutsiderForm = () => {
         ...visitorData,
         signature: userSign,
         time_visited: new Date(),
+        employee_code: 'N/A',
       };
 
       dispatch(storeNewLog(visitorData));
