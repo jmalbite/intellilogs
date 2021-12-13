@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import { styled } from '@mui/material/styles';
 import VisitorTableHead from './VisitorTableHead';
-
+import theme from '../../theme/Theme';
 import {
   Table,
   TableBody,
@@ -12,6 +12,7 @@ import {
   Paper,
   Typography,
   Grid,
+  TablePagination,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
@@ -28,11 +29,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const useStyles = makeStyles({
   tableContainer: {
     marginTop: '20px',
-    height: '70vh',
+    height: '75vh',
   },
 
   table: {
     minWidth: 650,
+  },
+
+  stickyHeader: {
+    backgroundColor: theme.palette.secondary.main,
+    fontWeight: 'bold',
   },
 });
 
@@ -63,6 +69,8 @@ const VisitorData = ({ visitors }) => {
   const classes = useStyles();
   const [orderDirection, setOrderDirection] = useState('desc');
   const [valueToOrderBy, setValueToOrderBy] = useState('time_visited');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleRequestSort = (event, property) => {
     const isAscending = valueToOrderBy === property && orderDirection === 'asc';
@@ -70,72 +78,74 @@ const VisitorData = ({ visitors }) => {
     setOrderDirection(isAscending ? 'desc' : 'asc');
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value), 9);
+    setPage(0);
+  };
+
   return (
-    <TableContainer component={Paper} className={classes.tableContainer}>
-      <Table className={classes.table}>
-        {/* Table Head */}
-        <VisitorTableHead
-          valueToOrderBy={valueToOrderBy}
-          orderDirection={orderDirection}
-          handleRequestSort={handleRequestSort}
-        />
+    <>
+      <TableContainer component={Paper} className={classes.tableContainer}>
+        <Table className={classes.table}>
+          {/* Table Head */}
+          <VisitorTableHead
+            valueToOrderBy={valueToOrderBy}
+            orderDirection={orderDirection}
+            handleRequestSort={handleRequestSort}
+          />
 
-        <TableBody>
-          {sortedRowInformation(
-            visitors,
-            getComparator(orderDirection, valueToOrderBy)
-          ).map((visitor, index) => (
-            <StyledTableRow key={index}>
-              <TableCell>{visitor.employee_code}</TableCell>
-              <TableCell>
-                {visitor.firstname.toUpperCase()}{' '}
-                {visitor.lastname.toUpperCase()}{' '}
-              </TableCell>
-              <TableCell>{visitor.company.toUpperCase()}</TableCell>
-              <TableCell>{visitor.area_visited}</TableCell>
-              <TableCell>{visitor.purpose.toUpperCase()}</TableCell>
-              <TableCell>
-                {moment(visitor.time_visited).format('lll')}
-              </TableCell>
-              <TableCell>
-                <img
-                  src={visitor.signature}
-                  style={{ width: '40px', height: '25px' }}
-                  alt="signature"
-                />
-              </TableCell>
-            </StyledTableRow>
-          ))}
-
-          {/* {visitors.map((row) => (
-            <StyledTableRow key={row._id}>
-              <TableCell>{row.employee_code}</TableCell>
-              <TableCell>
-                {row.firstname.toUpperCase()} {row.lastname.toUpperCase()}
-              </TableCell>
-              <TableCell>{row.company.toUpperCase()}</TableCell>
-              <TableCell>{row.area_visited}</TableCell>
-              <TableCell>{row.purpose.toUpperCase()}</TableCell>
-              <TableCell>{moment(row.time_visited).format('lll')}</TableCell>
-              <TableCell>
-                <img
-                  src={row.signature}
-                  style={{ width: '40px', height: '25px' }}
-                  alt="signature"
-                />
-              </TableCell>
-            </StyledTableRow>
-          ))} */}
-        </TableBody>
-      </Table>
-      <Grid container justifyContent="center">
-        {!visitors.length && (
-          <Typography variant="subtitle1" fontSize="25px">
-            No data found!
-          </Typography>
-        )}
-      </Grid>
-    </TableContainer>
+          <TableBody>
+            {sortedRowInformation(
+              visitors,
+              getComparator(orderDirection, valueToOrderBy)
+            )
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((visitor, index) => (
+                <StyledTableRow key={index}>
+                  <TableCell>{visitor.employee_code}</TableCell>
+                  <TableCell>
+                    {visitor.firstname.toUpperCase()}{' '}
+                    {visitor.lastname.toUpperCase()}{' '}
+                  </TableCell>
+                  <TableCell>{visitor.company.toUpperCase()}</TableCell>
+                  <TableCell>{visitor.area_visited}</TableCell>
+                  <TableCell>{visitor.purpose.toUpperCase()}</TableCell>
+                  <TableCell>
+                    {moment(visitor.time_visited).format('lll')}
+                  </TableCell>
+                  <TableCell>
+                    <img
+                      src={visitor.signature}
+                      style={{ width: '40px', height: '25px' }}
+                      alt="signature"
+                    />
+                  </TableCell>
+                </StyledTableRow>
+              ))}
+          </TableBody>
+        </Table>
+        <Grid container justifyContent="center">
+          {!visitors.length && (
+            <Typography variant="subtitle1" fontSize="25px">
+              No data found!
+            </Typography>
+          )}
+        </Grid>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={visitors.length}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleRowsPerPage}
+      />
+    </>
   );
 };
 
