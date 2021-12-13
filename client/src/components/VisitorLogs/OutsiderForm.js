@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SignaturePad from './SignaturePad.js';
 import Feedback from './Feedback.js';
 import ProgressButton from './ProgressButton.js';
+import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -76,6 +77,7 @@ const OutsiderForm = () => {
       setIsLoading(true);
       visitorData = {
         ...visitorData,
+        visitor_id: uuidv4(),
         signature: userSign,
         time_visited: new Date(),
         employee_code: 'N/A',
