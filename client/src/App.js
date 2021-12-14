@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import VisitorPage from './pages/VisitorPage/VisitorPage';
 import VisitorAppbar from './components/layout/VisitorAppbar';
@@ -12,16 +12,18 @@ import { ThemeProvider } from '@mui/material/styles';
 
 const App = () => {
   return (
-    <ThemeProvider theme={Theme}>
-      <VisitorAppbar />
-      <Router>
-        {/* Nav Links Here */}
-        <Routes>
-          <Route path="/" element={<VisitorPage />} />
-          <Route path="/borrowerslog" element={<BorrowersPage />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={Theme}>
+        <Router>
+          {/* Nav Links Here */}
+          <VisitorAppbar />
+          <Routes>
+            <Route path="/" element={<VisitorPage />} />
+            <Route path="/borrowerslogs" element={<BorrowersPage />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </>
   );
 };
 

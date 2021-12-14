@@ -1,9 +1,9 @@
-import React from 'React';
+import React from 'react';
 
 const BorrowersPage = () => {
   return (
     <>
-      <h1>Borrowers Page</h1>
+      <h1 style={{ marginTop: '100px' }}>Borrowers Page</h1>
     </>
   );
 };

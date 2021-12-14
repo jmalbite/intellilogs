@@ -7,6 +7,7 @@ import {
   Button,
   Dialog,
   DialogContent,
+  Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
@@ -19,7 +20,7 @@ import {
 
 const useStyles = makeStyles({
   toolbar: {
-    marginTop: '90px',
+    marginTop: '70px',
   },
 });
 
@@ -67,6 +68,9 @@ const VisitorPage = () => {
   return (
     <>
       <Container className={classes.toolbar} maxWidth="xl">
+        <Typography variant="h5" color="secondary" fontWeight="bold">
+          Visitors Logs
+        </Typography>
         <Grid container alignItems="center" justifyContent="space-evenly">
           <Grid item md={5}>
             <TextField
@@ -98,7 +102,6 @@ const VisitorPage = () => {
             </Dialog>
           </Grid>
         </Grid>
-
         <VisitorData visitors={rows} />
       </Container>
     </>
