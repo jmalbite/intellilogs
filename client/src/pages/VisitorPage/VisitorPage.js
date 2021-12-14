@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
+import AddNewLog from '../../components/VisitorLogs/AddNewLog';
 import {
   clear_signature,
   getVisitorlogs,
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
   },
 });
 
-const VisitorPage = ({ children }) => {
+const VisitorPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const isSign = useSelector((state) => state.user_signature);
@@ -91,7 +92,9 @@ const VisitorPage = ({ children }) => {
               New Log
             </Button>
             <Dialog fullWidth open={form} onClose={closeForm}>
-              <DialogContent>{children}</DialogContent>
+              <DialogContent>
+                <AddNewLog />
+              </DialogContent>
             </Dialog>
           </Grid>
         </Grid>
