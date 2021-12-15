@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, useScrollTrigger, Slide } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import intellilogs from '../../assets/visitorlogsv1.svg';
 
@@ -25,6 +26,11 @@ const VisitorAppbar = () => {
         <AppBar height="86px" elevation={0} color="primary">
           <Toolbar>
             <img src={intellilogs} alt="intelli-logs-logo" width="150px" />
+
+            <nav>
+              <Link to="/">Visitors</Link>
+              <Link to="/borrowerslogs">Borrowers</Link>
+            </nav>
           </Toolbar>
         </AppBar>
       </HideOnScroll>

@@ -7,9 +7,11 @@ import {
   Button,
   Dialog,
   DialogContent,
+  Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
+import AddNewLog from '../../components/VisitorLogs/AddNewLog';
 import {
   clear_signature,
   getVisitorlogs,
@@ -18,11 +20,11 @@ import {
 
 const useStyles = makeStyles({
   toolbar: {
-    marginTop: '90px',
+    marginTop: '70px',
   },
 });
 
-const VisitorPage = ({ children }) => {
+const VisitorPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const isSign = useSelector((state) => state.user_signature);
@@ -66,6 +68,9 @@ const VisitorPage = ({ children }) => {
   return (
     <>
       <Container className={classes.toolbar} maxWidth="xl">
+        <Typography variant="h5" color="secondary" fontWeight="bold">
+          Visitors Logs
+        </Typography>
         <Grid container alignItems="center" justifyContent="space-evenly">
           <Grid item md={5}>
             <TextField
@@ -91,11 +96,12 @@ const VisitorPage = ({ children }) => {
               New Log
             </Button>
             <Dialog fullWidth open={form} onClose={closeForm}>
-              <DialogContent>{children}</DialogContent>
+              <DialogContent>
+                <AddNewLog />
+              </DialogContent>
             </Dialog>
           </Grid>
         </Grid>
-
         <VisitorData visitors={rows} />
       </Container>
     </>

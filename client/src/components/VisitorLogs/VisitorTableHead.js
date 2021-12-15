@@ -10,7 +10,9 @@ import { makeStyles } from '@mui/styles';
 import theme from '../../theme/Theme';
 
 const useStyles = makeStyles({
-  tablehead: {
+  head: {
+    position: 'sticky',
+    top: 0,
     backgroundColor: theme.palette.secondary.main,
     fontWeight: 'bold',
   },
@@ -25,15 +27,15 @@ const VisitorTableHead = (props) => {
   };
 
   return (
-    <TableHead className={classes.tablehead}>
+    <TableHead>
       <TableRow>
-        <TableCell>
+        <TableCell className={classes.head}>
           <Typography variant="subtitle2" fontWeight="700" color="white">
             ID number
           </Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'firstname'}
             direction={valueToOrderBy === 'firstname' ? orderDirection : 'asc'}
@@ -45,7 +47,7 @@ const VisitorTableHead = (props) => {
           </TableSortLabel>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'company'}
             direction={valueToOrderBy === 'company' ? orderDirection : 'asc'}
@@ -57,7 +59,7 @@ const VisitorTableHead = (props) => {
           </TableSortLabel>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'area_visited'}
             direction={
@@ -71,12 +73,13 @@ const VisitorTableHead = (props) => {
           </TableSortLabel>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classes.head}>
           <Typography variant="subtitle2" fontWeight="700" color="white">
             Purpose
           </Typography>
         </TableCell>
-        <TableCell>
+
+        <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'time_visited'}
             direction={
@@ -90,7 +93,7 @@ const VisitorTableHead = (props) => {
           </TableSortLabel>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classes.head}>
           <Typography variant="subtitle2" fontWeight="700" color="white">
             Signature
           </Typography>
