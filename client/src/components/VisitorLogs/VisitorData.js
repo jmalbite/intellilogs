@@ -86,7 +86,9 @@ const VisitorData = ({ visitors }) => {
             getComparator(orderDirection, valueToOrderBy)
           ).map((visitor, index) => (
             <StyledTableRow key={index}>
-              <TableCell>{visitor.employee_code}</TableCell>
+              <TableCell onClick={() => console.log('clicked')}>
+                {visitor.employee_code}
+              </TableCell>
               <TableCell>
                 {visitor.firstname.toUpperCase()}{' '}
                 {visitor.lastname.toUpperCase()}{' '}
