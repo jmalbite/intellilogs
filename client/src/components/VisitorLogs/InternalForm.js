@@ -104,6 +104,7 @@ const InternalForm = () => {
                   type="text"
                   label="ID number"
                   error={!!errors.employee_code}
+                  required
                   fullWidth
                 />
               )}
