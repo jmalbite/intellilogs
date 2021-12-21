@@ -22,7 +22,7 @@ const companies = ['INTELLICARE', 'AVEGA'];
 const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
 
 const schema = yup.object().shape({
-  employee_code: yup.string(),
+  employee_code: yup.string().required(),
   company: yup.string().required(),
   firstname: yup.string().required(),
   lastname: yup.string().required(),

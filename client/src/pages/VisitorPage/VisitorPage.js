@@ -69,7 +69,7 @@ const VisitorPage = () => {
     <>
       <Container className={classes.toolbar} maxWidth="xl">
         <Typography variant="h5" color="secondary" fontWeight="bold">
-          Visitors Logs
+          VISITORS LOGS
         </Typography>
         <Grid container alignItems="center" justifyContent="space-evenly">
           <Grid item md={5}>

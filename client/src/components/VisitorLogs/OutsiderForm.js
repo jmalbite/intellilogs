@@ -21,7 +21,6 @@ import {
 const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
 
 const schema = yup.object().shape({
-  employee_code: yup.string(),
   company: yup.string().required(),
   firstname: yup.string().required(),
   lastname: yup.string().required(),

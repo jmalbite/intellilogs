@@ -29,11 +29,8 @@ const AddNewLog = () => {
         {!isShow && <Question />}
 
         <Grid item xs sm>
-          {internalOrOutsider === 'YES' ? (
-            <InternalForm />
-          ) : internalOrOutsider === 'NO' ? (
-            <OutsiderForm />
-          ) : internalOrOutsider === '' ? null : null}
+          {internalOrOutsider === 'YES' && <InternalForm />}
+          {internalOrOutsider === 'NO' && <OutsiderForm />}
         </Grid>
       </Grid>
     </Grid>
