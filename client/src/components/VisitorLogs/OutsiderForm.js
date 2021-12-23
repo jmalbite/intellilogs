@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SignaturePad from '../layout/Signaturepad';
-import Feedback from './Feedback.js';
-import ProgressButton from './ProgressButton.js';
+import Feedback from '../Response components/Feedback';
+import ProgressButton from '../Response components/ProgressButton';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import InternalForm from './InternalForm.js';
 import OutsiderForm from './OutsiderForm.js';
-import Question from './Question.js';
+import Question from '../layout/Question';
 import { useSelector } from 'react-redux';
 import { Grid, Typography } from '@mui/material';
 

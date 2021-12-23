@@ -1,8 +1,7 @@
-import React from "react";
-
+import React, { useState, useEffect } from 'react';
 import SignaturePad from '../layout/Signaturepad';
-import Feedback from './Feedback.js';
-import ProgressButton from './ProgressButton';
+import Feedback from '../Response components/Feedback';
+import ProgressButton from '../Response components/ProgressButton';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
@@ -20,19 +19,30 @@ import {
 } from '@mui/material';
 
 const companies = ['INTELLICARE', 'AVEGA'];
+const IT_supports = [
+  'JM A.',
+  'MARIE CLAIRE M.',
+  'ERWIN B.',
+  'RAYMOND C.',
+  'DANIEL B.',
+];
 
 const schema = yup.object().shape({
-    employee_code: yup.string().required(),
-    company: yup.string().required(),
-    firstname: yup.string().required(),
-    lastname: yup.string().required(),
-    item_borrowed: yup.string().required(),
-    handed_by: yup.string().required(),
-})
-
+  employee_code: yup.string().required(),
+  company: yup.string().required(),
+  firstname: yup.string().required(),
+  lastname: yup.string().required(),
+  item_borrowed: yup.string().required(),
+  handed_by: yup.string().required(),
+});
 
 const InternalFormBorrowers = () => {
-    const { handleSubmit, control, reset, formState: {errors}, } = useForm({resolver.yupResolver(schema)})
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
 
   const userSign = useSelector((state) => state.user_signature);
   const errorInSaving = useSelector((state) => state.isErrorSaving);
@@ -47,18 +57,34 @@ const InternalFormBorrowers = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSign]);
 
+  //checking status during saving the data in the form
   useEffect(() => {
     if (errorInSaving === false) {
       setIsLoading(false);
-      handleClear();
+      //handleClear();
     } else setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorInSaving]);
 
+  function handleClear() {
+    reset({
+      employee_code: '',
+      company: '',
+      firstname: '',
+      lastname: '',
+      item_borrowed: '',
+      handed_by: '',
+    });
+    dispatch(clear_signature());
+  }
+
+  const save = (data) => {
+    console.log({ ...data, borrowers_signature: userSign });
+  };
 
   return (
-      <>
-      <form autoComplete="off" noValidate onSubmit={handleSubmit(save)}>
+    <>
+      <form noValidate onSubmit={handleSubmit(save)}>
         <Grid container direction="column" spacing={1}>
           {/* ID NUMBER */}
           <Grid item xs sm>
@@ -106,7 +132,7 @@ const InternalFormBorrowers = () => {
             </FormControl>
           </Grid>
 
-          {/* VISITOR NAME FIRSTNAME */}
+          {/* BORROWERS FIRSTNAME */}
           <Grid item xs sm>
             <Controller
               name="firstname"
@@ -127,7 +153,7 @@ const InternalFormBorrowers = () => {
             />
           </Grid>
 
-          {/* VISITOR NAME LASTNAME */}
+          {/* BORROWERS LASTNAME */}
           <Grid item xs sm>
             <Controller
               name="lastname"
@@ -148,24 +174,45 @@ const InternalFormBorrowers = () => {
             />
           </Grid>
 
-          {/* AREA TO VISIT */}
+          {/* ITEM TO BE BORRWED */}
           <Grid item xs sm>
-            <FormControl fullWidth required error={!!errors.area_visited}>
-              <InputLabel id="selected-input">Area</InputLabel>
+            <Controller
+              name="item_borrowed"
+              control={control}
+              defaultValue=""
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  onChange={onChange}
+                  value={value}
+                  required
+                  variant="outlined"
+                  type="text"
+                  label="Item"
+                  error={!!errors.item_borrowed}
+                  fullWidth
+                />
+              )}
+            />
+          </Grid>
+
+          {/* HANDED BY */}
+          <Grid item xs sm>
+            <FormControl fullWidth required error={!!errors.handed_by}>
+              <InputLabel id="selected-input">Handed By</InputLabel>
               <Controller
                 control={control}
                 defaultValue=""
-                name="area_visited"
+                name="handed_by"
                 render={({ field: { onChange, value } }) => (
                   <Select
                     onChange={onChange}
                     value={value}
-                    id="select-area"
-                    label="Area"
+                    id="select-it_support"
+                    label="Handed By"
                   >
-                    {areas.map((area) => (
-                      <MenuItem key={area} value={area}>
-                        {area}
+                    {IT_supports.map((it_support) => (
+                      <MenuItem key={it_support} value={it_support}>
+                        {it_support}
                       </MenuItem>
                     ))}
                   </Select>
@@ -174,32 +221,12 @@ const InternalFormBorrowers = () => {
             </FormControl>
           </Grid>
 
-          {/* PURPOSE */}
-          <Grid item xs sm>
-            <Controller
-              name="purpose"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  variant="outlined"
-                  required
-                  type="text"
-                  label="Purpose"
-                  error={!!errors.purpose}
-                  fullWidth
-                />
-              )}
-            />
-          </Grid>
-
+          {/* SIGNATURE PAD */}
           <Grid item xs sm>
             <SignaturePad />
           </Grid>
 
           {/* BUTTONS */}
-
           <Grid item xs sm>
             <Button
               fullWidth
@@ -223,13 +250,10 @@ const InternalFormBorrowers = () => {
               Clear
             </Button>
           </Grid>
-
-          <Grid item xs sm>
-            <Feedback status={errorInSaving} />
-          </Grid>
         </Grid>
       </form>
-      </>
-  )
-    
-}
+    </>
+  );
+};
+
+export default InternalFormBorrowers;

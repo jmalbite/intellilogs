@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AddLogBorrowers from '../../components/BorrowersLogs/addnewlog.borrowers';
 import {
   Grid,
   TextField,
@@ -63,7 +64,9 @@ const BorrowersPage = () => {
                 New Log
               </Button>
               <Dialog fullWidth open={form} onClose={closeForm}>
-                <DialogContent></DialogContent>
+                <DialogContent>
+                  <AddLogBorrowers />
+                </DialogContent>
               </Dialog>
             </Grid>
           </Grid>

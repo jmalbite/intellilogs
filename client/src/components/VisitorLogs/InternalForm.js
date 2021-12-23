@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SignaturePad from '../layout/Signaturepad';
-import Feedback from './Feedback.js';
-import ProgressButton from './ProgressButton';
+import Feedback from '../Response components/Feedback';
+import ProgressButton from '../Response components/ProgressButton';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
@@ -137,7 +137,7 @@ const InternalForm = () => {
             </FormControl>
           </Grid>
 
-          {/* VISITOR NAME FIRSTNAME */}
+          {/* VISITOR FIRSTNAME */}
           <Grid item xs sm>
             <Controller
               name="firstname"
@@ -158,7 +158,7 @@ const InternalForm = () => {
             />
           </Grid>
 
-          {/* VISITOR NAME LASTNAME */}
+          {/* VISITOR LASTNAME */}
           <Grid item xs sm>
             <Controller
               name="lastname"
