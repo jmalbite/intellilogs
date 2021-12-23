@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { OFFICE_COMPANIES, IT_STAFFS } from '../Constant';
 import SignaturePad from '../layout/Signaturepad';
 import Feedback from '../Response components/Feedback';
 import ProgressButton from '../Response components/ProgressButton';
@@ -17,15 +18,6 @@ import {
   InputLabel,
   MenuItem,
 } from '@mui/material';
-
-const companies = ['INTELLICARE', 'AVEGA'];
-const IT_supports = [
-  'JM A.',
-  'MARIE CLAIRE M.',
-  'ERWIN B.',
-  'RAYMOND C.',
-  'DANIEL B.',
-];
 
 const schema = yup.object().shape({
   employee_code: yup.string().required(),
@@ -46,6 +38,8 @@ const InternalFormBorrowers = () => {
 
   const userSign = useSelector((state) => state.user_signature);
   const errorInSaving = useSelector((state) => state.isErrorSaving);
+  const companies = OFFICE_COMPANIES;
+  const IT_supports = IT_STAFFS;
   const dispatch = useDispatch();
   const [isSign, setIsSigned] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

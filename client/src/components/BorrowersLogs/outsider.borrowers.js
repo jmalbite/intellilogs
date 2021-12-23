@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IT_STAFFS } from '../Constant';
 import SignaturePad from '../layout/Signaturepad';
 import Feedback from '../Response components/Feedback';
 import ProgressButton from '../Response components/ProgressButton';
@@ -18,14 +19,6 @@ import {
   MenuItem,
 } from '@mui/material';
 
-const IT_supports = [
-  'JM A.',
-  'MARIE CLAIRE M.',
-  'ERWIN B.',
-  'RAYMOND C.',
-  'DANIEL B.',
-];
-
 const schema = yup.object().shape({
   company: yup.string().required(),
   firstname: yup.string().required(),
@@ -44,6 +37,7 @@ const OutsiderFormBorrowers = () => {
 
   const userSign = useSelector((state) => state.user_signature);
   const errorInSaving = useSelector((state) => state.isErrorSaving);
+  const IT_supports = IT_STAFFS;
   const dispatch = useDispatch();
   const [isSign, setIsSigned] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

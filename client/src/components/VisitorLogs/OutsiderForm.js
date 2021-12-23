@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IT_AREAS } from '../Constant/index';
 import SignaturePad from '../layout/Signaturepad';
 import Feedback from '../Response components/Feedback';
 import ProgressButton from '../Response components/ProgressButton';
@@ -18,8 +19,6 @@ import {
   MenuItem,
 } from '@mui/material';
 
-const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
-
 const schema = yup.object().shape({
   company: yup.string().required(),
   firstname: yup.string().required(),
@@ -38,6 +37,7 @@ const OutsiderForm = () => {
 
   const userSign = useSelector((state) => state.user_signature);
   const errorInSaving = useSelector((state) => state.isErrorSaving);
+  const areas = IT_AREAS;
   const dispatch = useDispatch();
   const [isSign, setIsSigned] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
