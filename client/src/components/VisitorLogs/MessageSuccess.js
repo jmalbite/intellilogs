@@ -9,7 +9,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const MessageSuccess = ({ handleClick, open }) => {
   return (
     <Snackbar open={open} autoHideDuration={2000} onClose={handleClick}>
-      <Alert variant="filled" severity="error" onClose={handleClick}>
+      <Alert variant="filled" severity="success" onClose={handleClick}>
         <Typography fontWeight="bold" variant="subtitle1">
           Log Successfully Saved!!
         </Typography>

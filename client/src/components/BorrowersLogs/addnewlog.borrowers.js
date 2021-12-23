@@ -1,19 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import InternalForm from './InternalForm.js';
-import OutsiderForm from './OutsiderForm.js';
-import Question from './Question.js';
 import { useSelector } from 'react-redux';
 import { Grid, Typography } from '@mui/material';
 
-//Add new log component
-const AddNewLog = () => {
+const AddLogBorrowers = () => {
   const internalOrOutsider = useSelector((state) => state.internalOrOutsider);
-  const [isShow, setIShow] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
-    if (internalOrOutsider) setIShow(true);
-    else setIShow(false);
+    if (internalOrOutsider) setIsShow(true);
+    else setIsShow(false);
   }, [internalOrOutsider]);
 
   return (
@@ -37,4 +32,4 @@ const AddNewLog = () => {
   );
 };
 
-export default AddNewLog;
+export default AddLogBorrowers;

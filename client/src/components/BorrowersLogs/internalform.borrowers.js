@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
+
 import SignaturePad from '../layout/Signaturepad';
 import Feedback from './Feedback.js';
 import ProgressButton from './ProgressButton';
@@ -19,24 +20,19 @@ import {
 } from '@mui/material';
 
 const companies = ['INTELLICARE', 'AVEGA'];
-const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
 
 const schema = yup.object().shape({
-  employee_code: yup.string().required(),
-  company: yup.string().required(),
-  firstname: yup.string().required(),
-  lastname: yup.string().required(),
-  area_visited: yup.string().required(),
-  purpose: yup.string().required(),
-});
+    employee_code: yup.string().required(),
+    company: yup.string().required(),
+    firstname: yup.string().required(),
+    lastname: yup.string().required(),
+    item_borrowed: yup.string().required(),
+    handed_by: yup.string().required(),
+})
 
-const InternalForm = () => {
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+
+const InternalFormBorrowers = () => {
+    const { handleSubmit, control, reset, formState: {errors}, } = useForm({resolver.yupResolver(schema)})
 
   const userSign = useSelector((state) => state.user_signature);
   const errorInSaving = useSelector((state) => state.isErrorSaving);
@@ -59,36 +55,9 @@ const InternalForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorInSaving]);
 
-  function handleClear() {
-    reset({
-      company: '',
-      area_visited: '',
-      firstname: '',
-      lastname: '',
-      employee_code: '',
-      purpose: '',
-    });
-    dispatch(clear_signature());
-  }
-
-  const save = (data) => {
-    let visitorData = data;
-
-    if (!isSign) {
-      setIsLoading(true);
-      visitorData = {
-        ...visitorData,
-        visitor_id: uuidv4(),
-        signature: userSign,
-        time_visited: new Date(),
-      };
-
-      dispatch(storeNewLog(visitorData));
-    } else console.log('signature not yet filled');
-  };
 
   return (
-    <>
+      <>
       <form autoComplete="off" noValidate onSubmit={handleSubmit(save)}>
         <Grid container direction="column" spacing={1}>
           {/* ID NUMBER */}
@@ -260,8 +229,7 @@ const InternalForm = () => {
           </Grid>
         </Grid>
       </form>
-    </>
-  );
-};
-
-export default InternalForm;
+      </>
+  )
+    
+}

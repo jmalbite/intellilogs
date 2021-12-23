@@ -27,8 +27,12 @@ const Feedback = ({ status }) => {
     } else setOpen(false);
   }, [status, dispatch]);
 
-  if (open) return <MessageError open={open} handleClick={handleClick} />;
-  else return <MessageSuccess open={open} handleClick={handleClick} />;
+  //returning the corresponding feedback to user
+  if (!status) {
+    return <MessageSuccess open={open} handleClick={handleClick} />;
+  } else {
+    return <MessageError open={open} handleClick={handleClick} />;
+  }
 };
 
 export default Feedback;

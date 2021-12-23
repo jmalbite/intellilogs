@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { user_signature, clear_signature } from '../../actions/visitor_action';
 
-const SignaturePad = () => {
+const Signaturepad = () => {
   const [pad, setPad] = useState(false);
   const [imageURL, setImageURL] = useState('');
   const sigCanvas = useRef({});
@@ -87,4 +87,4 @@ const SignaturePad = () => {
   );
 };
 
-export default SignaturePad;
+export default Signaturepad;

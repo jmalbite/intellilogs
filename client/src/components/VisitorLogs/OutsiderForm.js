@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SignaturePad from './SignaturePad.js';
+import SignaturePad from '../layout/Signaturepad';
 import Feedback from './Feedback.js';
 import ProgressButton from './ProgressButton.js';
 import { v4 as uuidv4 } from 'uuid';
