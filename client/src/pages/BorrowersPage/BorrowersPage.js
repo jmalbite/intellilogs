@@ -10,6 +10,11 @@ import {
   Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  clearInOrOutState,
+  clear_signature,
+} from '../../actions/visitor_action';
 
 const useStyles = makeStyles({
   toolbar: {
@@ -19,14 +24,16 @@ const useStyles = makeStyles({
 
 const BorrowersPage = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [form, setForm] = useState(false);
-
+  const isBorrowersChoose = useSelector((state) => state.internalOrOutsider);
+  const isSign = useSelector((state) => state.user_signature);
   const openForm = () => setForm(true);
   const closeForm = () => {
     setForm(false);
 
-    // if (isSign) dispatch(clear_signature());
-    // if (isVisitorChoose) dispatch(clearInOrOutState());
+    if (isSign) dispatch(clear_signature());
+    if (isBorrowersChoose) dispatch(clearInOrOutState());
 
     // dispatch(getVisitorlogs());
   };

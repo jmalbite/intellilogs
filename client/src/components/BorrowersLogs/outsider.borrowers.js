@@ -67,6 +67,157 @@ const OutsiderFormBorrowers = () => {
     });
     dispatch(clear_signature());
   }
+
+  const save = (data) => {
+    console.log({ ...data, borrowers_signature: userSign });
+  };
+
+  return (
+    <>
+      <form noValidate onSubmit={handleSubmit(save)}>
+        <Grid container direction="column" spacing={1}>
+          {/* COMPANY */}
+          <Grid item xs sm>
+            <Controller
+              name="company"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  variant="outlined"
+                  type="text"
+                  label="Company"
+                  error={!!errors.company}
+                  required
+                  fullWidth
+                />
+              )}
+            />
+          </Grid>
+
+          {/* BORROWERS FIRSTNAME */}
+          <Grid item xs sm>
+            <Controller
+              name="firstname"
+              control={control}
+              defaultValue=""
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  onChange={onChange}
+                  value={value}
+                  required
+                  variant="outlined"
+                  type="text"
+                  label="Firstname"
+                  error={!!errors.firstname}
+                  fullWidth
+                />
+              )}
+            />
+          </Grid>
+
+          {/* BORROWERS LASTNAME */}
+          <Grid item xs sm>
+            <Controller
+              name="lastname"
+              control={control}
+              defaultValue=""
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  onChange={onChange}
+                  value={value}
+                  required
+                  variant="outlined"
+                  type="text"
+                  label="Lastname"
+                  error={!!errors.lastname}
+                  fullWidth
+                />
+              )}
+            />
+          </Grid>
+
+          {/* ITEM TO BE BORRWED */}
+          <Grid item xs sm>
+            <Controller
+              name="item_borrowed"
+              control={control}
+              defaultValue=""
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  onChange={onChange}
+                  value={value}
+                  required
+                  variant="outlined"
+                  type="text"
+                  label="Item"
+                  error={!!errors.item_borrowed}
+                  fullWidth
+                />
+              )}
+            />
+          </Grid>
+
+          {/* HANDED BY */}
+          <Grid item xs sm>
+            <FormControl fullWidth required error={!!errors.handed_by}>
+              <InputLabel id="selected-input">Handed By</InputLabel>
+              <Controller
+                control={control}
+                defaultValue=""
+                name="handed_by"
+                render={({ field: { onChange, value } }) => (
+                  <Select
+                    onChange={onChange}
+                    value={value}
+                    id="select-it_support"
+                    label="Handed By"
+                  >
+                    {IT_supports.map((it_support) => (
+                      <MenuItem key={it_support} value={it_support}>
+                        {it_support}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
+              />
+            </FormControl>
+          </Grid>
+
+          {/* SIGNATURE PAD */}
+          <Grid item xs sm>
+            <SignaturePad />
+          </Grid>
+
+          {/* BUTTONS */}
+          <Grid item xs sm>
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              type="submit"
+              disabled={isLoading}
+            >
+              Save Log
+            </Button>
+            {isLoading && <ProgressButton loading={isLoading} />}
+          </Grid>
+
+          <Grid item xs sm>
+            <Button
+              onClick={handleClear}
+              fullWidth
+              variant="contained"
+              color="primary"
+            >
+              Clear
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
+    </>
+  );
 };
 
 export default OutsiderFormBorrowers;

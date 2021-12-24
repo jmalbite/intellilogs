@@ -12,7 +12,7 @@ export const InternalOrOutsider = (answer) => {
 
 export const clearInOrOutState = () => {
   return {
-    type: 'CLEAR_VISITOR_STATUS',
+    type: 'CLEAR_QUESTIONAIRE_STATUS',
   };
 };
 

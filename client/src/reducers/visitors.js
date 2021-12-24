@@ -35,7 +35,7 @@ export const internalOrOutsider = (answer = '', action) => {
   switch (action.type) {
     case 'INTERNAL_OR_OUTSIDER':
       return (answer = action.payload);
-    case 'CLEAR_VISITOR_STATUS':
+    case 'CLEAR_QUESTIONAIRE_STATUS':
       return (answer = '');
     default:
       return answer;

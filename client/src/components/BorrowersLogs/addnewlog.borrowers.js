@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Grid, Typography } from '@mui/material';
 import Question from '../layout/Question';
 import InternalFormBorrowers from './internalform.borrowers';
+import OutsiderFormBorrowers from './outsider.borrowers';
 
 const AddLogBorrowers = () => {
   const internalOrOutsider = useSelector((state) => state.internalOrOutsider);
@@ -27,7 +28,7 @@ const AddLogBorrowers = () => {
 
         <Grid item xs sm>
           {internalOrOutsider === 'YES' && <InternalFormBorrowers />}
-          {/* {internalOrOutsider === 'NO' && <OutsiderForm />} */}
+          {internalOrOutsider === 'NO' && <OutsiderFormBorrowers />}
         </Grid>
       </Grid>
     </Grid>
