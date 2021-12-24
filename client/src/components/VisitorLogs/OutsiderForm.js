@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { clear_signature, storeNewLog } from '../../actions/visitor_action.js';
+import { clear_signature } from '../../actions/global_action';
+import { storeNewLog } from '../../actions/visitor_action.js';
 import {
   Grid,
   TextField,

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AddLogBorrowers from '../../components/BorrowersLogs/addnewlog.borrowers';
+import BorrowersData from '../../components/BorrowersLogs/borrowers.data';
 import {
   Grid,
   TextField,
@@ -14,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   clearInOrOutState,
   clear_signature,
-} from '../../actions/visitor_action';
+} from '../../actions/global_action';
 
 const useStyles = makeStyles({
   toolbar: {
@@ -78,6 +79,8 @@ const BorrowersPage = () => {
             </Grid>
           </Grid>
         </Grid>
+
+        {/* <BorrowersData /> */}
       </Container>
     </>
   );

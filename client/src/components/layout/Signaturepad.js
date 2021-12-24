@@ -11,7 +11,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import { user_signature, clear_signature } from '../../actions/visitor_action';
+import { user_signature, clear_signature } from '../../actions/global_action';
 
 const Signaturepad = () => {
   const [pad, setPad] = useState(false);

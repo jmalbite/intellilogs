@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { clear_signature, storeNewLog } from '../../actions/visitor_action.js';
+import { clear_signature } from '../../actions/global_action';
 import {
   Grid,
   TextField,
@@ -18,6 +18,7 @@ import {
   InputLabel,
   MenuItem,
 } from '@mui/material';
+import { storeBorrowersLog } from '../../actions/borrowers_action';
 
 const schema = yup.object().shape({
   company: yup.string().required(),
@@ -44,14 +45,16 @@ const OutsiderFormBorrowers = () => {
 
   useEffect(() => {
     //checking if signature pad was filled - checking in redux reducer
-    if (userSign === '') setIsSigned(true);
-    else setIsSigned(false);
+    if (userSign === '') setIsSigned(false);
+    else setIsSigned(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSign]);
 
   useEffect(() => {
     if (errorInSaving === false) {
       setIsLoading(false);
+
+      //call clear function when no error in saving log
       handleClear();
     } else setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,7 +72,24 @@ const OutsiderFormBorrowers = () => {
   }
 
   const save = (data) => {
-    console.log({ ...data, borrowers_signature: userSign });
+    let borrowersData = data;
+
+    if (isSign) {
+      setIsLoading(true);
+      borrowersData = {
+        ...borrowersData,
+        borrowers_id: uuidv4(),
+        employee_code: 'N/A',
+        date_time_borrowed: new Date(),
+        borrowers_signature: userSign,
+        item_status: 'BORROWED',
+      };
+
+      dispatch(storeBorrowersLog(borrowersData));
+      console.log(borrowersData);
+    } else {
+      console.log('signature not yet filled');
+    }
   };
 
   return (
@@ -213,6 +233,10 @@ const OutsiderFormBorrowers = () => {
             >
               Clear
             </Button>
+          </Grid>
+
+          <Grid item xs sm>
+            <Feedback status={errorInSaving} />
           </Grid>
         </Grid>
       </form>

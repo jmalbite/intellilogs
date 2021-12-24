@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { clearErrorState } from '../../actions/visitor_action';
+import { clearErrorState } from '../../actions/global_action';
 import MessageSuccess from './MessageSuccess';
 import MessageError from './MessageError';
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { InternalOrOutsider } from '../../actions/visitor_action';
+import { InternalOrOutsider } from '../../actions/global_action';
 import {
   Grid,
   FormControl,

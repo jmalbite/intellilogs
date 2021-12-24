@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { clear_signature, storeNewLog } from '../../actions/visitor_action.js';
+import { clear_signature } from '../../actions/global_action';
+import { storeBorrowersLog } from '../../actions/borrowers_action';
 import {
   Grid,
   TextField,
@@ -46,8 +47,8 @@ const InternalFormBorrowers = () => {
 
   useEffect(() => {
     //checking if signature pad was filled - checking in redux reducer
-    if (userSign === '') setIsSigned(true);
-    else setIsSigned(false);
+    if (userSign === '') setIsSigned(false);
+    else setIsSigned(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSign]);
 
@@ -55,7 +56,9 @@ const InternalFormBorrowers = () => {
   useEffect(() => {
     if (errorInSaving === false) {
       setIsLoading(false);
-      //handleClear();
+
+      //call clear function when no error in saving log
+      handleClear();
     } else setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorInSaving]);
@@ -73,7 +76,24 @@ const InternalFormBorrowers = () => {
   }
 
   const save = (data) => {
-    console.log({ ...data, borrowers_signature: userSign });
+    let borrowersData = data;
+
+    if (isSign) {
+      setIsLoading(true);
+
+      //adding some data to borrowers data
+      borrowersData = {
+        ...borrowersData,
+        borrowers_id: uuidv4(),
+        date_time_borrowed: new Date(),
+        borrowers_signature: userSign,
+        item_status: 'BORROWED',
+      };
+
+      dispatch(storeBorrowersLog(borrowersData));
+    } else {
+      console.log('signature not yet filled');
+    }
   };
 
   return (
@@ -243,6 +263,10 @@ const InternalFormBorrowers = () => {
             >
               Clear
             </Button>
+          </Grid>
+
+          <Grid item xs sm>
+            <Feedback status={errorInSaving} />
           </Grid>
         </Grid>
       </form>

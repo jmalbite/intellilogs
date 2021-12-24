@@ -12,11 +12,11 @@ import {
 import { makeStyles } from '@mui/styles';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
 import AddNewLog from '../../components/VisitorLogs/AddNewLog';
+import { getVisitorlogs } from '../../actions/visitor_action';
 import {
   clear_signature,
-  getVisitorlogs,
   clearInOrOutState,
-} from '../../actions/visitor_action';
+} from '../../actions/global_action';
 
 const useStyles = makeStyles({
   toolbar: {

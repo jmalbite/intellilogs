@@ -1,0 +1,24 @@
+import * as api from '../api';
+
+//action creators for borrowers log
+
+//getting logs from database
+export const getVisitorlogs = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchBorrowersLogs();
+    dispatch({ type: 'FETCH_BORROWERS_LOGS', payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//adding logs into borrowers_logs table
+export const storeBorrowersLog = (newLog) => async (dispatch) => {
+  try {
+    const { data } = await api.addBorrowersLog(newLog);
+    dispatch({ type: 'ADD_NEW_LOG', payload: data });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: 'ERROR_SAVING' });
+  }
+};
