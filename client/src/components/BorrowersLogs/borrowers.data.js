@@ -104,25 +104,29 @@ const BorrowersData = ({ borrowers }) => {
               getComparator(orderDirection, valueToOrderBy)
             )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((visitor, index) => (
+              .map((borrower, index) => (
                 <StyledTableRow key={index}>
-                  <TableCell>{visitor.employee_code}</TableCell>
+                  <TableCell>{borrower.employee_code}</TableCell>
                   <TableCell>
-                    {visitor.firstname.toUpperCase()}{' '}
-                    {visitor.lastname.toUpperCase()}{' '}
+                    {borrower.firstname.toUpperCase()}{' '}
+                    {borrower.lastname.toUpperCase()}{' '}
                   </TableCell>
-                  <TableCell>{visitor.company.toUpperCase()}</TableCell>
-                  <TableCell>{visitor.area_visited}</TableCell>
-                  <TableCell>{visitor.purpose.toUpperCase()}</TableCell>
+                  <TableCell>{borrower.company.toUpperCase()}</TableCell>
+                  <TableCell>{borrower.item_borrowed.toUpperCase()}</TableCell>
                   <TableCell>
-                    {moment(visitor.time_visited).format('lll')}
+                    {moment(borrower.date_time_borrowed).format('lll')}
                   </TableCell>
                   <TableCell>
                     <img
-                      src={visitor.visitor_signature}
+                      src={borrower.borrowers_signature}
                       style={{ width: '40px', height: '25px' }}
                       alt="signature"
                     />
+                  </TableCell>
+                  <TableCell>
+                    {borrower.date_time_returned
+                      ? moment(borrower.date_time_returned).format('lll')
+                      : null}
                   </TableCell>
                 </StyledTableRow>
               ))}

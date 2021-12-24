@@ -61,11 +61,11 @@ const BorrowersTableHead = (props) => {
 
         <TableCell className={classes.head}>
           <TableSortLabel
-            active={valueToOrderBy === 'area_visited'}
+            active={valueToOrderBy === 'item_borrowed'}
             direction={
-              valueToOrderBy === 'area_visited' ? orderDirection : 'asc'
+              valueToOrderBy === 'item_borrowed' ? orderDirection : 'asc'
             }
-            onClick={createSortHandler('area_visited')}
+            onClick={createSortHandler('item_borrowed')}
           >
             <Typography variant="subtitle2" fontWeight="700" color="white">
               Item Borrowed

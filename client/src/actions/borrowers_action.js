@@ -3,7 +3,7 @@ import * as api from '../api';
 //action creators for borrowers log
 
 //getting logs from database
-export const getVisitorlogs = () => async (dispatch) => {
+export const getBorrowersLogs = () => async (dispatch) => {
   try {
     const { data } = await api.fetchBorrowersLogs();
     dispatch({ type: 'FETCH_BORROWERS_LOGS', payload: data });
