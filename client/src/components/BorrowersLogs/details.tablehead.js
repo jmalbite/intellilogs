@@ -41,6 +41,12 @@ const DetailsTableHeads = () => {
             Borrowers Signature (after returned)
           </Typography>
         </TableCell>
+
+        <TableCell className={classes.head}>
+          {/* <Typography fontWeight="700" color="white">
+            Borrowers Signature (after returned)
+          </Typography> */}
+        </TableCell>
       </TableRow>
     </TableHead>
   );

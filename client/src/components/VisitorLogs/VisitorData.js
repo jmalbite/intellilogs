@@ -120,7 +120,7 @@ const VisitorData = ({ visitors }) => {
                   <TableCell>
                     <img
                       src={visitor.visitor_signature}
-                      style={{ width: '40px', height: '25px' }}
+                      style={{ width: '40px', height: '20px' }}
                       alt="signature"
                     />
                   </TableCell>

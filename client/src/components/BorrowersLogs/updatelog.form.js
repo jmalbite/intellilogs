@@ -13,6 +13,7 @@ const UpdateLog = ({ openForm, closeForm }) => {
         </div>
       </DialogTitle>
       <DialogContent dividers>
+        {/* Display additonal data */}
         <DetailsData />
       </DialogContent>
     </Dialog>

@@ -2,8 +2,6 @@ export const borrowersLogsData = (borrowers = [], action) => {
   switch (action.type) {
     case 'FETCH_BORROWERS_LOGS':
       return (borrowers = action.payload);
-    case 'ADD_NEW_LOG':
-      return (borrowers = [...borrowers, action.payload]);
     default:
       return borrowers;
   }

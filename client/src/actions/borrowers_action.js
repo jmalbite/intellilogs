@@ -23,6 +23,16 @@ export const storeBorrowersLog = (newLog) => async (dispatch) => {
   }
 };
 
+//updating log when item is returned
+export const updateLog = (borrowers_id) => async (dispatch) => {
+  try {
+    const { data } = await api.updateBorrowersLog(borrowers_id);
+    dispatch({ type: 'LOG_UPDATED', payload: data });
+  } catch (error) {
+    dispatch({ type: 'ERROR_SAVING' });
+  }
+};
+
 export const getItemDetails = (itemDetails) => {
   return {
     type: 'GET_LOG_DETAILS',

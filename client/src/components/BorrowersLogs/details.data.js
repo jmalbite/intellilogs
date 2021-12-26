@@ -26,13 +26,23 @@ const DetailsData = () => {
                 alt="signature"
               />
             </TableCell>
-            <TableCell>{item.receivedBy}</TableCell>
             <TableCell>
-              <img
-                src={item.borrowerSignatureReturned}
-                style={{ width: '50px', height: '40px' }}
-                alt="signature"
-              />
+              {!item.receivedBy && '--- --- ---'}
+              {item.receivedBy && item.receivedBy}
+            </TableCell>
+            <TableCell>
+              {!item.borrowerSignatureReturned && '--- --- ---'}
+              {item.borrowerSignatureReturned && (
+                <img
+                  src={item.borrowerSignature}
+                  style={{ width: '50px', height: '40px' }}
+                  alt="signature"
+                />
+              )}
+            </TableCell>
+            <TableCell>
+              {item.status === 'BORROWED' && 'Edit'}
+              {item.status === 'RETURNED' && 'done'}
             </TableCell>
           </TableRow>
         </TableBody>

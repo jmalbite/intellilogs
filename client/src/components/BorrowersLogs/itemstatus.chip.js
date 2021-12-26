@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Chip, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import UpdateLog from './updatelog.form';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
@@ -20,11 +20,26 @@ const ItemStatus = (props) => {
   } = props;
 
   const useStyles = makeStyles({
-    status: {
+    statusBORROWED: {
       fontWeight: 'bold',
       fontSize: '0.75rem',
       color: 'white',
       backgroundColor: theme.palette.primary.main,
+      borderRadius: 8,
+      padding: '3px 10px',
+      display: 'inline-block',
+
+      '&:hover, &:focus': {
+        cursor: 'pointer',
+        backgroundColor: theme.palette.info.light,
+      },
+    },
+
+    statusRETURNED: {
+      fontWeight: 'bold',
+      fontSize: '0.75rem',
+      color: 'white',
+      backgroundColor: theme.palette.secondary.main,
       borderRadius: 8,
       padding: '3px 10px',
       display: 'inline-block',
@@ -46,6 +61,7 @@ const ItemStatus = (props) => {
     setItemDetails({
       ...itemDetails,
       borrowerID,
+      status,
       handedBy,
       borrowerSignature,
       receivedBy,
@@ -66,7 +82,11 @@ const ItemStatus = (props) => {
   if (status === 'BORROWED') {
     return (
       <>
-        <Typography variant="h5" className={classes.status} onClick={openForm}>
+        <Typography
+          variant="h5"
+          className={classes.statusBORROWED}
+          onClick={openForm}
+        >
           {status}
         </Typography>
 
@@ -74,7 +94,19 @@ const ItemStatus = (props) => {
       </>
     );
   } else {
-    return <Chip label={status} color="secondary" variant="filled" />;
+    return (
+      <>
+        <Typography
+          variant="h5"
+          className={classes.statusRETURNED}
+          onClick={openForm}
+        >
+          {status}
+        </Typography>
+
+        <UpdateLog openForm={open} closeForm={closeForm} />
+      </>
+    );
   }
 };
 

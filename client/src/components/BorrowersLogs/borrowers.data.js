@@ -66,7 +66,8 @@ const sortedRowInformation = (rowArray, comparator) => {
   return stabilizedRowArray.map((element) => element[0]);
 };
 
-const BorrowersData = ({ borrowers }) => {
+const BorrowersData = (props) => {
+  const { borrowers } = props;
   const classes = useStyles();
   const [orderDirection, setOrderDirection] = useState('desc');
   const [valueToOrderBy, setValueToOrderBy] = useState('date_time_borrowed');
@@ -105,15 +106,16 @@ const BorrowersData = ({ borrowers }) => {
               getComparator(orderDirection, valueToOrderBy)
             )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((borrower, index) => (
+              .map((borrower) => (
                 <StyledTableRow key={borrower.borrowers_id}>
-                  <TableCell>{borrower.employee_code}</TableCell>
+                  <TableCell>{borrower.employee_code.toUpperCase()}</TableCell>
                   <TableCell>
                     {borrower.firstname.toUpperCase()}{' '}
                     {borrower.lastname.toUpperCase()}{' '}
                   </TableCell>
                   <TableCell>{borrower.company.toUpperCase()}</TableCell>
                   <TableCell>{borrower.item_borrowed.toUpperCase()}</TableCell>
+
                   <TableCell>
                     {moment(borrower.date_time_borrowed).format('lll')}
                   </TableCell>
