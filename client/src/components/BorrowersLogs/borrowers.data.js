@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import { styled } from '@mui/material/styles';
 import BorrowersTableHead from './borrowers.tablehead';
+import ItemStatus from './itemstatus.chip';
 import theme from '../../theme/Theme';
 import {
   Table,
@@ -68,7 +69,7 @@ const sortedRowInformation = (rowArray, comparator) => {
 const BorrowersData = ({ borrowers }) => {
   const classes = useStyles();
   const [orderDirection, setOrderDirection] = useState('desc');
-  const [valueToOrderBy, setValueToOrderBy] = useState('time_visited');
+  const [valueToOrderBy, setValueToOrderBy] = useState('date_time_borrowed');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -105,7 +106,7 @@ const BorrowersData = ({ borrowers }) => {
             )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((borrower, index) => (
-                <StyledTableRow key={index}>
+                <StyledTableRow key={borrower.borrowers_id}>
                   <TableCell>{borrower.employee_code}</TableCell>
                   <TableCell>
                     {borrower.firstname.toUpperCase()}{' '}
@@ -116,17 +117,22 @@ const BorrowersData = ({ borrowers }) => {
                   <TableCell>
                     {moment(borrower.date_time_borrowed).format('lll')}
                   </TableCell>
+
                   <TableCell>
-                    <img
-                      src={borrower.borrowers_signature}
-                      style={{ width: '40px', height: '25px' }}
-                      alt="signature"
-                    />
+                    {borrower.date_time_returned &&
+                      moment(borrower.date_time_returned).format('lll')}
                   </TableCell>
                   <TableCell>
-                    {borrower.date_time_returned
-                      ? moment(borrower.date_time_returned).format('lll')
-                      : null}
+                    <ItemStatus
+                      borrowerID={borrower.borrowers_id}
+                      status={borrower.item_status}
+                      handedBy={borrower.handed_by}
+                      borrowerSignature={borrower.borrowers_signature}
+                      receivedBy={borrower.received_by}
+                      borrowerSignatureReturned={
+                        borrower.borrowers_signature_returned
+                      }
+                    />
                   </TableCell>
                 </StyledTableRow>
               ))}

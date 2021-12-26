@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { visitorsLogsData } from './visitors.js';
-import { borrowersLogsData } from './borrowers.js';
+import { borrowersLogsData, itemLogDetails } from './borrowers.js';
 
 import {
   user_signature,
@@ -15,4 +15,5 @@ export default combineReducers({
   isErrorSaving,
   internalOrOutsider,
   borrowersLogsData,
+  itemLogDetails,
 });

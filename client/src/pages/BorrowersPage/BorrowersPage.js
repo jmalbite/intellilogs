@@ -8,7 +8,6 @@ import {
   Button,
   Dialog,
   DialogContent,
-  Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +19,7 @@ import {
 
 const useStyles = makeStyles({
   toolbar: {
-    marginTop: '70px',
+    marginTop: '90px',
   },
 });
 
@@ -48,9 +47,9 @@ const BorrowersPage = () => {
   return (
     <>
       <Container className={classes.toolbar} maxWidth="xl">
-        <Typography variant="h5" color="secondary" fontWeight="bold">
+        {/* <Typography variant="h5" color="secondary" fontWeight="bold">
           BORROWERS LOGS
-        </Typography>
+        </Typography> */}
 
         <Grid container alignItems="center" justifyContent="space-evenly">
           <Grid item md={5}>

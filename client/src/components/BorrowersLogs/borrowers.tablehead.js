@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   head: {
     position: 'sticky',
     top: 0,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.info.main,
     fontWeight: 'bold',
   },
 });
@@ -68,22 +68,30 @@ const BorrowersTableHead = (props) => {
             onClick={createSortHandler('item_borrowed')}
           >
             <Typography variant="subtitle2" fontWeight="700" color="white">
-              Item Borrowed
+              Item
             </Typography>
           </TableSortLabel>
         </TableCell>
 
         <TableCell className={classes.head}>
-          <Typography variant="subtitle2" fontWeight="700" color="white">
-            Date & time borrowed
-          </Typography>
+          <TableSortLabel
+            active={valueToOrderBy === 'date_time_borrowed'}
+            direction={
+              valueToOrderBy === 'date_time_borrowed' ? orderDirection : 'asc'
+            }
+            onClick={createSortHandler('date_time_borrowed')}
+          >
+            <Typography variant="subtitle2" fontWeight="700" color="white">
+              Date & time borrowed
+            </Typography>
+          </TableSortLabel>
         </TableCell>
 
-        <TableCell className={classes.head}>
+        {/* <TableCell className={classes.head}>
           <Typography variant="subtitle2" fontWeight="700" color="white">
             Signature during borrowed
           </Typography>
-        </TableCell>
+        </TableCell> */}
 
         <TableCell className={classes.head}>
           <TableSortLabel
@@ -97,6 +105,12 @@ const BorrowersTableHead = (props) => {
               Date & time returned
             </Typography>
           </TableSortLabel>
+        </TableCell>
+
+        <TableCell className={classes.head}>
+          <Typography variant="subtitle2" fontWeight="700" color="white">
+            Status
+          </Typography>
         </TableCell>
       </TableRow>
     </TableHead>

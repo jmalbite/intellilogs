@@ -22,3 +22,16 @@ export const storeBorrowersLog = (newLog) => async (dispatch) => {
     dispatch({ type: 'ERROR_SAVING' });
   }
 };
+
+export const getItemDetails = (itemDetails) => {
+  return {
+    type: 'GET_LOG_DETAILS',
+    payload: itemDetails,
+  };
+};
+
+export const clearItemDetails = () => {
+  return {
+    type: 'CLEAR_ITEM_DETAILS',
+  };
+};
