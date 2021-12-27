@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import ReturnItemForm from './returnitem.form';
+import EditIcon from '@mui/icons-material/Edit';
+import CheckCircleOutlineTwoToneIcon from '@mui/icons-material/CheckCircleOutlineTwoTone';
 import DetailsTableHeads from './details.tablehead';
 import {
   Table,
@@ -7,10 +10,20 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  Chip,
 } from '@mui/material';
 
 const DetailsData = () => {
   const item = useSelector((state) => state.itemLogDetails);
+  const [open, setOpen] = useState(false);
+
+  const openForm = () => {
+    setOpen(true);
+  };
+
+  const closeForm = () => {
+    setOpen(false);
+  };
 
   return (
     <TableContainer>
@@ -34,15 +47,37 @@ const DetailsData = () => {
               {!item.borrowerSignatureReturned && '--- --- ---'}
               {item.borrowerSignatureReturned && (
                 <img
-                  src={item.borrowerSignature}
+                  src={item.borrowerSignatureReturned}
                   style={{ width: '50px', height: '40px' }}
                   alt="signature"
                 />
               )}
             </TableCell>
             <TableCell>
-              {item.status === 'BORROWED' && 'Edit'}
-              {item.status === 'RETURNED' && 'done'}
+              {/* CHECK STATUS IF BORROWED RENDER THE FOLLOWING JSX */}
+              {item.status === 'BORROWED' && (
+                <>
+                  <Chip
+                    icon={<EditIcon fontSize="small" />}
+                    label="Return Item"
+                    color="info"
+                    onClick={openForm}
+                  />
+                  <ReturnItemForm
+                    openForm={open}
+                    closeForm={closeForm}
+                    borrowerID={item.borrowerID}
+                  />
+                </>
+              )}
+
+              {/* CHECK STATUS IF RETURNED RENDER THE FOLLOWING JSX */}
+              {item.status === 'RETURNED' && (
+                <CheckCircleOutlineTwoToneIcon
+                  fontSize="medium"
+                  color="secondary"
+                />
+              )}
             </TableCell>
           </TableRow>
         </TableBody>

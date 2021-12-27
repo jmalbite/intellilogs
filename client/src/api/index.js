@@ -11,5 +11,5 @@ export const addVisitorLog = (newLog) => axios.post(visitorURL, newLog);
 //borrowers logs
 export const fetchBorrowersLogs = () => axios.get(borrowersURL);
 export const addBorrowersLog = (newLog) => axios.post(borrowersURL, newLog);
-export const updateBorrowersLog = (borrowers_id) =>
-  axios.put(borrowersURL, borrowers_id);
+export const updateBorrowersLog = (borrowers_id, updateData) =>
+  axios.put(`${borrowersURL}/${borrowers_id}`, updateData);

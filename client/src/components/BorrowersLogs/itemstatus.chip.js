@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
-import UpdateLog from './updatelog.form';
+import ItemDetailsForm from './itemdetails.form';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import {
@@ -90,7 +90,7 @@ const ItemStatus = (props) => {
           {status}
         </Typography>
 
-        <UpdateLog openForm={open} closeForm={closeForm} />
+        <ItemDetailsForm openForm={open} closeForm={closeForm} />
       </>
     );
   } else {
@@ -104,7 +104,7 @@ const ItemStatus = (props) => {
           {status}
         </Typography>
 
-        <UpdateLog openForm={open} closeForm={closeForm} />
+        <ItemDetailsForm openForm={open} closeForm={closeForm} />
       </>
     );
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import DetailsData from './details.data';
 import { Dialog, DialogTitle, DialogContent, Typography } from '@mui/material';
 
-const UpdateLog = ({ openForm, closeForm }) => {
+const ItemDetailsForm = ({ openForm, closeForm }) => {
   return (
     <Dialog maxWidth="lg" fullWidth open={openForm} onClose={closeForm}>
       <DialogTitle>
@@ -20,4 +20,4 @@ const UpdateLog = ({ openForm, closeForm }) => {
   );
 };
 
-export default UpdateLog;
+export default ItemDetailsForm;

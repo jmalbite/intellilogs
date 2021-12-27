@@ -26,7 +26,7 @@ const DetailsTableHeads = () => {
 
         <TableCell className={classes.head}>
           <Typography fontWeight="700" color="white">
-            Borrowers Signature
+            Borrower's Signature
           </Typography>
         </TableCell>
 
@@ -38,7 +38,7 @@ const DetailsTableHeads = () => {
 
         <TableCell className={classes.head}>
           <Typography fontWeight="700" color="white">
-            Borrowers Signature (after returned)
+            Borrower's Signature (after returned)
           </Typography>
         </TableCell>
 
