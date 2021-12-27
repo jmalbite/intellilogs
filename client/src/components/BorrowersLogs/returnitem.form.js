@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IT_STAFFS } from '../Constant';
 import Signaturepad from '../layout/Signaturepad';
 import ProgressButton from '../Response components/ProgressButton';
-import Feedback from '../Response components/Feedback';
+
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -25,7 +25,6 @@ import { updateLog } from '../../actions/borrowers_action';
 
 const schema = yup.object().shape({
   received_by: yup.string().required(),
-  item_status: yup.string().required(),
   item_remarks: yup.string().notRequired(),
 });
 
@@ -45,9 +44,7 @@ const ReturnItemForm = (props) => {
   const dispatch = useDispatch();
   const STAFFS = IT_STAFFS;
   const userSign = useSelector((state) => state.user_signature);
-  const errorInSaving = useSelector((state) => state.isErrorSaving);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSigned, setIsSigned] = useState(false);
 
   function handleClear() {
     reset({
@@ -59,25 +56,11 @@ const ReturnItemForm = (props) => {
   }
 
   useEffect(() => {
-    if (userSign) setIsSigned(true);
-    else setIsSigned(false);
-  }, [userSign]);
-
-  useEffect(() => {
     if (!openForm) {
-      dispatch(clear_signature());
-      handleClear();
+      if (userSign) handleClear();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openForm]);
-
-  useEffect(() => {
-    if (errorInSaving === false) {
-      setIsLoading(false);
-      handleClear();
-    } else setIsLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [errorInSaving]);
 
   const update = (data) => {
     let updatedData = data;
@@ -86,9 +69,9 @@ const ReturnItemForm = (props) => {
       updatedData = {
         ...updatedData,
         borrowers_signature_returned: userSign,
+        item_status: 'RETURNED',
       };
       dispatch(updateLog(borrowerID, updatedData));
-      console.log(updatedData);
     }
   };
 
@@ -124,30 +107,6 @@ const ReturnItemForm = (props) => {
                           {staff}
                         </MenuItem>
                       ))}
-                    </Select>
-                  )}
-                />
-              </FormControl>
-            </Grid>
-
-            {/* SELECT STATUS */}
-            <Grid item xs sm>
-              <FormControl fullWidth required error={!!errors.item_status}>
-                <InputLabel id="selected-input">Item Status</InputLabel>
-                <Controller
-                  control={control}
-                  defaultValue=""
-                  name="item_status"
-                  render={({ field: { onChange, value } }) => (
-                    <Select
-                      onChange={onChange}
-                      value={value}
-                      id="item_status"
-                      label="Item Status"
-                    >
-                      <MenuItem key="123" value="RETURNED">
-                        RETURNED
-                      </MenuItem>
                     </Select>
                   )}
                 />
@@ -202,8 +161,6 @@ const ReturnItemForm = (props) => {
                 Clear
               </Button>
             </Grid>
-
-            <Feedback status={errorInSaving}></Feedback>
           </Grid>
         </form>
       </DialogContent>

@@ -6,6 +6,7 @@ import { makeStyles } from '@mui/styles';
 import {
   getItemDetails,
   clearItemDetails,
+  getBorrowersLogs,
 } from '../../actions/borrowers_action';
 import theme from '../../theme/Theme';
 
@@ -67,8 +68,10 @@ const ItemStatus = (props) => {
       receivedBy,
       borrowerSignatureReturned,
     });
+    console.log('render');
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [status, receivedBy, borrowerSignatureReturned]);
 
   const openForm = () => {
     dispatch(getItemDetails(itemDetails));
@@ -77,6 +80,7 @@ const ItemStatus = (props) => {
   const closeForm = () => {
     setOpen(false);
     dispatch(clearItemDetails());
+    dispatch(getBorrowersLogs());
   };
 
   if (status === 'BORROWED') {

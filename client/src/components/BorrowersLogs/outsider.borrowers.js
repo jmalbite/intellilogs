@@ -86,7 +86,6 @@ const OutsiderFormBorrowers = () => {
       };
 
       dispatch(storeBorrowersLog(borrowersData));
-      console.log(borrowersData);
     } else {
       console.log('signature not yet filled');
     }

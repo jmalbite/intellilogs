@@ -26,6 +26,8 @@ export const isErrorSaving = (error = null, action) => {
       return (error = true);
     case 'ADD_NEW_LOG':
       return (error = false);
+    case 'LOG_UPDATED':
+      return (error = false);
     case 'CLEAR_ERROR':
       return (error = null);
     default:

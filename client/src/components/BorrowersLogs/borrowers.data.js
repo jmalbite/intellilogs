@@ -106,7 +106,7 @@ const BorrowersData = (props) => {
               getComparator(orderDirection, valueToOrderBy)
             )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((borrower) => (
+              .map((borrower, index) => (
                 <StyledTableRow key={borrower.borrowers_id}>
                   <TableCell>{borrower.employee_code.toUpperCase()}</TableCell>
                   <TableCell>
