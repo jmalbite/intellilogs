@@ -53,6 +53,12 @@ const DetailsData = () => {
                 />
               )}
             </TableCell>
+
+            <TableCell>
+              {!item.itemRemarks && '--- --- ---'}
+              {item.itemRemarks && item.itemRemarks}
+            </TableCell>
+
             <TableCell>
               {/* CHECK STATUS IF BORROWED RENDER THE FOLLOWING JSX */}
               {item.status === 'BORROWED' && (

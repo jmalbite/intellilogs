@@ -30,12 +30,6 @@ const BorrowersTableHead = (props) => {
     <TableHead>
       <TableRow>
         <TableCell className={classes.head}>
-          <Typography variant="subtitle2" fontWeight="700" color="white">
-            ID number
-          </Typography>
-        </TableCell>
-
-        <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'firstname'}
             direction={valueToOrderBy === 'firstname' ? orderDirection : 'asc'}
@@ -87,19 +81,13 @@ const BorrowersTableHead = (props) => {
           </TableSortLabel>
         </TableCell>
 
-        {/* <TableCell className={classes.head}>
-          <Typography variant="subtitle2" fontWeight="700" color="white">
-            Signature during borrowed
-          </Typography>
-        </TableCell> */}
-
         <TableCell className={classes.head}>
           <TableSortLabel
-            active={valueToOrderBy === 'time_visited'}
+            active={valueToOrderBy === 'date_time_returned'}
             direction={
-              valueToOrderBy === 'time_visited' ? orderDirection : 'asc'
+              valueToOrderBy === 'date_time_returned' ? orderDirection : 'asc'
             }
-            onClick={createSortHandler('time_visited')}
+            onClick={createSortHandler('date_time_returned')}
           >
             <Typography variant="subtitle2" fontWeight="700" color="white">
               Date & time returned
@@ -109,8 +97,22 @@ const BorrowersTableHead = (props) => {
 
         <TableCell className={classes.head}>
           <Typography variant="subtitle2" fontWeight="700" color="white">
-            Status
+            More Info
           </Typography>
+        </TableCell>
+
+        <TableCell className={classes.head}>
+          <TableSortLabel
+            active={valueToOrderBy === 'item_status'}
+            direction={
+              valueToOrderBy === 'item_status' ? orderDirection : 'asc'
+            }
+            onClick={createSortHandler('item_status')}
+          >
+            <Typography variant="subtitle2" fontWeight="700" color="white">
+              Status
+            </Typography>
+          </TableSortLabel>
         </TableCell>
       </TableRow>
     </TableHead>

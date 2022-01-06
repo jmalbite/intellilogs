@@ -43,6 +43,12 @@ const DetailsTableHeads = () => {
         </TableCell>
 
         <TableCell className={classes.head}>
+          <Typography fontWeight="700" color="white">
+            Remarks
+          </Typography>
+        </TableCell>
+
+        <TableCell className={classes.head}>
           {/* <Typography fontWeight="700" color="white">
             Borrowers Signature (after returned)
           </Typography> */}

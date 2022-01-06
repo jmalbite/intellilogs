@@ -3,6 +3,8 @@ import moment from 'moment';
 import { styled } from '@mui/material/styles';
 import BorrowersTableHead from './borrowers.tablehead';
 import ItemStatus from './itemstatus.chip';
+import Sample from './sample';
+import ItemInfo from './item.info';
 import theme from '../../theme/Theme';
 import {
   Table,
@@ -35,6 +37,21 @@ const useStyles = makeStyles({
 
   table: {
     minWidth: 650,
+  },
+
+  moreInfo: {
+    fontWeight: 'bold',
+    fontSize: '0.75rem',
+    color: 'white',
+    backgroundColor: theme.palette.secondary.main,
+    borderRadius: 8,
+    padding: '3px 10px',
+    display: 'inline-block',
+
+    '&:hover, &:focus': {
+      cursor: 'pointer',
+      backgroundColor: theme.palette.info.light,
+    },
   },
 
   stickyHeader: {
@@ -108,7 +125,6 @@ const BorrowersData = (props) => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((borrower, index) => (
                 <StyledTableRow key={borrower.borrowers_id}>
-                  <TableCell>{borrower.employee_code.toUpperCase()}</TableCell>
                   <TableCell>
                     {borrower.firstname.toUpperCase()}{' '}
                     {borrower.lastname.toUpperCase()}{' '}
@@ -124,17 +140,13 @@ const BorrowersData = (props) => {
                     {borrower.date_time_returned &&
                       moment(borrower.date_time_returned).format('lll')}
                   </TableCell>
+
                   <TableCell>
-                    <ItemStatus
-                      borrowerID={borrower.borrowers_id}
-                      status={borrower.item_status}
-                      handedBy={borrower.handed_by}
-                      borrowerSignature={borrower.borrowers_signature}
-                      receivedBy={borrower.received_by}
-                      borrowerSignatureReturned={
-                        borrower.borrowers_signature_returned
-                      }
-                    />
+                    <ItemInfo />
+                  </TableCell>
+
+                  <TableCell>
+                    <ItemStatus logInfo={borrower} />
                   </TableCell>
                 </StyledTableRow>
               ))}

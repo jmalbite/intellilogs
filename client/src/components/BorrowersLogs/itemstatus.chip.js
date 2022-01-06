@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import ItemDetailsForm from './itemdetails.form';
+import ReturnItemForm from './returnitem.form';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import {
@@ -11,14 +12,7 @@ import {
 import theme from '../../theme/Theme';
 
 const ItemStatus = (props) => {
-  const {
-    status,
-    borrowerID,
-    handedBy,
-    borrowerSignature,
-    receivedBy,
-    borrowerSignatureReturned,
-  } = props;
+  const { logInfo } = props;
 
   const useStyles = makeStyles({
     statusBORROWED: {
@@ -44,11 +38,6 @@ const ItemStatus = (props) => {
       borderRadius: 8,
       padding: '3px 10px',
       display: 'inline-block',
-
-      '&:hover, &:focus': {
-        cursor: 'pointer',
-        backgroundColor: theme.palette.info.light,
-      },
     },
   });
 
@@ -61,17 +50,17 @@ const ItemStatus = (props) => {
   useEffect(() => {
     setItemDetails({
       ...itemDetails,
-      borrowerID,
-      status,
-      handedBy,
-      borrowerSignature,
-      receivedBy,
-      borrowerSignatureReturned,
+      borrowerID: logInfo.borrowers_id,
+      status: logInfo.item_status,
+      handedBy: logInfo.handed_by,
+      borrowerSignature: logInfo.borrowers_signature,
+      receivedBy: logInfo.received_by,
+      borrowerSignatureReturned: logInfo.borrowers_signature_returned,
+      itemRemarks: logInfo.item_remarks,
     });
-    console.log('render');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, receivedBy, borrowerSignatureReturned]);
+  }, [logInfo.item_status]);
 
   const openForm = () => {
     dispatch(getItemDetails(itemDetails));
@@ -83,7 +72,7 @@ const ItemStatus = (props) => {
     dispatch(getBorrowersLogs());
   };
 
-  if (status === 'BORROWED') {
+  if (logInfo.item_status === 'BORROWED') {
     return (
       <>
         <Typography
@@ -91,24 +80,18 @@ const ItemStatus = (props) => {
           className={classes.statusBORROWED}
           onClick={openForm}
         >
-          {status}
+          {logInfo.item_status}
         </Typography>
 
-        <ItemDetailsForm openForm={open} closeForm={closeForm} />
+        <ReturnItemForm openForm={open} closeForm={closeForm} />
       </>
     );
   } else {
     return (
       <>
-        <Typography
-          variant="h5"
-          className={classes.statusRETURNED}
-          onClick={openForm}
-        >
-          {status}
+        <Typography variant="h5" className={classes.statusRETURNED}>
+          {logInfo.item_status}
         </Typography>
-
-        <ItemDetailsForm openForm={open} closeForm={closeForm} />
       </>
     );
   }

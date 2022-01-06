@@ -17,6 +17,7 @@ export const itemLogDetails = (details = [], action) => {
         receivedBy: action.payload.received_by,
         borrowerSignatureReturned: action.payload.borrowers_signature_returned,
         status: action.payload.item_status,
+        itemRemarks: action.payload.item_remarks,
       });
     case 'CLEAR_ITEM_DETAILS':
       return (details = []);
