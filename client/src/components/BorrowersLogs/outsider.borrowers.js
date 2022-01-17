@@ -170,9 +170,10 @@ const OutsiderFormBorrowers = () => {
                   required
                   variant="outlined"
                   type="text"
-                  label="Item"
+                  label="Asset"
                   error={!!errors.item_borrowed}
                   fullWidth
+                  placeholder="Assset to be borrowed"
                 />
               )}
             />
@@ -214,7 +215,7 @@ const OutsiderFormBorrowers = () => {
             <Button
               fullWidth
               variant="contained"
-              color="secondary"
+              color="info"
               type="submit"
               disabled={isLoading}
             >

@@ -4,7 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import VisitorPage from './pages/VisitorPage/VisitorPage';
-import VisitorAppbar from './components/layout/VisitorAppbar';
+import NavBar from './components/layout/NavBar';
 import BorrowersPage from './pages/BorrowersPage/BorrowersPage';
 
 import Theme from './theme/Theme';
@@ -16,7 +16,7 @@ const App = () => {
       <ThemeProvider theme={Theme}>
         <Router>
           {/* Nav Links Here */}
-          <VisitorAppbar />
+          <NavBar />
           <Routes>
             <Route path="/" element={<VisitorPage />} />
             <Route path="/borrowerslogs" element={<BorrowersPage />} />

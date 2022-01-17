@@ -201,9 +201,10 @@ const InternalFormBorrowers = () => {
                   required
                   variant="outlined"
                   type="text"
-                  label="Item"
+                  label="Asset"
                   error={!!errors.item_borrowed}
                   fullWidth
+                  placeholder="Asset to be borrowed"
                 />
               )}
             />
@@ -245,7 +246,7 @@ const InternalFormBorrowers = () => {
             <Button
               fullWidth
               variant="contained"
-              color="secondary"
+              color="info"
               type="submit"
               disabled={isLoading}
             >

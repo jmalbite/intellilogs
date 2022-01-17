@@ -19,7 +19,7 @@ function HideOnScroll(props) {
   );
 }
 
-const VisitorAppbar = () => {
+const NavBar = () => {
   return (
     <>
       <HideOnScroll>
@@ -38,4 +38,4 @@ const VisitorAppbar = () => {
   );
 };
 
-export default VisitorAppbar;
+export default NavBar;
