@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import ReturnItemForm from './returnitem.form';
-import EditIcon from '@mui/icons-material/Edit';
-import CheckCircleOutlineTwoToneIcon from '@mui/icons-material/CheckCircleOutlineTwoTone';
+
 import DetailsTableHeads from './details.tablehead';
 import {
   Table,
@@ -10,20 +8,10 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Chip,
 } from '@mui/material';
 
 const DetailsData = () => {
-  const item = useSelector((state) => state.itemLogDetails);
-  const [open, setOpen] = useState(false);
-
-  const openForm = () => {
-    setOpen(true);
-  };
-
-  const closeForm = () => {
-    setOpen(false);
-  };
+  const details = useSelector((state) => state.itemLogDetails);
 
   return (
     <TableContainer>
@@ -31,23 +19,23 @@ const DetailsData = () => {
         <DetailsTableHeads />
         <TableBody>
           <TableRow>
-            <TableCell>{item.handedBy}</TableCell>
+            <TableCell>{details.handed_by}</TableCell>
             <TableCell>
               <img
-                src={item.borrowerSignature}
+                src={details.signature}
                 style={{ width: '50px', height: '40px' }}
                 alt="signature"
               />
             </TableCell>
             <TableCell>
-              {!item.receivedBy && '--- --- ---'}
-              {item.receivedBy && item.receivedBy}
+              {!details.received_by && '--- --- ---'}
+              {details.received_by && details.received_by}
             </TableCell>
             <TableCell>
-              {!item.borrowerSignatureReturned && '--- --- ---'}
-              {item.borrowerSignatureReturned && (
+              {!details.signature_returned && '--- --- ---'}
+              {details.signature_returned && (
                 <img
-                  src={item.borrowerSignatureReturned}
+                  src={details.signature_returned}
                   style={{ width: '50px', height: '40px' }}
                   alt="signature"
                 />
@@ -55,35 +43,8 @@ const DetailsData = () => {
             </TableCell>
 
             <TableCell>
-              {!item.itemRemarks && '--- --- ---'}
-              {item.itemRemarks && item.itemRemarks}
-            </TableCell>
-
-            <TableCell>
-              {/* CHECK STATUS IF BORROWED RENDER THE FOLLOWING JSX */}
-              {item.status === 'BORROWED' && (
-                <>
-                  <Chip
-                    icon={<EditIcon fontSize="small" />}
-                    label="Return Item"
-                    color="info"
-                    onClick={openForm}
-                  />
-                  <ReturnItemForm
-                    openForm={open}
-                    closeForm={closeForm}
-                    borrowerID={item.borrowerID}
-                  />
-                </>
-              )}
-
-              {/* CHECK STATUS IF RETURNED RENDER THE FOLLOWING JSX */}
-              {item.status === 'RETURNED' && (
-                <CheckCircleOutlineTwoToneIcon
-                  fontSize="medium"
-                  color="secondary"
-                />
-              )}
+              {!details.remarks && '--- --- ---'}
+              {details.remarks && details.remarks}
             </TableCell>
           </TableRow>
         </TableBody>

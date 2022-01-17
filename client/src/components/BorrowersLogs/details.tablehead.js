@@ -38,7 +38,7 @@ const DetailsTableHeads = () => {
 
         <TableCell className={classes.head}>
           <Typography fontWeight="700" color="white">
-            Borrower's Signature (after returned)
+            Borrower's Signature (returned)
           </Typography>
         </TableCell>
 

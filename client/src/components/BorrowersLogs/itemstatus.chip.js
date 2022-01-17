@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Typography } from '@mui/material';
-import ItemDetailsForm from './itemdetails.form';
 import ReturnItemForm from './returnitem.form';
-import { useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
-import {
-  getItemDetails,
-  clearItemDetails,
-  getBorrowersLogs,
-} from '../../actions/borrowers_action';
+
 import theme from '../../theme/Theme';
 
 const ItemStatus = (props) => {
-  const { logInfo } = props;
+  const { status, id } = props;
 
   const useStyles = makeStyles({
     statusBORROWED: {
@@ -42,37 +36,12 @@ const ItemStatus = (props) => {
   });
 
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const [itemDetails, setItemDetails] = useState([]);
   const [open, setOpen] = useState(false);
 
-  //set item details from props data
-  useEffect(() => {
-    setItemDetails({
-      ...itemDetails,
-      borrowerID: logInfo.borrowers_id,
-      status: logInfo.item_status,
-      handedBy: logInfo.handed_by,
-      borrowerSignature: logInfo.borrowers_signature,
-      receivedBy: logInfo.received_by,
-      borrowerSignatureReturned: logInfo.borrowers_signature_returned,
-      itemRemarks: logInfo.item_remarks,
-    });
+  const openForm = () => setOpen(true);
+  const closeForm = () => setOpen(false);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [logInfo.item_status]);
-
-  const openForm = () => {
-    dispatch(getItemDetails(itemDetails));
-    setOpen(true);
-  };
-  const closeForm = () => {
-    setOpen(false);
-    dispatch(clearItemDetails());
-    dispatch(getBorrowersLogs());
-  };
-
-  if (logInfo.item_status === 'BORROWED') {
+  if (status === 'BORROWED') {
     return (
       <>
         <Typography
@@ -80,17 +49,17 @@ const ItemStatus = (props) => {
           className={classes.statusBORROWED}
           onClick={openForm}
         >
-          {logInfo.item_status}
+          {status}
         </Typography>
 
-        <ReturnItemForm openForm={open} closeForm={closeForm} />
+        <ReturnItemForm borrowerID={id} openForm={open} closeForm={closeForm} />
       </>
     );
   } else {
     return (
       <>
         <Typography variant="h5" className={classes.statusRETURNED}>
-          {logInfo.item_status}
+          {status}
         </Typography>
       </>
     );

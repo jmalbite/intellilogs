@@ -24,6 +24,8 @@ export const isErrorSaving = (error = null, action) => {
   switch (action.type) {
     case 'ERROR_SAVING':
       return (error = true);
+    case 'ERROR_UPDATING':
+      return (error = true);
     case 'ADD_NEW_LOG':
       return (error = false);
     case 'LOG_UPDATED':

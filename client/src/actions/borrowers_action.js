@@ -29,7 +29,7 @@ export const updateLog = (borrowers_id, updatedData) => async (dispatch) => {
     const { data } = await api.updateBorrowersLog(borrowers_id, updatedData);
     dispatch({ type: 'LOG_UPDATED', payload: data });
   } catch (error) {
-    dispatch({ type: 'ERROR_SAVING' });
+    dispatch({ type: 'ERROR_UPDATING' });
   }
 };
 

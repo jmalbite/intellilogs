@@ -62,7 +62,7 @@ const BorrowersTableHead = (props) => {
             onClick={createSortHandler('item_borrowed')}
           >
             <Typography variant="subtitle2" fontWeight="700" color="white">
-              Item
+              Asset
             </Typography>
           </TableSortLabel>
         </TableCell>

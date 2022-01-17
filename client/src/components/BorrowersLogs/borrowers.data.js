@@ -3,7 +3,6 @@ import moment from 'moment';
 import { styled } from '@mui/material/styles';
 import BorrowersTableHead from './borrowers.tablehead';
 import ItemStatus from './itemstatus.chip';
-import Sample from './sample';
 import ItemInfo from './item.info';
 import theme from '../../theme/Theme';
 import {
@@ -142,11 +141,24 @@ const BorrowersData = (props) => {
                   </TableCell>
 
                   <TableCell>
-                    <ItemInfo />
+                    <ItemInfo
+                      info={{
+                        handed_by: borrower.handed_by,
+                        signature: borrower.borrowers_signature,
+                        received_by: borrower.received_by,
+                        signature_returned:
+                          borrower.borrowers_signature_returned,
+                        remarks: borrower.item_remarks,
+                        status: borrower.item_status,
+                      }}
+                    />
                   </TableCell>
 
                   <TableCell>
-                    <ItemStatus logInfo={borrower} />
+                    <ItemStatus
+                      id={borrower.borrowers_id}
+                      status={borrower.item_status}
+                    />
                   </TableCell>
                 </StyledTableRow>
               ))}

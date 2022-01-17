@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IT_STAFFS } from '../Constant';
 import Signaturepad from '../layout/Signaturepad';
 import ProgressButton from '../Response components/ProgressButton';
-
+import Feedback from '../Response components/Feedback';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -21,7 +21,7 @@ import {
   TextField,
   Grid,
 } from '@mui/material';
-import { updateLog } from '../../actions/borrowers_action';
+import { getBorrowersLogs, updateLog } from '../../actions/borrowers_action';
 
 const schema = yup.object().shape({
   received_by: yup.string().required(),
@@ -44,6 +44,7 @@ const ReturnItemForm = (props) => {
   const dispatch = useDispatch();
   const STAFFS = IT_STAFFS;
   const userSign = useSelector((state) => state.user_signature);
+  const isError = useSelector((state) => state.isErrorSaving);
   const [isLoading, setIsLoading] = useState(false);
 
   function handleClear() {
@@ -54,6 +55,15 @@ const ReturnItemForm = (props) => {
     });
     dispatch(clear_signature());
   }
+
+  useEffect(() => {
+    if (!isError) {
+      setIsLoading(false);
+      dispatch(getBorrowersLogs());
+      handleClear();
+    } else setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError]);
 
   useEffect(() => {
     if (!openForm) {
@@ -80,7 +90,7 @@ const ReturnItemForm = (props) => {
       <DialogTitle>
         <div>
           <Typography variant="h6" fontWeight="bold">
-            RETURN ITEM
+            RETURN ASSET
           </Typography>
         </div>
       </DialogTitle>
@@ -148,7 +158,7 @@ const ReturnItemForm = (props) => {
               >
                 Update Log
               </Button>
-              {isLoading && <ProgressButton loading={isLoading} />}
+              {isLoading === true && <ProgressButton loading={isLoading} />}
             </Grid>
 
             <Grid item xs sm>
@@ -160,6 +170,9 @@ const ReturnItemForm = (props) => {
               >
                 Clear
               </Button>
+            </Grid>
+            <Grid>
+              <Feedback status={isError} />
             </Grid>
           </Grid>
         </form>

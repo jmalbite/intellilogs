@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AddLogBorrowers from '../../components/BorrowersLogs/addnewlog.borrowers';
 import BorrowersData from '../../components/BorrowersLogs/borrowers.data';
+
 import {
   Grid,
   TextField,
@@ -30,6 +31,31 @@ const BorrowersPage = () => {
   const isBorrowersChoose = useSelector((state) => state.internalOrOutsider);
   const isSign = useSelector((state) => state.user_signature);
   const originalRows = useSelector((state) => state.borrowersLogsData);
+  const [rows, setRows] = useState(originalRows);
+
+  //searching specific data
+  const requestSearch = (searchValue) => {
+    const filterRows = originalRows.filter((row) => {
+      let fullName = row.firstname + ' ' + row.lastname;
+
+      return (
+        fullName.toLowerCase().includes(searchValue.toLowerCase()) ||
+        row.company.toLowerCase().includes(searchValue.toLowerCase()) ||
+        row.item_borrowed.toLowerCase().includes(searchValue.toLowerCase()) ||
+        row.date_time_borrowed
+          .toLowerCase()
+          .includes(searchValue.toLowerCase()) ||
+        row.date_time_returned.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    });
+
+    setRows(filterRows);
+  };
+
+  useEffect(() => {
+    setRows(originalRows);
+  }, [setRows, originalRows]);
+
   const openForm = () => setForm(true);
   const closeForm = () => {
     setForm(false);
@@ -59,9 +85,9 @@ const BorrowersPage = () => {
               id="searchLog"
               label="Search"
               variant="outlined"
-              placeholder="Search ID, Name, Company, Area"
+              placeholder="Name, Company, Asset, Date borrowed, Date returned"
               size="medium"
-              //onChange={(e) => requestSearch(e.target.value)}
+              onChange={(e) => requestSearch(e.target.value)}
               fullWidth
             />
           </Grid>
@@ -83,7 +109,7 @@ const BorrowersPage = () => {
           </Grid>
         </Grid>
 
-        <BorrowersData borrowers={originalRows} />
+        <BorrowersData borrowers={rows} />
       </Container>
     </>
   );
