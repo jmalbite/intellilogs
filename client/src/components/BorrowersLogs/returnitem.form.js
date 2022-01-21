@@ -106,12 +106,7 @@ const ReturnItemForm = (props) => {
                   defaultValue=""
                   name="received_by"
                   render={({ field: { onChange, value } }) => (
-                    <Select
-                      onChange={onChange}
-                      value={value}
-                      id="received_by"
-                      label="Received by"
-                    >
+                    <Select onChange={onChange} value={value} id="received_by" label="Received by">
                       {STAFFS.map((staff) => (
                         <MenuItem key={staff} value={staff}>
                           {staff}
@@ -149,25 +144,14 @@ const ReturnItemForm = (props) => {
 
             {/* BUTTONS */}
             <Grid item xs sm>
-              <Button
-                fullWidth
-                variant="contained"
-                color="info"
-                type="submit"
-                disabled={isLoading}
-              >
+              <Button fullWidth variant="contained" color="info" type="submit" disabled={isLoading}>
                 Update Log
               </Button>
               {isLoading === true && <ProgressButton loading={isLoading} />}
             </Grid>
 
             <Grid item xs sm>
-              <Button
-                onClick={handleClear}
-                fullWidth
-                variant="contained"
-                color="primary"
-              >
+              <Button onClick={handleClear} fullWidth variant="contained" color="primary">
                 Clear
               </Button>
             </Grid>

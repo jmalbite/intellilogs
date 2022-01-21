@@ -10,15 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { clear_signature } from '../../actions/global_action';
 import { storeBorrowersLog } from '../../actions/borrowers_action';
-import {
-  Grid,
-  TextField,
-  Select,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-} from '@mui/material';
+import { Grid, TextField, Select, Button, FormControl, InputLabel, MenuItem } from '@mui/material';
 
 const schema = yup.object().shape({
   employee_code: yup.string().required(),
@@ -129,12 +121,7 @@ const InternalFormBorrowers = () => {
                 defaultValue=""
                 name="company"
                 render={({ field: { onChange, value } }) => (
-                  <Select
-                    onChange={onChange}
-                    value={value}
-                    id="select-area"
-                    label="Company"
-                  >
+                  <Select onChange={onChange} value={value} id="select-area" label="Company">
                     {companies.map((company) => (
                       <MenuItem key={company} value={company}>
                         {company}
@@ -219,12 +206,7 @@ const InternalFormBorrowers = () => {
                 defaultValue=""
                 name="handed_by"
                 render={({ field: { onChange, value } }) => (
-                  <Select
-                    onChange={onChange}
-                    value={value}
-                    id="select-it_support"
-                    label="Handed By"
-                  >
+                  <Select onChange={onChange} value={value} id="select-it_support" label="Handed By">
                     {IT_supports.map((it_support) => (
                       <MenuItem key={it_support} value={it_support}>
                         {it_support}
@@ -243,25 +225,14 @@ const InternalFormBorrowers = () => {
 
           {/* BUTTONS */}
           <Grid item xs sm>
-            <Button
-              fullWidth
-              variant="contained"
-              color="info"
-              type="submit"
-              disabled={isLoading}
-            >
+            <Button fullWidth variant="contained" color="info" type="submit" disabled={isLoading}>
               Save Log
             </Button>
             {isLoading && <ProgressButton loading={isLoading} />}
           </Grid>
 
           <Grid item xs sm>
-            <Button
-              onClick={handleClear}
-              fullWidth
-              variant="contained"
-              color="primary"
-            >
+            <Button onClick={handleClear} fullWidth variant="contained" color="primary">
               Clear
             </Button>
           </Grid>

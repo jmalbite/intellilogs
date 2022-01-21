@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  TableHead,
-  TableRow,
-  TableCell,
-  Typography,
-  TableSortLabel,
-} from '@mui/material';
+import { TableHead, TableRow, TableCell, Typography, TableSortLabel } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import theme from '../../theme/Theme';
 
@@ -62,9 +56,7 @@ const VisitorTableHead = (props) => {
         <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'area_visited'}
-            direction={
-              valueToOrderBy === 'area_visited' ? orderDirection : 'asc'
-            }
+            direction={valueToOrderBy === 'area_visited' ? orderDirection : 'asc'}
             onClick={createSortHandler('area_visited')}
           >
             <Typography variant="subtitle2" fontWeight="700" color="white">
@@ -82,9 +74,7 @@ const VisitorTableHead = (props) => {
         <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'time_visited'}
-            direction={
-              valueToOrderBy === 'time_visited' ? orderDirection : 'asc'
-            }
+            direction={valueToOrderBy === 'time_visited' ? orderDirection : 'asc'}
             onClick={createSortHandler('time_visited')}
           >
             <Typography variant="subtitle2" fontWeight="700" color="white">

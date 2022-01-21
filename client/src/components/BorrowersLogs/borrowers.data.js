@@ -117,27 +117,20 @@ const BorrowersData = (props) => {
           />
 
           <TableBody>
-            {sortedRowInformation(
-              borrowers,
-              getComparator(orderDirection, valueToOrderBy)
-            )
+            {sortedRowInformation(borrowers, getComparator(orderDirection, valueToOrderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((borrower, index) => (
                 <StyledTableRow key={borrower.borrowers_id}>
                   <TableCell>
-                    {borrower.firstname.toUpperCase()}{' '}
-                    {borrower.lastname.toUpperCase()}{' '}
+                    {borrower.firstname.toUpperCase()} {borrower.lastname.toUpperCase()}{' '}
                   </TableCell>
                   <TableCell>{borrower.company.toUpperCase()}</TableCell>
                   <TableCell>{borrower.item_borrowed.toUpperCase()}</TableCell>
 
-                  <TableCell>
-                    {moment(borrower.date_time_borrowed).format('lll')}
-                  </TableCell>
+                  <TableCell>{moment(borrower.date_time_borrowed).format('lll')}</TableCell>
 
                   <TableCell>
-                    {borrower.date_time_returned &&
-                      moment(borrower.date_time_returned).format('lll')}
+                    {borrower.date_time_returned && moment(borrower.date_time_returned).format('lll')}
                   </TableCell>
 
                   <TableCell>
@@ -146,8 +139,7 @@ const BorrowersData = (props) => {
                         handed_by: borrower.handed_by,
                         signature: borrower.borrowers_signature,
                         received_by: borrower.received_by,
-                        signature_returned:
-                          borrower.borrowers_signature_returned,
+                        signature_returned: borrower.borrowers_signature_returned,
                         remarks: borrower.item_remarks,
                         status: borrower.item_status,
                       }}
@@ -155,10 +147,7 @@ const BorrowersData = (props) => {
                   </TableCell>
 
                   <TableCell>
-                    <ItemStatus
-                      id={borrower.borrowers_id}
-                      status={borrower.item_status}
-                    />
+                    <ItemStatus id={borrower.borrowers_id} status={borrower.item_status} />
                   </TableCell>
                 </StyledTableRow>
               ))}

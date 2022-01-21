@@ -2,21 +2,11 @@ import React, { useEffect, useState } from 'react';
 import AddLogBorrowers from '../../components/BorrowersLogs/addnewlog.borrowers';
 import BorrowersData from '../../components/BorrowersLogs/borrowers.data';
 
-import {
-  Grid,
-  TextField,
-  Container,
-  Button,
-  Dialog,
-  DialogContent,
-} from '@mui/material';
+import { Grid, TextField, Container, Button, Dialog, DialogContent } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBorrowersLogs } from '../../actions/borrowers_action';
-import {
-  clearInOrOutState,
-  clear_signature,
-} from '../../actions/global_action';
+import { clearInOrOutState, clear_signature } from '../../actions/global_action';
 
 const useStyles = makeStyles({
   toolbar: {
@@ -42,9 +32,7 @@ const BorrowersPage = () => {
         fullName.toLowerCase().includes(searchValue.toLowerCase()) ||
         row.company.toLowerCase().includes(searchValue.toLowerCase()) ||
         row.item_borrowed.toLowerCase().includes(searchValue.toLowerCase()) ||
-        row.date_time_borrowed
-          .toLowerCase()
-          .includes(searchValue.toLowerCase()) ||
+        row.date_time_borrowed.toLowerCase().includes(searchValue.toLowerCase()) ||
         row.date_time_returned.toLowerCase().includes(searchValue.toLowerCase())
       );
     });
@@ -93,12 +81,7 @@ const BorrowersPage = () => {
           </Grid>
 
           <Grid item xs={2} md={2}>
-            <Button
-              onClick={openForm}
-              variant="contained"
-              size="medium"
-              fullWidth
-            >
+            <Button onClick={openForm} variant="contained" size="medium" fullWidth>
               New Log
             </Button>
             <Dialog fullWidth open={form} onClose={closeForm}>

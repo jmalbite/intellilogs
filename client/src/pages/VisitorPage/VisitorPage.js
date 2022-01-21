@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Grid,
-  TextField,
-  Container,
-  Button,
-  Dialog,
-  DialogContent,
-} from '@mui/material';
+import { Grid, TextField, Container, Button, Dialog, DialogContent } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
 import AddNewLog from '../../components/VisitorLogs/AddNewLog';
 import { getVisitorlogs } from '../../actions/visitor_action';
-import {
-  clear_signature,
-  clearInOrOutState,
-} from '../../actions/global_action';
+import { clear_signature, clearInOrOutState } from '../../actions/global_action';
 
 const useStyles = makeStyles({
   toolbar: {
@@ -86,12 +76,7 @@ const VisitorPage = () => {
           </Grid>
 
           <Grid item xs={2} md={2}>
-            <Button
-              onClick={openForm}
-              variant="contained"
-              size="medium"
-              fullWidth
-            >
+            <Button onClick={openForm} variant="contained" size="medium" fullWidth>
               New Log
             </Button>
             <Dialog fullWidth open={form} onClose={closeForm}>

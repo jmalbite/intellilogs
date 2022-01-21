@@ -29,23 +29,7 @@ function HideOnScroll(props) {
 }
 
 const NavBar = () => {
-  const currentTab = () => {
-    let path = window.location.pathname;
-    switch (path) {
-      case '/':
-        return 0;
-      case '/borrowerslogs':
-        return 1;
-      default:
-        return path;
-    }
-  };
-
-  const [value, setValue] = useState(currentTab);
-
-  useEffect(() => {
-    setValue(currentTab);
-  }, [currentTab]);
+  const [value, setValue] = useState();
 
   return (
     <>

@@ -99,30 +99,20 @@ const VisitorData = ({ visitors }) => {
           />
 
           <TableBody>
-            {sortedRowInformation(
-              visitors,
-              getComparator(orderDirection, valueToOrderBy)
-            )
+            {sortedRowInformation(visitors, getComparator(orderDirection, valueToOrderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((visitor, index) => (
                 <StyledTableRow key={index}>
                   <TableCell>{visitor.employee_code}</TableCell>
                   <TableCell>
-                    {visitor.firstname.toUpperCase()}{' '}
-                    {visitor.lastname.toUpperCase()}{' '}
+                    {visitor.firstname.toUpperCase()} {visitor.lastname.toUpperCase()}{' '}
                   </TableCell>
                   <TableCell>{visitor.company.toUpperCase()}</TableCell>
                   <TableCell>{visitor.area_visited}</TableCell>
                   <TableCell>{visitor.purpose.toUpperCase()}</TableCell>
+                  <TableCell>{moment(visitor.time_visited).format('lll')}</TableCell>
                   <TableCell>
-                    {moment(visitor.time_visited).format('lll')}
-                  </TableCell>
-                  <TableCell>
-                    <img
-                      src={visitor.visitor_signature}
-                      style={{ width: '40px', height: '20px' }}
-                      alt="signature"
-                    />
+                    <img src={visitor.visitor_signature} style={{ width: '40px', height: '20px' }} alt="signature" />
                   </TableCell>
                 </StyledTableRow>
               ))}

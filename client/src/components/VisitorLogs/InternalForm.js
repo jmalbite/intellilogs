@@ -10,15 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { clear_signature } from '../../actions/global_action';
 import { storeNewLog } from '../../actions/visitor_action.js';
-import {
-  Grid,
-  TextField,
-  Select,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-} from '@mui/material';
+import { Grid, TextField, Select, Button, FormControl, InputLabel, MenuItem } from '@mui/material';
 
 const schema = yup.object().shape({
   employee_code: yup.string().required(),
@@ -123,12 +115,7 @@ const InternalForm = () => {
                 defaultValue=""
                 name="company"
                 render={({ field: { onChange, value } }) => (
-                  <Select
-                    onChange={onChange}
-                    value={value}
-                    id="select-area"
-                    label="Company"
-                  >
+                  <Select onChange={onChange} value={value} id="select-area" label="Company">
                     {companies.map((company) => (
                       <MenuItem key={company} value={company}>
                         {company}
@@ -191,12 +178,7 @@ const InternalForm = () => {
                 defaultValue=""
                 name="area_visited"
                 render={({ field: { onChange, value } }) => (
-                  <Select
-                    onChange={onChange}
-                    value={value}
-                    id="select-area"
-                    label="Area"
-                  >
+                  <Select onChange={onChange} value={value} id="select-area" label="Area">
                     {areas.map((area) => (
                       <MenuItem key={area} value={area}>
                         {area}
@@ -235,25 +217,14 @@ const InternalForm = () => {
           {/* BUTTONS */}
 
           <Grid item xs sm>
-            <Button
-              fullWidth
-              variant="contained"
-              color="secondary"
-              type="submit"
-              disabled={isLoading}
-            >
+            <Button fullWidth variant="contained" color="secondary" type="submit" disabled={isLoading}>
               Save Log
             </Button>
             {isLoading && <ProgressButton loading={isLoading} />}
           </Grid>
 
           <Grid item xs sm>
-            <Button
-              onClick={handleClear}
-              fullWidth
-              variant="contained"
-              color="primary"
-            >
+            <Button onClick={handleClear} fullWidth variant="contained" color="primary">
               Clear
             </Button>
           </Grid>

@@ -5,10 +5,7 @@ import { Typography } from '@mui/material';
 import Info from '@mui/icons-material/Info';
 import { makeStyles } from '@mui/styles';
 import theme from '../../theme/Theme';
-import {
-  getItemDetails,
-  clearItemDetails,
-} from '../../actions/borrowers_action';
+import { getItemDetails, clearItemDetails } from '../../actions/borrowers_action';
 
 const useStyles = makeStyles({
   moreInfo: {

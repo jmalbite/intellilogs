@@ -9,15 +9,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { clear_signature } from '../../actions/global_action';
-import {
-  Grid,
-  TextField,
-  Select,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-} from '@mui/material';
+import { Grid, TextField, Select, Button, FormControl, InputLabel, MenuItem } from '@mui/material';
 import { storeBorrowersLog } from '../../actions/borrowers_action';
 
 const schema = yup.object().shape({
@@ -188,12 +180,7 @@ const OutsiderFormBorrowers = () => {
                 defaultValue=""
                 name="handed_by"
                 render={({ field: { onChange, value } }) => (
-                  <Select
-                    onChange={onChange}
-                    value={value}
-                    id="select-it_support"
-                    label="Handed By"
-                  >
+                  <Select onChange={onChange} value={value} id="select-it_support" label="Handed By">
                     {IT_supports.map((it_support) => (
                       <MenuItem key={it_support} value={it_support}>
                         {it_support}
@@ -212,25 +199,14 @@ const OutsiderFormBorrowers = () => {
 
           {/* BUTTONS */}
           <Grid item xs sm>
-            <Button
-              fullWidth
-              variant="contained"
-              color="info"
-              type="submit"
-              disabled={isLoading}
-            >
+            <Button fullWidth variant="contained" color="info" type="submit" disabled={isLoading}>
               Save Log
             </Button>
             {isLoading && <ProgressButton loading={isLoading} />}
           </Grid>
 
           <Grid item xs sm>
-            <Button
-              onClick={handleClear}
-              fullWidth
-              variant="contained"
-              color="primary"
-            >
+            <Button onClick={handleClear} fullWidth variant="contained" color="primary">
               Clear
             </Button>
           </Grid>

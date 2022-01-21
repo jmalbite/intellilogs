@@ -44,11 +44,7 @@ const ItemStatus = (props) => {
   if (status === 'BORROWED') {
     return (
       <>
-        <Typography
-          variant="h5"
-          className={classes.statusBORROWED}
-          onClick={openForm}
-        >
+        <Typography variant="h5" className={classes.statusBORROWED} onClick={openForm}>
           {status}
         </Typography>
 

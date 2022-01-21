@@ -2,15 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogActions,
-  DialogTitle,
-  Grid,
-  Typography,
-} from '@mui/material';
+import { Button, Dialog, DialogContent, DialogActions, DialogTitle, Grid, Typography } from '@mui/material';
 import { user_signature, clear_signature } from '../../actions/global_action';
 
 const Signaturepad = () => {
@@ -65,12 +57,10 @@ const Signaturepad = () => {
         <DialogTitle>Please sign</DialogTitle>
         <DialogContent dividers={true}>
           <div className={'signatureArea'}>
-            <SignatureCanvas
-              canvasProps={{ width: 500, height: 300 }}
-              ref={sigCanvas}
-            />
+            <SignatureCanvas canvasProps={{ width: 500, height: 300 }} ref={sigCanvas} />
           </div>
         </DialogContent>
+
         <DialogActions>
           <Button variant="contained" color="secondary" onClick={save}>
             Save

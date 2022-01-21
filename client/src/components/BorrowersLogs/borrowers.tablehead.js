@@ -1,13 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import theme from '../../theme/Theme';
-import {
-  TableHead,
-  TableRow,
-  TableCell,
-  Typography,
-  TableSortLabel,
-} from '@mui/material';
+import { TableHead, TableRow, TableCell, Typography, TableSortLabel } from '@mui/material';
 
 const useStyles = makeStyles({
   head: {
@@ -56,9 +50,7 @@ const BorrowersTableHead = (props) => {
         <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'item_borrowed'}
-            direction={
-              valueToOrderBy === 'item_borrowed' ? orderDirection : 'asc'
-            }
+            direction={valueToOrderBy === 'item_borrowed' ? orderDirection : 'asc'}
             onClick={createSortHandler('item_borrowed')}
           >
             <Typography variant="subtitle2" fontWeight="700" color="white">
@@ -70,9 +62,7 @@ const BorrowersTableHead = (props) => {
         <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'date_time_borrowed'}
-            direction={
-              valueToOrderBy === 'date_time_borrowed' ? orderDirection : 'asc'
-            }
+            direction={valueToOrderBy === 'date_time_borrowed' ? orderDirection : 'asc'}
             onClick={createSortHandler('date_time_borrowed')}
           >
             <Typography variant="subtitle2" fontWeight="700" color="white">
@@ -84,9 +74,7 @@ const BorrowersTableHead = (props) => {
         <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'date_time_returned'}
-            direction={
-              valueToOrderBy === 'date_time_returned' ? orderDirection : 'asc'
-            }
+            direction={valueToOrderBy === 'date_time_returned' ? orderDirection : 'asc'}
             onClick={createSortHandler('date_time_returned')}
           >
             <Typography variant="subtitle2" fontWeight="700" color="white">
@@ -104,9 +92,7 @@ const BorrowersTableHead = (props) => {
         <TableCell className={classes.head}>
           <TableSortLabel
             active={valueToOrderBy === 'item_status'}
-            direction={
-              valueToOrderBy === 'item_status' ? orderDirection : 'asc'
-            }
+            direction={valueToOrderBy === 'item_status' ? orderDirection : 'asc'}
             onClick={createSortHandler('item_status')}
           >
             <Typography variant="subtitle2" fontWeight="700" color="white">

@@ -10,15 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { clear_signature } from '../../actions/global_action';
 import { storeNewLog } from '../../actions/visitor_action.js';
-import {
-  Grid,
-  TextField,
-  Select,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-} from '@mui/material';
+import { Grid, TextField, Select, Button, FormControl, InputLabel, MenuItem } from '@mui/material';
 
 const schema = yup.object().shape({
   company: yup.string().required(),
@@ -161,12 +153,7 @@ const OutsiderForm = () => {
                 defaultValue=""
                 name="area_visited"
                 render={({ field: { onChange, value } }) => (
-                  <Select
-                    onChange={onChange}
-                    value={value}
-                    id="select-area"
-                    label="Area"
-                  >
+                  <Select onChange={onChange} value={value} id="select-area" label="Area">
                     {areas.map((area) => (
                       <MenuItem key={area} value={area}>
                         {area}
@@ -203,25 +190,14 @@ const OutsiderForm = () => {
           </Grid>
 
           <Grid item xs sm>
-            <Button
-              fullWidth
-              variant="contained"
-              color="secondary"
-              type="submit"
-              disabled={isLoading}
-            >
+            <Button fullWidth variant="contained" color="secondary" type="submit" disabled={isLoading}>
               Save Log
             </Button>
             {isLoading && <ProgressButton loading={isLoading} />}
           </Grid>
 
           <Grid item xs sm>
-            <Button
-              onClick={handleClear}
-              fullWidth
-              variant="contained"
-              color="primary"
-            >
+            <Button onClick={handleClear} fullWidth variant="contained" color="primary">
               Clear
             </Button>
           </Grid>
