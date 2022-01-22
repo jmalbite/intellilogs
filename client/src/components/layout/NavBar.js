@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
-import {
-  AppBar,
-  Toolbar,
-  useScrollTrigger,
-  Slide,
-  Grid,
-  TabList,
-  Tab,
-} from '@mui/material';
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, useScrollTrigger, Slide, Grid, Tab, Tabs, Box } from '@mui/material';
+import { Route, Routes, Link } from 'react-router-dom';
 
 import intellilogs from '../../assets/visitorlogsv1.svg';
 import { useEffect } from 'react';
@@ -29,7 +21,8 @@ function HideOnScroll(props) {
 }
 
 const NavBar = () => {
-  const [value, setValue] = useState();
+  const routes = ['/', '/borrowerslogs'];
+  const [value, setValue] = useState(0);
 
   return (
     <>
@@ -47,6 +40,17 @@ const NavBar = () => {
                   <Link to="/">Visitors</Link>
                   <Link to="/borrowerslogs">Borrowers</Link>
                 </nav> */}
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <Tabs value={window.location.pathname !== '/' ? window.location.pathname : false}>
+                        <Tab value={routes[0]} label="Visitors" component={Link} to="/" />
+                        <Tab value={routes[1]} label="Borrowers" component={Link} to="/borrowerslogs" />
+                      </Tabs>
+                    }
+                  />
+                </Routes>
               </Grid>
             </Grid>
           </Toolbar>
