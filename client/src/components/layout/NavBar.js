@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, useScrollTrigger, Slide, Grid, Tab, Tabs, Box } from '@mui/material';
-import { Route, Routes, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { AppBar, Toolbar, useScrollTrigger, Slide, Grid, Tab, Tabs } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 import intellilogs from '../../assets/visitorlogsv1.svg';
-import { useEffect } from 'react';
 
 //this function is for hiding the appbar
 function HideOnScroll(props) {
@@ -21,8 +20,18 @@ function HideOnScroll(props) {
 }
 
 const NavBar = () => {
-  const routes = ['/', '/borrowerslogs'];
   const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    console.log(window.location.pathname);
+  };
+
+  //checking user what route
+  useEffect(() => {
+    if (window.location.pathname === '/') setValue(0);
+    if (window.location.pathname === '/borrowerslogs') setValue(1);
+  }, []);
 
   return (
     <>
@@ -36,21 +45,10 @@ const NavBar = () => {
               </Grid>
 
               <Grid item>
-                {/* <nav>
-                  <Link to="/">Visitors</Link>
-                  <Link to="/borrowerslogs">Borrowers</Link>
-                </nav> */}
-                <Routes>
-                  <Route
-                    path="/"
-                    element={
-                      <Tabs value={window.location.pathname !== '/' ? window.location.pathname : false}>
-                        <Tab value={routes[0]} label="Visitors" component={Link} to="/" />
-                        <Tab value={routes[1]} label="Borrowers" component={Link} to="/borrowerslogs" />
-                      </Tabs>
-                    }
-                  />
-                </Routes>
+                <Tabs indicatorColor="secondary" textColor={'inherit'} value={value} onChange={handleChange}>
+                  <Tab disableRipple={true} label="Visitors" value={0} component={NavLink} to="/" />
+                  <Tab disableRipple={true} label="Borrowers" value={1} component={NavLink} to="/borrowerslogs" />
+                </Tabs>
               </Grid>
             </Grid>
           </Toolbar>

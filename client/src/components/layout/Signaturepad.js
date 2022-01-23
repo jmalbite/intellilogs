@@ -3,11 +3,7 @@ import SignatureCanvas from 'react-signature-canvas';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Dialog, DialogContent, DialogActions, DialogTitle, Grid, Typography } from '@mui/material';
-<<<<<<< HEAD:client/src/components/VisitorLogs/SignaturePad.js
-import { user_signature, clear_signature } from '../../actions/visitor_action';
-=======
 import { user_signature, clear_signature } from '../../actions/global_action';
->>>>>>> fbd50197575a34a9e660fdd0d188a1781bf32d6b:client/src/components/layout/Signaturepad.js
 
 const Signaturepad = () => {
   const [pad, setPad] = useState(false);
