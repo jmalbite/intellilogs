@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux';
 
+import { visitorsLogsData } from './visitors.js';
+import { borrowersLogsData, itemLogDetails } from './borrowers.js';
+
 import {
-  visitorsLogsData,
   user_signature,
   isErrorSaving,
   internalOrOutsider,
-} from './visitors.js';
+} from './global_reducer';
 
 export default combineReducers({
   visitorsLogsData,
   user_signature,
   isErrorSaving,
   internalOrOutsider,
+  borrowersLogsData,
+  itemLogDetails,
 });

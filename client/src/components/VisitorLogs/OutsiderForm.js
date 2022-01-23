@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import SignaturePad from './SignaturePad.js';
-import Feedback from './Feedback.js';
-import ProgressButton from './ProgressButton.js';
+import { IT_AREAS } from '../Constant/index';
+import SignaturePad from '../layout/Signaturepad';
+import Feedback from '../Response components/Feedback';
+import ProgressButton from '../Response components/ProgressButton';
+import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { clear_signature, storeNewLog } from '../../actions/visitor_action.js';
-import {
-  Grid,
-  TextField,
-  Select,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-} from '@mui/material';
-
-const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
+import { clear_signature } from '../../actions/global_action';
+import { storeNewLog } from '../../actions/visitor_action.js';
+import { Grid, TextField, Select, Button, FormControl, InputLabel, MenuItem } from '@mui/material';
 
 const schema = yup.object().shape({
-  employee_code: yup.string(),
   company: yup.string().required(),
   firstname: yup.string().required(),
   lastname: yup.string().required(),
@@ -38,6 +30,7 @@ const OutsiderForm = () => {
 
   const userSign = useSelector((state) => state.user_signature);
   const errorInSaving = useSelector((state) => state.isErrorSaving);
+  const areas = IT_AREAS;
   const dispatch = useDispatch();
   const [isSign, setIsSigned] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -76,6 +69,7 @@ const OutsiderForm = () => {
       setIsLoading(true);
       visitorData = {
         ...visitorData,
+        visitor_id: uuidv4(),
         signature: userSign,
         time_visited: new Date(),
         employee_code: 'N/A',
@@ -159,12 +153,7 @@ const OutsiderForm = () => {
                 defaultValue=""
                 name="area_visited"
                 render={({ field: { onChange, value } }) => (
-                  <Select
-                    onChange={onChange}
-                    value={value}
-                    id="select-area"
-                    label="Area"
-                  >
+                  <Select onChange={onChange} value={value} id="select-area" label="Area">
                     {areas.map((area) => (
                       <MenuItem key={area} value={area}>
                         {area}
@@ -201,25 +190,14 @@ const OutsiderForm = () => {
           </Grid>
 
           <Grid item xs sm>
-            <Button
-              fullWidth
-              variant="contained"
-              color="secondary"
-              type="submit"
-              disabled={isLoading}
-            >
+            <Button fullWidth variant="contained" color="secondary" type="submit" disabled={isLoading}>
               Save Log
             </Button>
             {isLoading && <ProgressButton loading={isLoading} />}
           </Grid>
 
           <Grid item xs sm>
-            <Button
-              onClick={handleClear}
-              fullWidth
-              variant="contained"
-              color="primary"
-            >
+            <Button onClick={handleClear} fullWidth variant="contained" color="primary">
               Clear
             </Button>
           </Grid>

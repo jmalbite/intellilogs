@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import InternalForm from './InternalForm.js';
 import OutsiderForm from './OutsiderForm.js';
-import Question from './Question.js';
+import Question from '../layout/Question';
 import { useSelector } from 'react-redux';
 import { Grid, Typography } from '@mui/material';
 
@@ -12,7 +12,7 @@ const AddNewLog = () => {
   const [isShow, setIShow] = useState(false);
 
   useEffect(() => {
-    if (!!internalOrOutsider) setIShow(true);
+    if (internalOrOutsider) setIShow(true);
     else setIShow(false);
   }, [internalOrOutsider]);
 
@@ -29,11 +29,8 @@ const AddNewLog = () => {
         {!isShow && <Question />}
 
         <Grid item xs sm>
-          {internalOrOutsider === 'YES' ? (
-            <InternalForm />
-          ) : internalOrOutsider === 'NO' ? (
-            <OutsiderForm />
-          ) : internalOrOutsider === '' ? null : null}
+          {internalOrOutsider === 'YES' && <InternalForm />}
+          {internalOrOutsider === 'NO' && <OutsiderForm />}
         </Grid>
       </Grid>
     </Grid>

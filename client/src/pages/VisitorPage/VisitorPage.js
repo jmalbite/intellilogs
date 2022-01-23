@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Grid,
-  TextField,
-  Container,
-  Button,
-  Dialog,
-  DialogContent,
-  Typography,
-} from '@mui/material';
+import { Grid, TextField, Container, Button, Dialog, DialogContent } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import VisitorData from '../../components/VisitorLogs/VisitorData';
 import AddNewLog from '../../components/VisitorLogs/AddNewLog';
-import {
-  clear_signature,
-  getVisitorlogs,
-  clearInOrOutState,
-} from '../../actions/visitor_action';
+import { getVisitorlogs } from '../../actions/visitor_action';
+import { clear_signature, clearInOrOutState } from '../../actions/global_action';
 
 const useStyles = makeStyles({
   toolbar: {
-    marginTop: '70px',
+    marginTop: '90px',
   },
 });
 
@@ -68,9 +57,9 @@ const VisitorPage = () => {
   return (
     <>
       <Container className={classes.toolbar} maxWidth="xl">
-        <Typography variant="h5" color="secondary" fontWeight="bold">
-          Visitors Logs
-        </Typography>
+        {/* <Typography variant="h5" color="secondary" fontWeight="bold">
+          VISITORS LOGS
+        </Typography> */}
         <Grid container alignItems="center" justifyContent="space-evenly">
           <Grid item md={5}>
             <TextField
@@ -87,12 +76,7 @@ const VisitorPage = () => {
           </Grid>
 
           <Grid item xs={2} md={2}>
-            <Button
-              onClick={openForm}
-              variant="contained"
-              size="medium"
-              fullWidth
-            >
+            <Button onClick={openForm} variant="contained" size="medium" fullWidth>
               New Log
             </Button>
             <Dialog fullWidth open={form} onClose={closeForm}>

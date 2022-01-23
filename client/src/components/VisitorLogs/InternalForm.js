@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import SignaturePad from './SignaturePad.js';
-import Feedback from './Feedback.js';
-import ProgressButton from './ProgressButton';
+import { IT_AREAS, OFFICE_COMPANIES } from '../Constant';
+import SignaturePad from '../layout/Signaturepad';
+import Feedback from '../Response components/Feedback';
+import ProgressButton from '../Response components/ProgressButton';
+import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { clear_signature, storeNewLog } from '../../actions/visitor_action.js';
-import {
-  Grid,
-  TextField,
-  Select,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-} from '@mui/material';
-
-const companies = ['INTELLICARE', 'AVEGA'];
-const areas = ['IT WORKSTATIONS', 'STOCK ROOM', 'SERVER ROOM'];
+import { clear_signature } from '../../actions/global_action';
+import { storeNewLog } from '../../actions/visitor_action.js';
+import { Grid, TextField, Select, Button, FormControl, InputLabel, MenuItem } from '@mui/material';
 
 const schema = yup.object().shape({
-  employee_code: yup.string(),
+  employee_code: yup.string().required(),
   company: yup.string().required(),
   firstname: yup.string().required(),
   lastname: yup.string().required(),
@@ -39,6 +31,8 @@ const InternalForm = () => {
 
   const userSign = useSelector((state) => state.user_signature);
   const errorInSaving = useSelector((state) => state.isErrorSaving);
+  const companies = OFFICE_COMPANIES;
+  const areas = IT_AREAS;
   const dispatch = useDispatch();
   const [isSign, setIsSigned] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +47,8 @@ const InternalForm = () => {
   useEffect(() => {
     if (errorInSaving === false) {
       setIsLoading(false);
+
+      //call clear function when no error in saving log
       handleClear();
     } else setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,6 +73,7 @@ const InternalForm = () => {
       setIsLoading(true);
       visitorData = {
         ...visitorData,
+        visitor_id: uuidv4(),
         signature: userSign,
         time_visited: new Date(),
       };
@@ -102,6 +99,7 @@ const InternalForm = () => {
                   type="text"
                   label="ID number"
                   error={!!errors.employee_code}
+                  required
                   fullWidth
                 />
               )}
@@ -117,12 +115,7 @@ const InternalForm = () => {
                 defaultValue=""
                 name="company"
                 render={({ field: { onChange, value } }) => (
-                  <Select
-                    onChange={onChange}
-                    value={value}
-                    id="select-area"
-                    label="Company"
-                  >
+                  <Select onChange={onChange} value={value} id="select-area" label="Company">
                     {companies.map((company) => (
                       <MenuItem key={company} value={company}>
                         {company}
@@ -134,7 +127,7 @@ const InternalForm = () => {
             </FormControl>
           </Grid>
 
-          {/* VISITOR NAME FIRSTNAME */}
+          {/* VISITOR FIRSTNAME */}
           <Grid item xs sm>
             <Controller
               name="firstname"
@@ -155,7 +148,7 @@ const InternalForm = () => {
             />
           </Grid>
 
-          {/* VISITOR NAME LASTNAME */}
+          {/* VISITOR LASTNAME */}
           <Grid item xs sm>
             <Controller
               name="lastname"
@@ -185,12 +178,7 @@ const InternalForm = () => {
                 defaultValue=""
                 name="area_visited"
                 render={({ field: { onChange, value } }) => (
-                  <Select
-                    onChange={onChange}
-                    value={value}
-                    id="select-area"
-                    label="Area"
-                  >
+                  <Select onChange={onChange} value={value} id="select-area" label="Area">
                     {areas.map((area) => (
                       <MenuItem key={area} value={area}>
                         {area}
@@ -229,25 +217,14 @@ const InternalForm = () => {
           {/* BUTTONS */}
 
           <Grid item xs sm>
-            <Button
-              fullWidth
-              variant="contained"
-              color="secondary"
-              type="submit"
-              disabled={isLoading}
-            >
+            <Button fullWidth variant="contained" color="secondary" type="submit" disabled={isLoading}>
               Save Log
             </Button>
             {isLoading && <ProgressButton loading={isLoading} />}
           </Grid>
 
           <Grid item xs sm>
-            <Button
-              onClick={handleClear}
-              fullWidth
-              variant="contained"
-              color="primary"
-            >
+            <Button onClick={handleClear} fullWidth variant="contained" color="primary">
               Clear
             </Button>
           </Grid>

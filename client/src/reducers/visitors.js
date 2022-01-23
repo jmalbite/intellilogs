@@ -6,38 +6,3 @@ export const visitorsLogsData = (visitor = [], action) => {
       return visitor;
   }
 };
-
-export const user_signature = (signature = '', action) => {
-  switch (action.type) {
-    case 'USER_SIGNED':
-      return (signature = action.payload);
-    case 'CLEAR_SIGNATURE':
-      return (signature = '');
-    default:
-      return signature;
-  }
-};
-
-export const isErrorSaving = (error = null, action) => {
-  switch (action.type) {
-    case 'ERROR_SAVING':
-      return (error = true);
-    case 'ADD_NEW_LOG':
-      return (error = false);
-    case 'CLEAR_ERROR':
-      return (error = null);
-    default:
-      return error;
-  }
-};
-
-export const internalOrOutsider = (answer = '', action) => {
-  switch (action.type) {
-    case 'INTERNAL_OR_OUTSIDER':
-      return (answer = action.payload);
-    case 'CLEAR_VISITOR_STATUS':
-      return (answer = '');
-    default:
-      return answer;
-  }
-};
