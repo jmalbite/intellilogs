@@ -20,7 +20,7 @@ import { makeStyles } from '@mui/styles';
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: '#EEEEEE',
   },
   // hide last border
   '&:last-child td, &:last-child th': {
