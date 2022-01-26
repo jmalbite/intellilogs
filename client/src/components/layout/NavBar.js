@@ -46,7 +46,7 @@ const NavBar = () => {
                 <img src={intellilogs} alt="intelli-logs-logo" width="150px" />
               </Grid>
 
-              <Grid item>
+              <Grid item lg={4}>
                 <Tabs indicatorColor="secondary" textColor="inherit" value={value} onChange={handleChange}>
                   <Tab disableRipple={true} label="Visitors" value={0} component={NavLink} to="/" />
                   <Tab disableRipple={true} label="Borrowers" value={1} component={NavLink} to="/borrowerslogs" />
