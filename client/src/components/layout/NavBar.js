@@ -21,19 +21,16 @@ function HideOnScroll(props) {
 const NavBar = () => {
   const [value, setValue] = useState(0);
   let navigate = useNavigate();
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(window.location.pathname);
   };
-
   //checking user what route
   useEffect(() => {
     if (window.location.pathname === '/') {
-      navigate('/');
       setValue(0);
     }
     if (window.location.pathname === '/borrowerslogs') {
-      navigate('/borrowerslogs');
       setValue(1);
     }
   }, [navigate]);
