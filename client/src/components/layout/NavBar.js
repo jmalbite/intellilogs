@@ -20,8 +20,8 @@ function HideOnScroll(props) {
 
 const NavBar = () => {
   const [value, setValue] = useState(0);
-  let location = useLocation();
-  let navigate = useNavigate();
+  const location = useLocation();
+  // let navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
