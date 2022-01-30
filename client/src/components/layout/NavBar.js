@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, useScrollTrigger, Slide, Grid, Tab, Tabs } from '@mui/material';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import intellilogs from '../../assets/visitorlogsv1.svg';
 
 //this function is for hiding the appbar
@@ -20,6 +20,7 @@ function HideOnScroll(props) {
 
 const NavBar = () => {
   const [value, setValue] = useState(0);
+  let location = useLocation();
   let navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
@@ -27,13 +28,14 @@ const NavBar = () => {
   };
   //checking user what route
   useEffect(() => {
-    if (window.location.pathname === '/') {
+    if (location.pathname === '/') {
       setValue(0);
     }
-    if (window.location.pathname === '/borrowerslogs') {
+    if (location.pathname === '/borrowerslogs') {
       setValue(1);
     }
-  }, [navigate]);
+    console.log(location);
+  }, [location]);
 
   return (
     <>
